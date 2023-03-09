@@ -12,6 +12,7 @@ module.exports = {
   plugins: ["prettier"],
   rules: {
     "prettier/prettier": ["error", { endOfLine: "auto" }],
+    "prettier/prettier": "error",
     "prefer-arrow-callback": "off",
     "arrow-body-style": "off",
     "no-unused-vars": "warn",

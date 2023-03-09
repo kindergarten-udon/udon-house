@@ -37,7 +37,7 @@ function App() {
             어린이정보
           </Link>
         </div>
-        <Header/>
+        <Header></Header>
         <Routes>
           <>
             <Route path="/main" element={<Main />} />
