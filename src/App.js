@@ -37,16 +37,15 @@ function App() {
             어린이정보
           </Link>
         </div>
+        <Header></Header>
         <Routes>
           <>
-            <Route path="/" element={<Header />}>
-              <Route path="/main" element={<Main />} />
-              <Route path="/signup" element={<SignUP />} />
-              <Route path="/signin" element={<SignIn />} />
-              <Route path="/aboutus" element={<AboutUs />} />
-              <Route path="/community" element={<Community />} />
-              <Route path="/map" element={<Map />} />
-            </Route>
+            <Route path="/main" element={<Main />} />
+            <Route path="/signup" element={<SignUP />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/aboutus" element={<AboutUs />} />
+            <Route path="/community" element={<Community />} />
+            <Route path="/map" element={<Map />} />
             <Route path="*" element={<NotFound />} />
           </>
         </Routes>
