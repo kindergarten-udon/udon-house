@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from "react";
 import FirstMain from "components/Mains/FirstMain";
 import SecondMain from "components/Mains/SecondMain";
 import ThirdMain from "components/Mains/ThirdMain";
-import { cls } from "util/util";
 import { FullPage, Slide } from "react-full-page/lib";
 import "./main.css";
 
