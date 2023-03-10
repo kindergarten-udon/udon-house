@@ -6,7 +6,7 @@ import Footer from "components/Footer/Footer";
 import SignUP from "./pages/SignUp/SignUP";
 import SignIn from "pages/SignIn/SignIn";
 import AboutUs from "pages/AboutUs/AboutUs";
-import Community from "pages/Community/Community";
+import WriteCommunity from "pages/Community/WriteCommunity";
 import Map from "pages/Map/Map";
 import NotFound from "pages/NotFound/NotFound";
 
@@ -30,7 +30,7 @@ function App() {
           <Link className="text-gray-500" to="/aboutus">
             어바웃어스
           </Link>
-          <Link className="text-violet-500" to="/community">
+          <Link className="text-violet-500" to="/WriteCommunity">
             커뮤니티
           </Link>
           <Link className="text-orange-500" to="/map">
@@ -44,7 +44,7 @@ function App() {
             <Route path="/signup" element={<SignUP />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/aboutus" element={<AboutUs />} />
-            <Route path="/community" element={<Community />} />
+            <Route path="/WriteCommunity" element={<WriteCommunity />} />
             <Route path="/map" element={<Map />} />
             <Route path="*" element={<NotFound />} />
           </>
