@@ -9,6 +9,10 @@ module.exports = {
         "btn-green-color": "#BEE735",
         "pink-color": "#FFCFD8",
         "blue-color": "#E0F1FF",
+        "light-yellow-color": "#FFF5BA",
+      },
+      padding: {
+        "pd-vw-10": "10vw",
       },
     },
   },
