@@ -7,17 +7,20 @@ import "./main.css";
 
 const Main = () => {
   return (
-    <FullPage controls controlsProps={{ className: "slide-navigation" }}>
-      <Slide>
-        <FirstMain />
-      </Slide>
-      <Slide>
-        <SecondMain />
-      </Slide>
-      <Slide>
-        <ThirdMain />
-      </Slide>
-    </FullPage>
+    <>
+      <FullPage controls controlsProps={{ className: "slide-navigation" }}>
+        <Slide>
+          <FirstMain />
+        </Slide>
+        <Slide>
+          <SecondMain />
+        </Slide>
+        <Slide>
+          <ThirdMain />
+        </Slide>
+      </FullPage>
+      <div>누구세요 ?</div>
+    </>
   );
 };
 
