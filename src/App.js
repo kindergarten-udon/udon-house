@@ -14,7 +14,7 @@ function App() {
   return (
     <div className="App">
       <>
-        <div className="flex flex-col">
+        {/* <div className="flex flex-col">
           <Link className="text-red-500" to="/">
             홈
           </Link>
@@ -36,8 +36,8 @@ function App() {
           <Link className="text-orange-500" to="/map">
             어린이정보
           </Link>
-        </div>
-        <Header></Header>
+        </div> */}
+        <Header />
         <Routes>
           <>
             <Route path="/main" element={<Main />} />
