@@ -6,7 +6,8 @@ import Footer from "components/Footer/Footer";
 import SignUP from "./pages/SignUp/SignUP";
 import SignIn from "pages/SignIn/SignIn";
 import AboutUs from "pages/AboutUs/AboutUs";
-import WriteCommunity from "pages/Community/WriteCommunity";
+import Community from "pages/Community/Community"; //게시판 페이지
+// import WriteCommunity from "pages/Community/WriteCommunity";   //게시판 글쓰기페이지
 import Map from "pages/Map/Map";
 import NotFound from "pages/NotFound/NotFound";
 
@@ -30,7 +31,7 @@ function App() {
           <Link className="text-gray-500" to="/aboutus">
             어바웃어스
           </Link>
-          <Link className="text-violet-500" to="/WriteCommunity">
+          <Link className="text-violet-500" to="/Community">
             커뮤니티
           </Link>
           <Link className="text-orange-500" to="/map">
@@ -44,7 +45,7 @@ function App() {
             <Route path="/signup" element={<SignUP />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/aboutus" element={<AboutUs />} />
-            <Route path="/WriteCommunity" element={<WriteCommunity />} />
+            <Route path="/Community" element={<Community />} />
             <Route path="/map" element={<Map />} />
             <Route path="*" element={<NotFound />} />
           </>

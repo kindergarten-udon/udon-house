@@ -11,13 +11,13 @@ const Community = () => {
       <section className="bg-light-yellow-color lg:px-[10vw] px-7 py-5">
         <h3 className="text-left font-semibold">인기 게시물 TOP3</h3>
         <div className="top-board-wrapper text-xs lg:text-xl h-24 lg:h-32 my-6 min-w-full flex text-left">
-          <Link className="top1 text-base bg-white border rounded-2xl border-transparent px-5 py-3 flex-1" to="/">
+          <Link className="top1 text-sm lg:text-base overflow-hidden bg-white border rounded-2xl border-transparent px-5 py-3 flex-1" to="/">
             <strong>1</strong> <br /> 우리아이좀 보세요~
           </Link>
-          <Link className="top2 text-base mx-4 bg-white border rounded-2xl border-transparent px-5 py-3 flex-1" to="/">
+          <Link className="top2 text-sm lg:text-base overflow-hidden mx-4 bg-white border rounded-2xl border-transparent px-5 py-3 flex-1" to="/">
             <strong>2</strong> <br /> 우리아이좀 보세요~
           </Link>
-          <Link className="top3 text-base bg-white border rounded-2xl border-transparent px-5 py-3 flex-1" to="/">
+          <Link className="top3 text-sm lg:text-base overflow-hidden bg-white border rounded-2xl border-transparent px-5 py-3 flex-1" to="/">
             <strong>3</strong> <br /> 우리아이좀 보세요~
           </Link>
         </div>
