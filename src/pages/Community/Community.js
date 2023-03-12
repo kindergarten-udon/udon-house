@@ -1,7 +1,13 @@
 import "./Community.css";
 import React from "react";
 import { Link } from "react-router-dom";
-import Board from "components/Board/Board";
+import Board from "components/Community/Board";
+import Plus from "components/Community/Plus";
+import WriteCommunity from "./WriteCommunity";
+
+const handleClick = () => {
+  history.pushState("/WriteCommunity");
+};
 
 const Community = () => {
   return (
@@ -22,13 +28,42 @@ const Community = () => {
           </Link>
         </div>
       </section>
-      <section className="board-list bg-gray-300 w-4/5 mx-auto">
-        <div className="text-right mb-10">
-          <button className="write-button  text-sm lg:text-base mr-10 lg:mr-24 px-3 py-1 border rounded-2xl border-slate-400 bg-white ">글쓰기</button>
+      <section className="board-list  w-4/5 mx-auto">
+        <div className="text-right mt-5">
+          <Link className="write-button text-gray-700 text-xs lg:text-base mr-10 lg:mr-24 my-3 lg:my-5 px-3 py-1 border rounded-2xl border-slate-400 bg-white" to={"/WriteCommunity"}>
+            글쓰기
+          </Link>
         </div>
         {/* 글 리스트 받아오기 */}
+        <ul className="mx-10 lg:mx-20 mb-20 text-sm lg:text-base text-gray-700">
+          <li className="text-left  flex py-2 lg:py-3 border border-transparent border-b-gray-300 w-full">
+            <span className="text-gray-500 text-center w-[15vw] font-bold">아이디1</span>
+            <Link className="w-full" to="/">
+              내용 어쩌구 들어갈 곳
+            </Link>
+          </li>
+          <li className="text-left  flex py-2 lg:py-3 border border-transparent border-b-gray-300 w-full">
+            <span className="text-gray-500 text-center w-[15vw] font-bold">아이디1</span>
+            <Link className="w-full" to="/">
+              내용 어쩌구 들어갈 곳
+            </Link>
+          </li>
+          <li className="text-left  flex py-2 lg:py-3 border border-transparent border-b-gray-300 w-full">
+            <span className="text-gray-500 text-center w-[15vw] font-bold">아이디1</span>
+            <Link className="w-full" to="/">
+              내용 어쩌구 들어갈 곳
+            </Link>
+          </li>
+          <li className="text-left  flex py-2 lg:py-3 border border-transparent border-b-gray-300 w-full">
+            <span className="text-gray-500 text-center w-[15vw] font-bold">아이디1</span>
+            <Link className="w-full" to="/">
+              내용 어쩌구 들어갈 곳
+            </Link>
+          </li>
+        </ul>
       </section>
       <Board />
+      <Plus />
     </div>
   );
 };

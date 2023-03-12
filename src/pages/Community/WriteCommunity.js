@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Header from "components/Header/Header";
 import Footer from "components/Footer/Footer";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import Community from "./Community";
 
 const WriteCommunity = () => {
   return (
@@ -11,9 +12,9 @@ const WriteCommunity = () => {
       <Header />
       <div className="container w-screen min-w-full text-center lg:px-[7vw] px-[10vw] pt-5 mt-5 bg-gray-100">
         <div className="back-wrapper">
-          <button className="flex text-xl text-gray-700 lg:text-2xl font-bold">
+          <Link className="flex text-xl text-gray-700 lg:text-2xl font-bold" to={"/Community"}>
             <AiOutlineArrowLeft className="w-8 mt-1"></AiOutlineArrowLeft>뒤로가기
-          </button>
+          </Link>
         </div>
         <h2 className="font-bold text-xl text-gray-700 lg:text-2xl mt-8 mb-8">우리 아이들의 궁금한점을 질문해보세요</h2>
         <div className="title-wrapper items-center  flex justify-center">

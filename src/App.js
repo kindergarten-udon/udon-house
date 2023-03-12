@@ -7,7 +7,7 @@ import SignUP from "./pages/SignUp/SignUP";
 import SignIn from "pages/SignIn/SignIn";
 import AboutUs from "pages/AboutUs/AboutUs";
 import Community from "pages/Community/Community"; //게시판 페이지
-// import WriteCommunity from "pages/Community/WriteCommunity";   //게시판 글쓰기페이지
+import WriteCommunity from "pages/Community/WriteCommunity"; //게시판 글쓰기페이지
 import Map from "pages/Map/Map";
 import NotFound from "pages/NotFound/NotFound";
 
@@ -48,6 +48,7 @@ function App() {
             <Route path="/Community" element={<Community />} />
             <Route path="/map" element={<Map />} />
             <Route path="*" element={<NotFound />} />
+            <Route path="/WriteCommunity" element={<WriteCommunity />} />
           </>
         </Routes>
         <Footer />
