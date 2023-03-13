@@ -23,6 +23,7 @@ function App() {
             <Route path="/signin" element={<SignIn />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/community" element={<Community />} />
+            <Route path="/WriteCommunity" element={<WriteCommunity />} />
             <Route path="/map" element={<Map />} />
           </>
         </Routes>

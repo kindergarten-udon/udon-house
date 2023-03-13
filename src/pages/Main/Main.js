@@ -4,6 +4,7 @@ import SecondMain from "components/Mains/SecondMain";
 import ThirdMain from "components/Mains/ThirdMain";
 import { FullPage, Slide } from "react-full-page/lib";
 import "./main.css";
+import { formToJSON } from "axios";
 
 const Main = () => {
   return (
