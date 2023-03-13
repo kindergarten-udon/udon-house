@@ -18,7 +18,7 @@ const BoardItem = () => {
             <button>
               <BsHandThumbsUp></BsHandThumbsUp>
             </button>
-            <Link className="ml-4 flex " to={"/Community"}>
+            <Link className="ml-4 flex " to="/Community">
               <GiHamburgerMenu className="block h-5"></GiHamburgerMenu> 목록
             </Link>
           </div>

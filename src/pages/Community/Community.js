@@ -30,6 +30,7 @@ const Community = () => {
       </section>
       {/* 게시판 리스트 및 글쓰기 버튼 나오는 component */}
       <BoardList />
+      <BoardItem />
       일단 만들어줌 더보기버튼
       <Plus />
     </div>
