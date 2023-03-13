@@ -4,13 +4,17 @@ import KindergartenMap from "components/MapInfo/KindergartenMap";
 import KindergartenModal from "components/MapInfo/KindergartenModal";
 
 const Map = () => {
-  const [modal, setModal] = useState(false);
+  const [modalClose, setModalClose] = useState(false);
+
+  const modalShow = () => {
+    setModalClose(true);
+  };
 
   return (
     <section className="flex flex-row h-screen">
-      {modal && <KindergartenModal setModal={setModal} />}
+      {modalClose && <KindergartenModal setModalClose={setModalClose} />}
       <KindergartenMap />
-      <KindergartenList setModal={setModal} />
+      <KindergartenList modalShow={modalShow} />
     </section>
   );
 };
