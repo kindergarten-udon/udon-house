@@ -10,7 +10,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="w-full lg:h-[120px] h-[72px] flex justify-between fixed items-center lg:px-[60px] lg:py-[24px] p-[16px] bg-white">
+      <header className="z-20 w-full lg:h-[120px] h-[72px] flex justify-between fixed items-center lg:px-[60px] lg:py-[24px] p-[16px]">
         <Link to="/main">
           <img src="/udonHouseLogo.svg" alt="우동집 로고" className="lg:h-[72px] h-[40px]" />
         </Link>

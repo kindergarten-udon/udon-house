@@ -1,8 +1,13 @@
 import Header from "components/Header/Header";
 import Footer from "components/Footer/Footer";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 
 const AboutUs = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <div className="wrapper py-[120px] w-full">

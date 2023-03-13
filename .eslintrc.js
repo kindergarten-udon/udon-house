@@ -1,5 +1,4 @@
 module.exports = {
-  parser: "balbel-eslint",
   env: {
     browser: true,
     es2021: true,

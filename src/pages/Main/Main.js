@@ -4,11 +4,12 @@ import SecondMain from "components/Mains/SecondMain";
 import ThirdMain from "components/Mains/ThirdMain";
 import { FullPage, Slide } from "react-full-page/lib";
 import "./main.css";
+import MainHeader from "./../../components/Header/MainHeader";
 
 const Main = () => {
   return (
     <>
-      <FullPage controls controlsProps={{ className: "slide-navigation" }}>
+      <FullPage controls controlsProps={{ className: "slide-navigation overflow-scroll h-auto" }}>
         <Slide>
           <FirstMain />
         </Slide>
@@ -18,8 +19,10 @@ const Main = () => {
         <Slide>
           <ThirdMain />
         </Slide>
+        <Slide>
+          <MainHeader />
+        </Slide>
       </FullPage>
-      <div>누구세요 ?</div>
     </>
   );
 };

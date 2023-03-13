@@ -4,8 +4,8 @@ import { Nav } from "components/Nav/Nav";
 const Footer = () => {
   return (
     <>
-      <footer className="lg:h-[clamp(350px,30vw,476px)] h-[535px] lg:text-[clamp(12px,1.3vw,16px)] text-base bg-bg-gray-color">
-        {/* <div className="lg:h-[7%] h-[32px] bg-white rounded-b-[30px]"></div> */}
+      <footer className="w-full lg:h-[clamp(350px,30vw,476px)] h-[535px] lg:text-[clamp(12px,1.3vw,16px)] text-base bg-bg-gray-color">
+        <div className="lg:h-[7%] h-[32px] bg-white rounded-b-[30px]"></div>
         <div className="w-full h-[93%] lg:p-[clamp(32px,4%,60px)] px-[32px] py-[48px]">
           <div className="flex lg:flex-row lg:justify-between flex-col">
             <Nav className="text-left leading-[30px] font-medium" />
