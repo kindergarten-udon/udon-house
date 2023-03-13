@@ -38,8 +38,8 @@ const SecondMain = () => {
   return (
     <div className="test1 relative w-full h-screen snap-center bg-white">
       <img className="absolute right-0" src="/main2.svg" />
-      <div className=" absolute top-40 -left-[100px]  pl-5 flex flex-col ">
-        <h1 className="test  opacity-0 text-left font-bold lg:leading-loose lg:text-5xl leading-loose text-3xl">
+      <div className=" absolute top-44  -left-[100px]  pl-5 flex flex-col ">
+        <h1 className="test opacity-0 text-left font-bold lg:leading-loose lg:text-5xl leading-loose text-3xl">
           함께 나누고 <br />
           함께 성장하는 <span className="text-btn-green-color">우리 동네 어린이집</span>
         </h1>
@@ -64,7 +64,7 @@ const SecondMain = () => {
           {babyImg.map((item, index) => {
             return (
               <SwiperSlide key={index}>
-                <img className=" drop-shadow-lg hover:scale-105  w-full h-60 object-cover rounded-3xl" src={item.src} alt={item.alt} />
+                <img className=" drop-shadow-lg  w-full h-60 object-cover rounded-3xl hover:scale-105 " src={item.src} alt={item.alt} />
               </SwiperSlide>
             );
           })}
