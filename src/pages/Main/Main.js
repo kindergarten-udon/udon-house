@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class Main extends Component {
   render() {
-    return <div>메인페이지</div>;
+    return <div className="h-[100vh]">메인페이지</div>;
   }
 }
 
