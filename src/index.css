@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer components {
+  .liStyles {
+    @apply border border-transparent border-b-gray-300 truncate;
+  }
+}
