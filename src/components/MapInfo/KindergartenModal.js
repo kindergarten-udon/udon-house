@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { GrClose } from "react-icons/gr";
 
@@ -19,21 +19,40 @@ const testModalData = [
   },
 ];
 
-const KindergartemModal = ({ setModal }) => {
+const KindergartemModal = ({ setModalClose }) => {
+  const modalRef = useRef(null);
+
+  const modalClose = () => {
+    setModalClose(false);
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", clickOutside);
+    return () => {
+      document.removeEventListener("click", clickOutside);
+    };
+  });
+
+  const clickOutside = (e) => {
+    if (modalRef.current === e.target) {
+      modalClose();
+    }
+  };
+
   return (
-    <div className="fixed w-screen h-screen bg-black bg-opacity-30 z-[999]">
+    <div className="fixed w-screen h-screen bg-black bg-opacity-30 z-[999]" ref={modalRef}>
       {testModalData.map(({ crname, crtelno, crtypename, nrtrroomcnt, chcrtescnt, crcapat, crchcnt, crcargbname, cctvinstlcnt, craddr, zipcode, crhome }, index) => (
-        <div className="relative w-1/2 h-[70%] translateCenter text-left p-4 rounded-xl border-4 border-main-color bg-white" key={index}>
+        <div className="relative max-w-[35rem] h-[35rem] translateCenter text-lg text-left p-4 rounded-xl border-4 border-main-color bg-white lg:max-w-[45rem] lg:h-[40rem] lg:text-xl" key={index}>
           <div className="flex flex-row h-[20%] items-center border-b-2 border-main-color py-2 gap-2">
-            <button className="absolute top-1 right-1 p-3" onClick={() => setModal(false)}>
+            <button className="absolute top-1 right-1 p-3" onClick={modalClose}>
               <GrClose className="w-5 h-5" />
             </button>
             <img src="/bird.svg" />
-            <h2 className="text-3xl font-extrabold mr-2 text-orange-400 truncate">{crname}</h2>
+            <h2 className="text-3xl font-extrabold mr-2 text-orange-400 truncate lg:text-4xl">{crname}</h2>
             <span className="truncate">{`전화) ${crtelno}`}</span>
           </div>
-          <div className="">
-            <ul className="text-lg text-gray-600 leading-10 py-3">
+          <div className="text-lg leading-10 lg:text-xl lg:leading-10">
+            <ul className=" text-gray-600 py-3 ">
               <li className="listStyles">{`유형 : ${crtypename}`}</li>
               <li className="listStyles">{`보육실수 : ${nrtrroomcnt}`}</li>
               <li className="listStyles">{`교직원수 : ${chcrtescnt}명`}</li>
