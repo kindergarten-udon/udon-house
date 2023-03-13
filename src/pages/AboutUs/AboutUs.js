@@ -24,7 +24,7 @@ const AboutUs = () => {
           </div>
           <div>
             <figure className="w-[180px] h-[180px] relative">
-              <img src="/iNaraChar.png" alt="" className="absolute w-10 h-20 left-[-5px] top-[-18px] rotate-45 -z-50" />
+              <img src="/noticeImage.png" alt="" className="absolute w-30 h-20 left-[-25px] top-[-50px] -rotate-12 -z-50" />
               <div className="flex flex-col">
                 <img src="/JuHyeong.jpg" alt="주형사진" className="rounded-full w-full h-full object-cover -z-10" />
                 <figcaption className="mt-5 text-lg -z-10">
@@ -66,7 +66,7 @@ const AboutUs = () => {
           </div>
           <div>
             <figure className="w-[180px] h-[180px] relative">
-              <img src="/iNaraChar.png" alt="" className="absolute w-10 h-20 left-[-5px] top-[-18px] rotate-45 -z-50" />
+              <img src="/noticeImage.png" alt="" className="absolute w-30 h-20 left-[-25px] top-[-50px] -rotate-12 -z-50" />
               <div className="flex flex-col w-[180px] h-[180px]">
                 <img src="/SuMin.png" alt="수민사진" className="rounded-full w-full h-full object-cover -z-10" />
                 <figcaption className="mt-5 text-lg -z-10">
