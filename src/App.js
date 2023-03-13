@@ -15,24 +15,6 @@ function App() {
     <div className="App">
       <>
         <div className="flex flex-col">
-          <Link className="text-red-500" to="/">
-            홈
-          </Link>
-          <Link className="text-balck" to="/main">
-            메인가기
-          </Link>
-          <Link className="text-blue-500" to="/signup">
-            회원가입
-          </Link>
-          <Link className="text-green-500" to="/signin">
-            로그인
-          </Link>
-          <Link className="text-gray-500" to="/aboutus">
-            어바웃어스
-          </Link>
-          <Link className="text-violet-500" to="/community">
-            커뮤니티
-          </Link>
           <Link className="text-orange-500" to="/map">
             어린이정보
           </Link>
@@ -49,7 +31,6 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </>
         </Routes>
-        <Footer />
       </>
     </div>
   );
