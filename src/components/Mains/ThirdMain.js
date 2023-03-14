@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -10,12 +10,17 @@ const ThirdMain = () => {
       trigger: ".test2",
       start: "top center",
       end: "bottom center",
+      markers: { startColor: "red", endColor: "green" },
       animation: gsap.to(".test3", { x: 100, opacity: 1, duration: 1, stagger: 0.2 }),
       toggleActions: "restart reverse restart reverse",
     });
+    // 몇번째 스와이퍼를 보고있다면
+    // gsap.to(
+    //   ".test3", { x: 100, opacity: 1, duration: 1, stagger: 0.2 }
+    // )
   }, []);
   return (
-    <div className="test2 w-full relative bg-main-color h-screen snap-center ">
+    <div className="test2 w-full relative bg-main-color h-full ">
       <img className="absolute" src="/main_shape_1.png" />
       <img className="absolute right-0 bottom-0 w-[86%] lg:w-1/2" src="/main_shape_2.png" />
       <img className=" absolute w-[86%] lg:w-1/2 right-0 bottom-0" src="/main2.svg" />

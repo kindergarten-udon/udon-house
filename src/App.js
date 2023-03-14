@@ -8,7 +8,6 @@ import SignIn from "pages/SignIn/SignIn";
 import AboutUs from "pages/AboutUs/AboutUs";
 import Community from "pages/Community/Community";
 import Map from "pages/Map/Map";
-import NotFound from "pages/NotFound/NotFound";
 
 function App() {
   return (
@@ -17,12 +16,12 @@ function App() {
         <Header />
         <Routes>
           <>
-            <Route path="/main" element={<Main />} />
+            <Route path="/" element={<Main />} />
             <Route path="/signup" element={<SignUP />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/community" element={<Community />} />
-            <Route path="/map" element={<Map />} />
+            <Route path="/map/:id" element={<Map />} />
           </>
         </Routes>
         <Footer />

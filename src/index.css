@@ -2,10 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  /* 스크롤바 스타일 */
+/* @layer utilities {
   ::-webkit-scrollbar {
     width: 0;
     height: 0;
   }
-}
+} */

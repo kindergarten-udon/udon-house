@@ -16,6 +16,7 @@ const SecondMain = () => {
       trigger: ".test1",
       start: "top center",
       end: "bottom center",
+      markers: { startColor: "red", endColor: "green" },
       animation: gsap.to(".test", { x: 100, opacity: 1, duration: 1, stagger: 0.2 }),
       toggleActions: "restart reverse restart reverse",
     });
@@ -36,7 +37,7 @@ const SecondMain = () => {
   const nextRef = useRef(null);
 
   return (
-    <div className="test1 relative w-full h-screen snap-center bg-white">
+    <div className="test1 relative w-full h-screen bg-white">
       <img className="absolute right-0" src="/main2.svg" />
       <div className=" absolute top-44  -left-[100px]  pl-5 flex flex-col ">
         <h1 className="test opacity-0 text-left font-bold lg:leading-loose lg:text-5xl leading-loose text-3xl">
