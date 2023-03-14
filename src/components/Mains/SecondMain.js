@@ -16,7 +16,6 @@ const SecondMain = () => {
       trigger: ".test1",
       start: "top center",
       end: "bottom center",
-      markers: { startColor: "red", endColor: "green" },
       animation: gsap.to(".test", { x: 100, opacity: 1, duration: 1, stagger: 0.2 }),
       toggleActions: "restart reverse restart reverse",
     });
