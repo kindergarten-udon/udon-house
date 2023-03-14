@@ -18,7 +18,7 @@ function BoardItem({ index, title, content }) {
   return (
     <div className="text-left  flex py-2 lg:py-3 border border-transparent border-b-gray-300 w-full">
       <span className="text-gray-500 text-center w-[15vw] font-bold">{title}</span>
-      <Link className="w-full" to={`BoardItem/${index}`}>
+      <Link className="w-full" to={`${index}`}>
         {content}
       </Link>
     </div>

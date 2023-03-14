@@ -24,9 +24,9 @@ function App() {
             <Route path="/signin" element={<SignIn />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/community" element={<Community />} />
-            <Route path="/WriteCommunity" element={<WriteCommunity />} />
+            <Route path="/community/:index" element={<Community />} />
+            <Route path="/writeCommunity" element={<WriteCommunity />} />
             <Route path="/map" element={<Map />} />
-            <Route path="/boardItem/:index" element={<BoardItem />} />
           </>
         </Routes>
         <Footer />
