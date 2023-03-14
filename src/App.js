@@ -3,7 +3,7 @@ import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import Main from "pages/Main/Main";
 import Header from "components/Header/Header";
 import Footer from "components/Footer/Footer";
-import SignUP from "pages/SignUp/SignUP";
+import SignUp from "pages/SignUp/SignUp";
 import SignIn from "pages/SignIn/SignIn";
 import AboutUs from "pages/AboutUs/AboutUs";
 import Community from "pages/Community/Community"; //게시판 페이지
@@ -20,8 +20,8 @@ function App() {
         <Header />
         <Routes>
           <>
-            <Route path="/main" element={<Main />} />
-            <Route path="/signup" element={<SignUP />} />
+            <Route path="/" element={<Main />} />
+            <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/community" element={<Community />} />
