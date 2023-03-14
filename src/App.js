@@ -30,7 +30,6 @@ function App() {
             <Route path="/map" element={<Map />} />
           </>
         </Routes>
-        <Footer />
       </>
     </div>
   );
