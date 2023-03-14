@@ -24,11 +24,11 @@ const WriteCommunity = () => {
 
   return (
     <>
-      <div className="container w-screen min-w-full text-center lg:px-[7vw] px-[10vw] pt-5 mt-5 bg-gray-100 absolute">
+      <div className="lg:pt-[120px] pt-[72px] container w-screen min-w-full text-center lg:px-[7vw] px-[10vw] pt-5 mt-5 bg-gray-100 absolute">
         {cancelModalOpen && <CancelButton setcancelModalOpen={setcancelModalOpen} />}
         {WriteModalOpen && <WriteButton setWriteModalOpen={setWriteModalOpen} />}
         <div className="back-wrapper">
-          <Link className="flex text-xl text-gray-700 lg:text-2xl font-bold" to={"/Community"}>
+          <Link className="flex text-xl text-gray-700 lg:text-2xl font-bold" to={"/community"}>
             <AiOutlineArrowLeft className="w-8 mt-1"></AiOutlineArrowLeft>뒤로가기
           </Link>
         </div>
