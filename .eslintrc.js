@@ -5,6 +5,9 @@ module.exports = {
     node: true,
   },
   parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
     ecmaVersion: "latest",
     sourceType: "module",
   },
@@ -14,6 +17,6 @@ module.exports = {
     "prettier/prettier": ["error", { endOfLine: "auto" }],
     "prefer-arrow-callback": "off",
     "arrow-body-style": "off",
-    "no-unused-vars": "warn",
+    "no-unused-vars": "off",
   },
 };
