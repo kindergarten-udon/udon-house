@@ -11,6 +11,7 @@ import WriteCommunity from "pages/Community/WriteCommunity"; //게시판 글쓰�
 import BoardItem from "components/Community/BoardItem";
 import Map from "pages/Map/Map";
 import NotFound from "pages/NotFound/NotFound";
+import { useEffect, useState } from "react";
 
 function App() {
   return (

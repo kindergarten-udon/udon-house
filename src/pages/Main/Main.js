@@ -4,12 +4,12 @@ import SecondMain from "components/Mains/SecondMain";
 import ThirdMain from "components/Mains/ThirdMain";
 import { FullPage, Slide } from "react-full-page/lib";
 import "./main.css";
-import { formToJSON } from "axios";
+import MainFooter from "../../components/Footer/MainFooter";
 
 const Main = () => {
   return (
     <>
-      <FullPage controls controlsProps={{ className: "slide-navigation" }}>
+      <FullPage controls controlsProps={{ className: "slide-navigation overflow-scroll h-auto" }}>
         <Slide>
           <FirstMain />
         </Slide>
@@ -19,8 +19,10 @@ const Main = () => {
         <Slide>
           <ThirdMain />
         </Slide>
+        <Slide>
+          <MainFooter />
+        </Slide>
       </FullPage>
-      <div>누구세요 ?</div>
     </>
   );
 };
