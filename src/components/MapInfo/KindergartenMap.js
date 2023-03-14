@@ -14,14 +14,13 @@ const KindergartenMap = () => {
     let marker = new kakao.maps.Marker({
       position: markerPoint,
     });
+    marker.setMap(map);
 
     let zoomControl = new kakao.maps.ZoomControl();
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-
-    marker.setMap(map);
   }, []);
 
-  return <div id="map" className="flex-[1.5]"></div>;
+  return <div id="map" className="flex-1 lg:flex-[1.5]"></div>;
 };
 
 export default KindergartenMap;
