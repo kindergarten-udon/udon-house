@@ -3,26 +3,24 @@ import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import Main from "pages/Main/Main";
 import Header from "components/Header/Header";
 import Footer from "components/Footer/Footer";
-import SignUP from "pages/SignUp/SignUp";
+import SignUp from "pages/SignUp/SignUp";
 import SignIn from "pages/SignIn/SignIn";
 import AboutUs from "pages/AboutUs/AboutUs";
-import Community from "pages/Community/Community"; //게시판 페이지
-import WriteCommunity from "pages/Community/WriteCommunity"; //게시판 글쓰기페이지
-import BoardItem from "components/Community/BoardItem";
+import Community from "pages/Community/Community";
+import WriteCommunity from "pages/Community/WriteCommunity";
 import Map from "pages/Map/Map";
 import NotFound from "pages/NotFound/NotFound";
 import { useEffect, useState } from "react";
-import app from "firebase/compat/app";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App font-sans">
       <>
         <Header />
         <Routes>
           <>
-            <Route path="/main" element={<Main />} />
-            <Route path="/signup" element={<SignUP />} />
+            <Route path="/" element={<Main />} />
+            <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/community" element={<Community />} />
