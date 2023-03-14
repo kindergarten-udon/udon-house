@@ -10,7 +10,7 @@ const AboutUs = () => {
 
   return (
     <>
-      <div className="wrapper py-[120px] w-full">
+      <div className="wrapper lg:py-[120px] py-[72px] w-full">
         <span className="text-[40px] px-8 py-2 font-bold pt-16 inline-block border-b-4 border-black">About Us</span>
         <div className="py-[80px] flex gap-12 justify-center ">
           <div>
