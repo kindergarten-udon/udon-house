@@ -38,7 +38,7 @@ const BoardItemDetail = ({ title, content }) => {
           </div>
           <div className="flex">
             <button onClick={toggleMenu}>{isChecked ? <BsHandThumbsUpFill /> : <BsHandThumbsUp />}</button>
-            <Link className="ml-4 flex " to="/Community">
+            <Link className="ml-4 flex " to="/community">
               <GiHamburgerMenu className="block h-5"></GiHamburgerMenu> 목록
             </Link>
           </div>
