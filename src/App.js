@@ -3,7 +3,7 @@ import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import Main from "pages/Main/Main";
 import Header from "components/Header/Header";
 import Footer from "components/Footer/Footer";
-import SignUP from "pages/SignUp/SignUP";
+import SignUP from "pages/SignUp/SignUp";
 import SignIn from "pages/SignIn/SignIn";
 import AboutUs from "pages/AboutUs/AboutUs";
 import Community from "pages/Community/Community"; //게시판 페이지
@@ -12,6 +12,7 @@ import BoardItem from "components/Community/BoardItem";
 import Map from "pages/Map/Map";
 import NotFound from "pages/NotFound/NotFound";
 import { useEffect, useState } from "react";
+import app from "firebase/compat/app";
 
 function App() {
   return (
