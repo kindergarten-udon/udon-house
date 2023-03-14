@@ -5,7 +5,7 @@ import ThirdMain from "components/Mains/ThirdMain";
 import gsap from "gsap";
 import { FullPage, Slide } from "react-full-page/lib";
 import "./main.css";
-import MainFooter from "../../components/Footer/MainFooter";
+import MainFooter from "components/Footer/MainFooter";
 
 const Main = () => {
   return (
