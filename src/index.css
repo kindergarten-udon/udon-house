@@ -1,6 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer components {
+  .listStyles {
+    @apply border border-transparent border-b-gray-300 truncate;
+  }
+  .translateCenter {
+    @apply top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%];
+  }
+}
 
 /* @layer utilities {
   ::-webkit-scrollbar {

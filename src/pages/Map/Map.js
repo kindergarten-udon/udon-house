@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
+import KindergartenList from "components/MapInfo/KindergartenList";
+import KindergartenMap from "components/MapInfo/KindergartenMap";
+import KindergartenModal from "components/MapInfo/KindergartenModal";
 
 const Map = () => {
-  return <div>맵페이지</div>;
+  const [modalClose, setModalClose] = useState(false);
+
+  const modalShow = () => {
+    setModalClose(true);
+  };
+
+  return (
+    <section className="flex flex-row h-screen">
+      {modalClose && <KindergartenModal setModalClose={setModalClose} />}
+      <KindergartenMap />
+      <KindergartenList modalShow={modalShow} />
+    </section>
+  );
 };
 
 export default Map;
