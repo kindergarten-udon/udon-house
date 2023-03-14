@@ -4,7 +4,7 @@ import SecondMain from "components/Mains/SecondMain";
 import ThirdMain from "components/Mains/ThirdMain";
 import { FullPage, Slide } from "react-full-page/lib";
 import "./main.css";
-import MainHeader from "./../../components/Header/MainHeader";
+import MainFooter from "../../components/Footer/MainFooter";
 
 const Main = () => {
   return (
@@ -20,7 +20,7 @@ const Main = () => {
           <ThirdMain />
         </Slide>
         <Slide>
-          <MainHeader />
+          <MainFooter />
         </Slide>
       </FullPage>
     </>

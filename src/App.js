@@ -12,8 +12,6 @@ import NotFound from "pages/NotFound/NotFound";
 import { useEffect, useState } from "react";
 
 function App() {
-  let [res, setRes] = useState(window.location.href.slice(-10));
-
   return (
     <div className="App">
       <>
@@ -28,20 +26,6 @@ function App() {
             <Route path="/map" element={<Map />} />
           </>
         </Routes>
-        {/* {(() => {
-          useEffect(() => {
-            setRes(window.location.href.slice(-10));
-          }, []);
-
-          // let result = window.location.href.slice(-10);
-          if (!res.includes("main")) {
-            return <Footer />;
-          }
-          // if (!window.location.href.includes("main")) {
-          //   return <Footer />;
-          // }
-        })()} */}
-
         <Footer />
       </>
     </div>
