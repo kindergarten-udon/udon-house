@@ -2,22 +2,24 @@ import { React, useEffect, useReducer, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const CancelButton = ({ cancelModalOpen, setcancelModalOpen, props, ref }) => {
-  let wrapperRef = useRef(); //모달창 가장 바깥쪽 태그를 감싸주는 역할
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  });
-  const handleClickOutside = (event) => {
-    if (wrapperRef && !wrapperRef.current.contains(event.target)) {
-      props.setModalState(false);
-    }
-  };
   const cancelCloseModal = () => {
     setcancelModalOpen(false);
   };
+  let wrapperRef = useRef(null);
+
+  useEffect(() => {
+    document.addEventListener("click", clickOutside);
+    return () => {
+      document.removeEventListener("click", clickOutside);
+    };
+  });
+
+  const clickOutside = (e) => {
+    if (wrapperRef.current === e.target) {
+      cancelCloseModal();
+    }
+  };
+
   return (
     <>
       <section ref={wrapperRef} className="fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-30">
