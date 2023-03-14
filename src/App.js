@@ -6,16 +6,15 @@ import Footer from "components/Footer/Footer";
 import SignUp from "pages/SignUp/SignUp";
 import SignIn from "pages/SignIn/SignIn";
 import AboutUs from "pages/AboutUs/AboutUs";
-import Community from "pages/Community/Community"; //게시판 페이지
-import WriteCommunity from "pages/Community/WriteCommunity"; //게시판 글쓰기페이지
-import BoardItem from "components/Community/BoardItem";
+import Community from "pages/Community/Community";
+import WriteCommunity from "pages/Community/WriteCommunity";
 import Map from "pages/Map/Map";
 import NotFound from "pages/NotFound/NotFound";
 import { useEffect, useState } from "react";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App font-sans">
       <>
         <Header />
         <Routes>

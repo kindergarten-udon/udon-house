@@ -12,6 +12,9 @@ module.exports = {
         "light-yellow-color": "#FFF5BA",
         "bg-gray-color": "#f2f2f2",
       },
+      fontFamily: {
+        sans: ["Cafe24Ssurround", "Arial", "sans-serif"],
+      },
     },
   },
   plugins: [require("tailwind-scrollbar-hide")],
