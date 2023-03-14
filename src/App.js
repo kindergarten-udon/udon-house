@@ -8,15 +8,13 @@ import SignIn from "pages/SignIn/SignIn";
 import AboutUs from "pages/AboutUs/AboutUs";
 import Community from "pages/Community/Community";
 import WriteCommunity from "pages/Community/WriteCommunity";
-import BoardItem from "components/Community/BoardItem";
 import Map from "pages/Map/Map";
 import NotFound from "pages/NotFound/NotFound";
 import { useEffect, useState } from "react";
-import app from "firebase/compat/app";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App font-sans">
       <>
         <Header />
         <Routes>

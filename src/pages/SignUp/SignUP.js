@@ -13,6 +13,8 @@ const SignUp = () => {
   const formRef = useRef(null);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     const tl = gsap.timeline();
 
     tl.fromTo(gomImageRef.current, { opacity: 0 }, { opacity: 1, duration: 1 })
@@ -22,6 +24,9 @@ const SignUp = () => {
       .fromTo(formRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5 }, "-=0.5");
   }, []);
 
+  const handleLogin = (e) => {
+    e.preventDefault();
+  };
   return (
     <div className="w-full bg-main-color h-[1080px] p-0 m-0">
       <h2 className="overflow-hidden whitespace-normal w-px m--px">회원가입</h2>
@@ -32,7 +37,7 @@ const SignUp = () => {
       <img ref={birdRef} className="w-[100px] h-[100px] relative inline-block bottom-[180px] right-[200px] md:opacity-0" src="/bird2.svg" alt="새 이미지" />
       <img ref={udonHouseLogoRef} className="relative m-auto block w-[212px] h-[72px] lg:bottom-[350px] opacity-0" src="/udonHouseLogo.svg" alt="우리 동네 어린이집 로고" />
       <div className="lg:w-full lg:h-full  lg:justify-center lg:items-center lg:flex inline-block">
-        <form ref={formRef} className="mt-[100px] md:w-[500px] bottom-[610px] lg:w-[580px] lg:relative border-solid border-[1px] rounded-[10px] drop-shadow-lg bg-[#FFFFF3] opacity-0  pl-[10px] pr-[10px] pb-[100px]">
+        <form onSubmit={handleLogin} ref={formRef} className="mt-[100px] md:w-[500px] bottom-[610px] lg:w-[580px] lg:relative border-solid border-[1px] rounded-[10px] drop-shadow-lg bg-[#FFFFF3] opacity-0  pl-[10px] pr-[10px] pb-[100px]">
           <div className=" w-[450px] h-[80px] relative m-auto block pt-[50px]">
             <span className="relative right-[200px] pl-[10px]">이메일</span>
             <input className="w-[450px] h-[45px] rounded-[10px] pl-[10px] border-solid border-[1px]" name="email" type="email" label="이메일" placeholder="아이디" value="email" />
