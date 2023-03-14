@@ -36,5 +36,4 @@ const CancelButton = ({ cancelModalOpen, setcancelModalOpen, props, ref }) => {
     </>
   );
 };
-// absolute w-[70vw] max-w-[350px] lg:w-[450px] cancel border rounded-xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  z-50 shadow-slate-300 bg-white
 export default CancelButton;

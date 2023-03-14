@@ -24,7 +24,7 @@ const WriteCommunity = () => {
 
   return (
     <>
-      <div className="lg:pt-[120px] pt-[72px] container w-screen min-w-full text-center lg:px-[7vw] px-[10vw] pt-5 mt-5 bg-gray-100 absolute">
+      <div className="lg:pt-[120px] pt-[72px] container w-screen min-w-full text-center lg:px-[7vw] px-[10vw] mt-5 bg-gray-100 absolute">
         {cancelModalOpen && <CancelButton setcancelModalOpen={setcancelModalOpen} />}
         {WriteModalOpen && <WriteButton setWriteModalOpen={setWriteModalOpen} />}
         <div className="back-wrapper">
