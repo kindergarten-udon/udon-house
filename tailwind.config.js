@@ -10,8 +10,9 @@ module.exports = {
         "pink-color": "#FFCFD8",
         "blue-color": "#E0F1FF",
         "light-yellow-color": "#FFF5BA",
+        "bg-gray-color": "#f2f2f2",
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar-hide")],
 };
