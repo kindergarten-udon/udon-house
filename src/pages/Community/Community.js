@@ -6,11 +6,11 @@ import BoardItem from "components/Community/BoardItem";
 import Plus from "components/Community/Plus";
 
 const handleClick = () => {
-  history.pushState("/WriteCommunity");
+  history.pushState("/writeCommunity");
 };
 
 const Community = () => (
-  <div className="container w-screen min-w-full ">
+  <div className=" lg:pt-[120px] pt-[72px] container w-screen min-w-full ">
     <h2 className="text-2xl lg:text-5xl font-bold text-left lg:px-[10vw] px-7 mt-7 text-gray-800 bg-">커뮤니티</h2>
     <div className="text-sm lg:text-base text-left lg:px-[10vw] px-7 mt-3 lg:mt-6 mb-2 lg:mb-5 text-gray-800">우리아이 자랑 커뮤니티</div>
     <section className="bg-light-yellow-color lg:px-[10vw] px-7 py-5">

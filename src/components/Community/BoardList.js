@@ -11,7 +11,6 @@ const BoardList = () => {
             글쓰기
           </Link>
         </div>
-        {/* 글 리스트 받아오기 */}
         <div className="w-full min-w-[280px] mb-20 text-sm lg:text-base text-gray-700">
           <BoardListItem />
         </div>
