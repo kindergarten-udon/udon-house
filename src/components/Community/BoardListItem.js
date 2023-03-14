@@ -1,18 +1,8 @@
 /* eslint-disable no-undef */
 import React from "react";
+import boardData from "./boardData";
 import { Link, useNavigate } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
-
-const boardData = [
-  {
-    제목: "어쩌구",
-    내용: "저쩌구",
-  },
-  {
-    제목: "어쩌구2",
-    내용: "저쩌구2",
-  },
-];
 
 function BoardItem({ index, title, content }) {
   return (

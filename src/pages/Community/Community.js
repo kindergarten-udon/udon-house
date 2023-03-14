@@ -27,20 +27,7 @@ const Community = () => (
         </Link>
       </div>
     </section>
-    {/* 게시판 리스트 및 글쓰기 버튼 나오는 component */}
-    {/* <div>
-      function () {
-        if (window.location.href.includes("community/")) {
-          return <BoardItem />;
-        } else{
-          return <BoardList />;
-        }
-      }
-
-      
-    </div> */}
-    <BoardList />
-    <BoardItem />
+    <div>{window.location.href.includes("community/") ? <BoardItem /> : <BoardList />}</div>
     일단 만들어줌 더보기버튼
     <Plus />
   </div>
