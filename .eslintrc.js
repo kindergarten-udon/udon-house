@@ -14,7 +14,7 @@ module.exports = {
   extends: ["eslint:recommended", "plugin:prettier/recommended", "prettier"],
   plugins: ["prettier"],
   rules: {
-    "prettier/prettier": ["error", { endOfLine: "auto" }],
+    "prettier/prettier": ["error", { endOfLine: "auto" }, { useTabs: false }],
     "prefer-arrow-callback": "off",
     "arrow-body-style": "off",
     "no-unused-vars": "off",

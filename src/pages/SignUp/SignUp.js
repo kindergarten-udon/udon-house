@@ -1,10 +1,40 @@
 import { RegisterButton, VerificationButton } from "components/SignUp/RegisterButton";
 import gsap from "gsap";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { auth } from "util/fbase";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 
 const SignUp = () => {
-  // console.log(auth.currentUser);
+  //firebase
+  const [user, setUser] = useState({});
+  const [value, setValue] = useState("");
+  const [inputs, setInputs] = useState({
+    email: "",
+    password: "",
+  });
+  const { email, password } = inputs;
+
+  function onChange(event) {
+    const { value, name } = event.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+  }
+
+  const register = async () => {
+    try {
+      const user = await createUserWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    await auth(email, password);
+  }
+
   //GSAP
   const gomImageRef = useRef(null);
   const backgroundImageRef = useRef(null);
@@ -13,8 +43,6 @@ const SignUp = () => {
   const formRef = useRef(null);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-
     const tl = gsap.timeline();
 
     tl.fromTo(gomImageRef.current, { opacity: 0 }, { opacity: 1, duration: 1 })
@@ -24,9 +52,6 @@ const SignUp = () => {
       .fromTo(formRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5 }, "-=0.5");
   }, []);
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-  };
   return (
     <div className="w-full bg-main-color h-[1080px] p-0 m-0">
       <h2 className="overflow-hidden whitespace-normal w-px m--px">회원가입</h2>
@@ -37,21 +62,25 @@ const SignUp = () => {
       <img ref={birdRef} className="w-[100px] h-[100px] relative inline-block bottom-[180px] right-[200px] md:opacity-0" src="/bird2.svg" alt="새 이미지" />
       <img ref={udonHouseLogoRef} className="relative m-auto block w-[212px] h-[72px] lg:bottom-[350px] opacity-0" src="/udonHouseLogo.svg" alt="우리 동네 어린이집 로고" />
       <div className="lg:w-full lg:h-full  lg:justify-center lg:items-center lg:flex inline-block">
-        <form onSubmit={handleLogin} ref={formRef} className="mt-[100px] md:w-[500px] bottom-[610px] lg:w-[580px] lg:relative border-solid border-[1px] rounded-[10px] drop-shadow-lg bg-[#FFFFF3] opacity-0  pl-[10px] pr-[10px] pb-[100px]">
+        <form ref={formRef} className="mt-[100px] md:w-[500px] bottom-[610px] lg:w-[580px] lg:relative border-solid border-[1px] rounded-[10px] drop-shadow-lg bg-[#FFFFF3] opacity-0  pl-[10px] pr-[10px] pb-[100px] z-[1000]" onSubmit={handleSubmit}>
           <div className=" w-[450px] h-[80px] relative m-auto block pt-[50px]">
-            <span className="relative right-[200px] pl-[10px]">이메일</span>
-            <input className="w-[450px] h-[45px] rounded-[10px] pl-[10px] border-solid border-[1px]" name="email" type="email" label="이메일" placeholder="아이디" value="email" />
+            <span className="flex right-[200px]">이메일</span>
+            <input className="w-[450px] h-[45px] rounded-[10px] pl-[10px] border-solid border-[1px]" name="email" placeholder="이메일" onChange={onChange} />
           </div>
           <VerificationButton />
           <div className=" w-[450px] h-[80px] relative m-auto block pt-[20px]">
-            <span className="relative right-[200px] pl-[15px]">비밀번호</span>
-            <input className="w-[450px] h-[45px] rounded-[10px] pl-[10px] border-solid border-[1px]" name="password" type="password" label="패스워드" placeholder="비밀번호" value="password" />
+            <span className="flex right-[200px]">비밀번호</span>
+            <input className="w-[450px] h-[45px] rounded-[10px] pl-[10px] border-solid border-[1px]" name="password" placeholder="비밀번호" onChange={onChange} />
           </div>
           <div className=" w-[450px] h-[80px] relative m-auto block pt-[30px]">
-            <span className="relative right-[200px] pl-[43px]">비밀번호 확인</span>
-            <input className="w-[450px] h-[45px] rounded-[10px] pl-[10px] border-solid border-[1px]" name="password" type="password" label="패스워드" placeholder="비밀번호 확인" />
+            <span className="flex right-[200px]">비밀번호 확인</span>
+            <input className="w-[450px] h-[45px] rounded-[10px] pl-[10px] border-solid border-[1px]" name="password" placeholder="비밀번호 확인" onChange={onChange} />
           </div>
-          <RegisterButton />
+          <div className="w-[450px] h-[80px] pt-[60px] relative m-auto block">
+            <button className="w-[450px] h-[45px] rounded-[10px] bg-gray-400 border-solid hover:bg-btn-green-color" onClick={register}>
+              회원가입
+            </button>
+          </div>
         </form>
       </div>
     </div>
