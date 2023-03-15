@@ -70,7 +70,7 @@ const KindergartenList = ({ kinderList, modalShow }) => {
         </div>
       </div>
       <div className="text-left">
-        <ul className="">
+        <ul>
           {kinderList.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
             <li className="relative flex flex-row items-center pt-[10px] hover:bg-gray-100 cursor-pointer" onClick={modalShow} key={index}>
               <img src="/kindergarten.svg" className="w-20 mx-2.5 lg:w-24" />
