@@ -10,7 +10,7 @@ import Community from "pages/Community/Community";
 import WriteCommunity from "pages/Community/WriteCommunity";
 import Map from "pages/Map/Map";
 import NotFound from "pages/NotFound/NotFound";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function App() {
   return (
