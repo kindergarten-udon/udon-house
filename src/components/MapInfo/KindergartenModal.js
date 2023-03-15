@@ -27,12 +27,12 @@ const KindergartemModal = ({ kinderList, setModalClose }) => {
       {kinderList.map(({ CRNAME, CRTELNO, CRTYPENAME, NRTRROOMCNT, CHCRTESCNT, CRCAPAT, CRCHCNT, CRCARGBNAME, CCTVINSTLCNT, CRADDR, ZIPCODE, CRHOME }, index) => (
         <div className="relative max-w-[35rem] h-[35rem] translateCenter text-lg text-left p-4 rounded-xl border-4 border-main-color bg-white lg:max-w-[45rem] lg:h-[40rem] lg:text-xl" key={index}>
           <div className="flex flex-row h-[20%] items-center border-b-2 border-main-color py-2 gap-2">
-            <button className="absolute top-1 right-1 p-3" onClick={modalClose}>
+            <button type="button" className="absolute top-1 right-1 p-3" onClick={modalClose}>
               <GrClose className="w-5 h-5" />
             </button>
             <img src="/bird.svg" />
             <h2 className="text-3xl font-extrabold mr-2 text-orange-400 truncate lg:text-4xl">{CRNAME}</h2>
-            <span className="truncate">{`전화) ${CRTELNO}`}</span>
+            <span className="truncate">{`전화) ${CRTELNO ? CRTELNO : "제공되지 않습니다."}`}</span>
           </div>
           <div className="text-lg leading-10 lg:text-xl lg:leading-10">
             <ul className=" text-gray-600 py-3 ">
@@ -44,10 +44,15 @@ const KindergartemModal = ({ kinderList, setModalClose }) => {
               <li className="listStyles">{`CCTV 설치수 : ${CCTVINSTLCNT}`}</li>
               <li className="listStyles">{`주소 :  ${CRADDR} (${ZIPCODE})`}</li>
               <li className="truncate">
-                홈페이지 :{" "}
-                <Link to={CRHOME} className="text-green-500 hover:text-gray-600" target="_blank">
-                  {CRHOME}
-                </Link>
+                {`홈페이지 : ${
+                  CRHOME ? (
+                    <Link to={CRHOME} className="text-green-500 hover:text-gray-600" target="_blank">
+                      {CRHOME}
+                    </Link>
+                  ) : (
+                    "제공되지 않습니다."
+                  )
+                }`}
               </li>
             </ul>
           </div>
