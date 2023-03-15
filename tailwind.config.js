@@ -13,7 +13,7 @@ module.exports = {
         "bg-gray-color": "#f2f2f2",
       },
       fontFamily: {
-        sans: ["Cafe24Ssurround", "Arial", "sans-serif"],
+        sans: ["BMJUA", "Arial", "sans-serif"],
       },
     },
   },

@@ -35,6 +35,7 @@ const SignUp = () => {
     await auth(email, password);
   }
 
+  // console.log(auth.currentUser);
   //GSAP
   const gomImageRef = useRef(null);
   const backgroundImageRef = useRef(null);
