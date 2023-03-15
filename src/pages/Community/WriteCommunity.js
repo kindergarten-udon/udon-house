@@ -32,7 +32,7 @@ const WriteCommunity = () => {
     <div className="lg:pt-[120px] pt-[72px] min-w-full text-center lg:px-[7vw] px-[10vw] pb-10 bg-gray-100">
       {cancelModalOpen && <CancelButton setcancelModalOpen={setcancelModalOpen} />}
       {WriteModalOpen && <WriteButton setWriteModalOpen={setWriteModalOpen} />}
-      <div className="back-wrapper">
+      <div className="mt-5 lg:mt-8">
         <Link className="flex text-xl text-gray-700 lg:text-2xl font-bold" to={"/community"}>
           <AiOutlineArrowLeft className="w-8 mt-1"></AiOutlineArrowLeft>뒤로가기
         </Link>
