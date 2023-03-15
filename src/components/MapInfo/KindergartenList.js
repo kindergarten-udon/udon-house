@@ -1,43 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BiSearch, BiMap, BiInfoCircle } from "react-icons/bi";
 import KindergartenModal from "components/MapInfo/KindergartenModal";
+import axios from "axios";
+import { async } from "@firebase/util";
 
-const testData = [
-  {
-    name: "우동어린이집",
-    address: "서울특별시 강남구 영동대로 416 케이티앤지타워 1층",
-    tel: "02-123-4567",
-  },
-  {
-    name: "우동어린이집",
-    address: "서울특별시 강남구 영동대로 416 케이티앤지타워 1층",
-    tel: "02-123-4567",
-  },
-  {
-    name: "우동어린이집",
-    address: "서울특별시 강남구 영동대로 416 케이티앤지타워 1층",
-    tel: "02-123-4567",
-  },
-  {
-    name: "우동어린이집",
-    address: "서울특별시 강남구 영동대로 416 케이티앤지타워 1층",
-    tel: "02-123-4567",
-  },
-  {
-    name: "우동어린이집",
-    address: "서울특별시 강남구 영동대로 416 케이티앤지타워 1층",
-    tel: "02-123-4567",
-  },
-  {
-    name: "우동어린이집",
-    address: "서울특별시 강남구 영동대로 416 케이티앤지타워 1층",
-    tel: "02-123-4567",
-  },
-];
+const KindergartenList = ({ kinderList, modalShow }) => {
+  // const [kinderList, setKinderList] = useState([]);
 
-const KindergartenList = ({ modalShow }) => {
+  // const getData = async () => {
+  //   const url = `http://openapi.seoul.go.kr:8088/4e7269425a6c656534354f51426a71/json/ChildCareInfo/1/10/`;
+  //   const response = await axios.get(url);
+  //   setKinderList(response.data.ChildCareInfo.row);
+  // };
+
+  // useEffect(() => {
+  //   getData();
+  // }, []);
+  console.log("data = ", kinderList[0]);
   return (
-    <div className="flex-0.5 lg:flex-1">
+    <div className="flex-0.5 lg:flex-1  overflow-scroll">
       <div className="py-7 bg-main-color">
         <img src="/kindergarten.svg" className="mx-auto" />
         <div className="whitespace-nowrap text-sm">
@@ -56,15 +37,15 @@ const KindergartenList = ({ modalShow }) => {
         </div>
       </div>
       <div className="text-left">
-        <ul>
-          {testData.map(({ name, address, tel }, index) => (
+        <ul className="">
+          {kinderList.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
             <li className="relative flex flex-row items-center pt-[10px] hover:bg-gray-100 cursor-pointer" onClick={modalShow} key={index}>
               <img src="/kindergarten.svg" className="w-20 mx-2.5 lg:w-24" />
               <div>
                 <div className="text-xs">
-                  <h2 className="text-base font-bold lg:text-xl">{name}</h2>
-                  <p className="text-gray-500 lg:text-base">{address}</p>
-                  <p className="text-gray-500 lg:text-base">{`전화) : ${tel}`}</p>
+                  <h2 className="text-base font-bold lg:text-xl">{CRNAME}</h2>
+                  <p className="text-gray-500 lg:text-base">{CRADDR}</p>
+                  <p className="text-gray-500 lg:text-base">{`전화) : ${CRTELNO}`}</p>
                 </div>
                 <div className="hidden flex-row absolute top-1/2 translate-y-[-50%] right-8 gap-2 xl:flex">
                   <BiMap className="w-5 h-5 lg:w-7 lg:h-7" />
