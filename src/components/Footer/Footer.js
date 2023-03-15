@@ -4,7 +4,7 @@ import { Nav } from "components/Nav/Nav";
 const Footer = () => {
   return (
     <>
-      <footer className="w-full lg:h-[clamp(350px,30vw,476px)] h-[535px] lg:text-[clamp(12px,1.3vw,16px)] text-base bg-bg-gray-color box-border">
+      <footer className="w-full lg:h-[clamp(350px,30vw,476px)] h-[535px] lg:text-[clamp(12px,1.3vw,16px)] text-sm bg-bg-gray-color box-border">
         {/* <div className="lg:h-[7%] h-[32px] bg-white rounded-b-[30px]"></div> */}
         <div className="w-full h-full lg:p-[clamp(32px,4.5%,80px)] px-[32px] py-[48px] box-border">
           <div className="flex lg:flex-row lg:justify-between flex-col">
