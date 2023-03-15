@@ -14,7 +14,7 @@ const Header = () => {
         <Link to="/">
           <img src="/udonHouseLogo.svg" alt="우동집 로고" className="lg:h-[72px] h-[40px]" />
         </Link>
-        <div className="flex gap-5 lg:text-[17px] text-[14px] font-bold">
+        <div className="flex items-center gap-5 lg:text-[17px] text-[14px] font-bold">
           <Nav className="flex gap-5" />
           <Link to="/signin">
             <button type="button" className="border-2 border-solid border-gray-300 rounded-full px-2">
