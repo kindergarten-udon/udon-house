@@ -1,12 +1,42 @@
 import { async } from "@firebase/util";
 import { RegisterButton, VerificationButton } from "components/SignUp/RegisterButton";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+// import { createUserWithEmailAndPassword } from "firebase/auth";
 import gsap from "gsap";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { auth } from "util/fbase";
-import { cls } from "util/util";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 
 const SignUp = () => {
+  //firebase
+  // const [user, setUser] = useState({});
+  // const [value, setValue] = useState("");
+  // const [inputs, setInputs] = useState({
+  //   email: "",
+  //   password: "",
+  // });
+  // const { email, password } = inputs;
+
+  // function onChange(event) {
+  //   const { value, name } = event.target;
+  //   setInputs({
+  //     ...inputs,
+  //     [name]: value,
+  //   });
+  // }
+
+  // const register = async () => {
+  //   try {
+  //     const user = await createUserWithEmailAndPassword(auth, email, password);
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // };
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    await auth(email, password);
+  }
+
   //GSAP
   const gomImageRef = useRef(null);
   const backgroundImageRef = useRef(null);
@@ -46,8 +76,6 @@ const SignUp = () => {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-
     const tl = gsap.timeline();
 
     tl.fromTo(gomImageRef.current, { opacity: 0 }, { opacity: 1, duration: 1 })
@@ -101,6 +129,24 @@ const SignUp = () => {
           {/* <RegisterButton /> */}
           <div className="w-[450px] h-[80px] pt-[60px] m-auto block">
             <button className="w-[450px] h-[45px]rounded-[10px] border-solid bg-gray-400 hover:bg-btn-green-color">회원가입</button>
+            {/* <form ref={formRef} className="mt-[100px] md:w-[500px] bottom-[610px] lg:w-[580px] lg:relative border-solid border-[1px] rounded-[10px] drop-shadow-lg bg-[#FFFFF3] opacity-0  pl-[10px] pr-[10px] pb-[100px] z-[1000]" onSubmit={handleSubmit}>
+          <div className=" w-[450px] h-[80px] relative m-auto block pt-[50px]">
+            <span className="flex right-[200px]">이메일</span>
+            <input className="w-[450px] h-[45px] rounded-[10px] pl-[10px] border-solid border-[1px]" name="email" placeholder="이메일" onChange={onChange} />
+          </div>
+          <VerificationButton />
+          <div className=" w-[450px] h-[80px] relative m-auto block pt-[20px]">
+            <span className="flex right-[200px]">비밀번호</span>
+            <input className="w-[450px] h-[45px] rounded-[10px] pl-[10px] border-solid border-[1px]" name="password" placeholder="비밀번호" onChange={onChange} />
+          </div>
+          <div className=" w-[450px] h-[80px] relative m-auto block pt-[30px]">
+            <span className="flex right-[200px]">비밀번호 확인</span>
+            <input className="w-[450px] h-[45px] rounded-[10px] pl-[10px] border-solid border-[1px]" name="password" placeholder="비밀번호 확인" onChange={onChange} />
+          </div>
+          <div className="w-[450px] h-[80px] pt-[60px] relative m-auto block">
+            <button className="w-[450px] h-[45px] rounded-[10px] bg-gray-400 border-solid hover:bg-btn-green-color" onClick={register}>
+              회원가입
+            </button> */}
           </div>
         </form>
       </div>

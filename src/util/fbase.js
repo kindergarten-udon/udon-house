@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -10,9 +9,9 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_APP_ID,
 };
 
-const app = initializeApp(firebaseConfig);
+// const app = initializeApp(firebaseConfig);
 
-export const auth = getAuth(app);
+// export const auth = getAuth(app);
 // import { initializeApp } from "firebase/app";
 // import { getAuth } from "firebase/auth";
 // const firebaseConfig = {
@@ -26,3 +25,9 @@ export const auth = getAuth(app);
 // // Use this to initialize the firebase App
 // export const app = initializeApp(firebaseConfig);
 // export const auth = getAuth(app);
+// messagingSenderId: process.env.REACT_APP_MESSAGIN_ID,
+// appId: process.env.REACT_APP_APP_ID,
+// };
+// Use this to initialize the firebase App
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
