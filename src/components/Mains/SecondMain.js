@@ -37,7 +37,7 @@ const SecondMain = () => {
 
   return (
     <div className="test1 relative w-full h-screen snap-center bg-white">
-      <img className="absolute right-0" src="/main2.svg" />
+      <img className="absolute w-[86%] lg:w-1/2 right-0 bottom-0" src="/main2.svg" />
       <div className=" absolute top-44  -left-[100px]  pl-5 flex flex-col ">
         <h1 className="test opacity-0 text-left font-bold lg:leading-loose lg:text-5xl leading-loose text-3xl">
           함께 나누고 <br />
