@@ -45,7 +45,7 @@ const KindergartemModal = ({ kinderList, setModalClose }) => {
               <li className="listStyles">{`주소 :  ${CRADDR} (${ZIPCODE})`}</li>
               <li className="truncate">
                 홈페이지 :{" "}
-                <Link to={CRHOME} className="hover:underline" target="_blank">
+                <Link to={CRHOME} className="text-green-500 hover:text-gray-600" target="_blank">
                   {CRHOME}
                 </Link>
               </li>
