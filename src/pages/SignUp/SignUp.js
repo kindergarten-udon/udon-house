@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { auth } from "util/fbase";
 
 const SignUp = () => {
-  console.log(auth.currentUser);
+  // console.log(auth.currentUser);
   //GSAP
   const gomImageRef = useRef(null);
   const backgroundImageRef = useRef(null);
