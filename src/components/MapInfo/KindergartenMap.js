@@ -60,7 +60,7 @@ const KindergartenMap = () => {
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
   }, []);
 
-  return <div id="map" className="flex-1 lg:flex-[1.5]"></div>;
+  return <div id="map" className="w-3/5"></div>;
 };
 
 export default KindergartenMap;
