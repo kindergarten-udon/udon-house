@@ -47,7 +47,7 @@ const tyepOptions = [
 
 const KindergartenList = ({ kinderList, modalShow }) => {
   return (
-    <div className="min-w-[28rem] lg:w-2/5 overflow-scroll">
+    <div className="min-w-[27rem] lg:w-2/5 overflow-scroll">
       <div className="py-7 bg-main-color">
         <img src="/kindergarten.svg" className="mx-auto" />
         <div className="flex flex-row items-center justify-center whitespace-nowrap text-sm px-2 gap-2 lg:gap-4">
@@ -57,13 +57,13 @@ const KindergartenList = ({ kinderList, modalShow }) => {
           <BiSearch className="lg:w-5 lg:h-5 inline-block cursor-pointer" />
         </div>
       </div>
-      <div className="text-left">
+      <div className="text-left ">
         <ul className="lists">
           {kinderList.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
             <li className="kinList relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer" onClick={modalShow} id={index} key={index}>
-              <div className="flex flex-row items-center">
+              <div className="flex flex-row items-center justify-center">
                 <img src="/kindergarten.svg" className="w-20 mx-2 lg:w-24" id={index} />
-                <div className="text-xs truncate" id={index}>
+                <div className="w-96 lg:w-[27rem] text-xs truncate" id={index}>
                   <h2 className="truncate text-base font-bold lg:text-xl" id={index}>
                     {CRNAME}
                   </h2>
@@ -73,7 +73,7 @@ const KindergartenList = ({ kinderList, modalShow }) => {
                   <p className="text-gray-500 lg:text-base" id={index}>{`전화) : ${CRTELNO ? CRTELNO : "제공되지 않습니다"}`}</p>
                 </div>
               </div>
-              <button type="button" className="mx-3">
+              <button type="button" className="p-2 hover:text-orange-400">
                 <BiMap className="w-5 h-5 lg:w-8 lg:h-8" />
               </button>
             </li>
