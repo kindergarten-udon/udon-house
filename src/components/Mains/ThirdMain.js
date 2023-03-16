@@ -15,29 +15,31 @@ const ThirdMain = () => {
     });
   }, []);
   return (
-    <div className="test2 w-full relative bg-main-color h-screen snap-center ">
+    <div className="test2 w-screen relative bg-main-color h-screen snap-center ">
       <img className="absolute" src="/main_shape_1.png" />
-      <img className="absolute right-0 bottom-0 w-[86%] lg:w-1/2" src="/main_shape_2.png" />
-      <img className=" absolute w-[86%] lg:w-1/2 right-0 bottom-0" src="/main2.svg" />
-      <img className="absolute animate-bounce right-[233px] bottom-[600px] lg:right-[270px] lg:bottom-[539px]" src="/main_join_bird.png" />
-      <div className="absolute top-40 -left-[100px] flex flex-col text-start px-[160px]">
-        <h1 className="test3 opacity-0 font-bold lg:leading-loose lg:text-4xl leading-loose text-3xl">공지사항</h1>
-        <span className="test3 opacity-0">우동집의 업데이트 정보 등 다양한 소식을 알려드립니다.</span>
+      <div className="h-screen flex flex-col justify-center items-center text-center">
+        <img className="absolute w-[80%] min-w-[280px] max-w-[550px] lg:w-[60%] lg:min-w-[59%] right-0" src="/main_shape_2.png" />
+        <img className="absolute w-[80%] min-w-[280px] max-w-[550px] lg:w-[60%] lg:min-w-[59%] right-0" src="/main2.svg" />
       </div>
-      <div className="flex w-full -left-[100px] flex-col items-center absolute top-1/3 lg:flex-row px-[160px] ">
-        <div className="test3 opacity-0 w-full flex flex-col  bg-btn-green-color rounded-2xl cursor-pointer lg:w-full hover:text-xl hover:drop-shadow-2xl ">
+      <img className="absolute w-[15vw] max-w-[100px] lg:w-[10vw] lg:max-w-[150px] animate-bounce right-[20%] bottom-[62%] max-sm:bottom-[78%] lg:right-[25%]" src="/main_join_bird.png" />
+      <div className="absolute top-20 sm:top-40 text-left ml-[10%]">
+        <h2 className="font-bold text-3xl lg:text-4xl leading-loose">공지사항</h2>
+        <span>우동집의 업데이트 정보등 다양한 소식을 알려드립니다.</span>
+      </div>
+      <section className="box-border max-sm:w-full max-sm:mx-auto absolute max-sm:top-44 top-1/3 sm:flex mx-[5%]">
+        <div className="cursor-pointer max-sm:w-[40vw] max-sm:min-w-[230px] max-sm:mx-auto bg-btn-green-color rounded-2xl hover:text-xl hover:drop-shadow-2xl m-5">
           <img src="/notification1.png" alt="" />
           <div className="bg-white h-8 rounded-b-2xl">공지사항</div>
         </div>
-        <div className="test3 opacity-0 hidden w-full bg-pink-color rounded-2xl my-10 lg:mx-10 cursor-pointer lg:w-full lg:block  hover:text-xl hover:drop-shadow-2xl">
+        <div className="cursor-pointer max-sm:w-[40vw] max-sm:min-w-[230px] max-sm:mx-auto bg-pink-color rounded-2xl hover:text-xl hover:drop-shadow-2xl m-5">
           <img src="/notification2.png" alt="" />
           <div className="bg-white h-8 rounded-b-2xl">공지사항</div>
         </div>
-        <div className="test3 opacity-0 hidden  w-1/2 bg-blue-color rounded-2xl cursor-pointer lg:w-full lg:block hover:text-xl hover:drop-shadow-2xl">
+        <div className="cursor-pointer max-sm:w-[40vw] max-sm:min-w-[230px] max-sm:mx-auto bg-blue-color rounded-2xl hover:text-xl hover:drop-shadow-2xl m-5">
           <img src="/notification3.png" alt="" />
           <div className="bg-white h-8 rounded-b-2xl">공지사항</div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };
