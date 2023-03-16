@@ -50,14 +50,16 @@ const KindergartenList = ({ kinderList, modalShow }) => {
     <div className="min-w-[27rem] lg:w-2/5 overflow-scroll">
       <div className="py-7 bg-main-color">
         <img src="/kindergarten.svg" className="mx-auto" />
-        <div className="flex flex-row items-center justify-center whitespace-nowrap text-sm px-2 gap-2 lg:gap-4">
-          <Select className="w-24 lg:w-32 lg:text-base" maxMenuHeight={220} options={locationOptions} placeholder="자치구" />
-          <Select className="w-32 lg:w-40 lg:text-base" maxMenuHeight={220} options={tyepOptions} placeholder="어린이집유형" />
+        <div className="flex flex-row items-center justify-center whitespace-nowrap mx-2 text-sm gap-2 lg:gap-3">
+          <Select className="min-w-[6rem] lg:w-32 lg:text-base" maxMenuHeight={220} options={locationOptions} placeholder="자치구" />
+          <Select className="min-w-[8rem] lg:w-40 lg:text-base" maxMenuHeight={220} options={tyepOptions} placeholder="어린이집유형" />
           <input type="text" placeholder="어린이집을 입력해주세요." className="w-44 h-9 rounded-md px-2 lg:w-48"></input>
-          <BiSearch className="lg:w-5 lg:h-5 inline-block cursor-pointer" />
+          <button type="button">
+            <BiSearch className="lg:w-5 lg:h-5 cursor-pointer" />
+          </button>
         </div>
       </div>
-      <div className="text-left ">
+      <div className="text-left">
         <ul className="lists">
           {kinderList.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
             <li className="kinList relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer" onClick={modalShow} id={index} key={index}>
