@@ -12,12 +12,12 @@ if (isNaN(number)) {
   number = "";
 }
 
-const getTitleByIndex = (index) => {
-  return boardData[index].제목;
+const getTitleByIndex = (number) => {
+  return boardData[number].제목;
 };
 
-const getContentByIndex = (index) => {
-  return boardData[index].내용;
+const getContentByIndex = (number) => {
+  return boardData[number].내용;
 };
 
 const BoardItemDetail = ({ title, content }) => {
