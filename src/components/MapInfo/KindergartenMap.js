@@ -35,11 +35,9 @@ const KindergartenMap = () => {
       let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
       let infoContent = `<div style="margin:5px 35px; white-space: nowrap; color:orange">${title}</div>`;
-      let infoPosition = new kakao.maps.LatLng(33.450705, 126.570677);
       let iwRemoveable = true;
 
       let infowindow = new kakao.maps.InfoWindow({
-        position: infoPosition,
         content: infoContent,
         removable: iwRemoveable,
       });
