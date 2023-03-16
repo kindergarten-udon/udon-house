@@ -12,7 +12,7 @@ const Map = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const url = `http://openapi.seoul.go.kr:8088/4e7269425a6c656534354f51426a71/json/ChildCareInfo/1/1000/`;
+        const url = `http://openapi.seoul.go.kr:8088/4e7269425a6c656534354f51426a71/json/ChildCareInfo/1/100/`;
         const response = await axios.get(url);
         setKinderList(response.data.ChildCareInfo.row);
       } catch (error) {
