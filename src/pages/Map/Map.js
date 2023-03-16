@@ -20,8 +20,10 @@ const Map = () => {
   // console.log(kinderList);
 
   const [modalClose, setModalClose] = useState(false);
+  const [index, setIndex] = useState(null);
 
-  const modalShow = () => {
+  const modalShow = (e) => {
+    setIndex(e.target.id);
     setModalClose(true);
   };
   useEffect(() => {
@@ -30,7 +32,7 @@ const Map = () => {
 
   return (
     <section className="flex flex-row h-screen lg:pt-[120px] pt-[72px]">
-      {modalClose && kinderList && <KindergartenModal kinderList={kinderList} setModalClose={setModalClose} />}
+      {modalClose && kinderList && <KindergartenModal kinderList={kinderList} index={index} setModalClose={setModalClose} />}
       <KindergartenMap />
       {kinderList && <KindergartenList kinderList={kinderList} modalShow={modalShow} />}
     </section>

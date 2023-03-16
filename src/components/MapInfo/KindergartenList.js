@@ -45,21 +45,8 @@ const KindergartenList = ({ kinderList, modalShow }) => {
     { value: "직장", label: "직장" },
   ];
 
-  // const [kinderList, setKinderList] = useState([]);
-
-  // const getData = async () => {
-  //   const url = `http://openapi.seoul.go.kr:8088/4e7269425a6c656534354f51426a71/json/ChildCareInfo/1/10/`;
-  //   const response = await axios.get(url);
-  //   setKinderList(response.data.ChildCareInfo.row);
-  // };
-
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-
-  console.log("data = ", kinderList[0]);
   return (
-    <div className="flex-0.5 lg:flex-1  overflow-scroll">
+    <div className="flex-0.5 lg:flex-1 overflow-scroll">
       <div className="py-7 bg-main-color">
         <img src="/kindergarten.svg" className="mx-auto" />
         <div className="flex flex-row items-center justify-center whitespace-nowrap text-sm px-2 gap-2 lg:gap-4">
@@ -70,15 +57,19 @@ const KindergartenList = ({ kinderList, modalShow }) => {
         </div>
       </div>
       <div className="text-left">
-        <ul>
+        <ul className="lists">
           {kinderList.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
-            <li className="relative flex flex-row items-center pt-[10px] hover:bg-gray-100 cursor-pointer" onClick={modalShow} key={index}>
-              <img src="/kindergarten.svg" className="w-20 mx-2.5 lg:w-24" />
+            <li className="kinList relative flex flex-row items-center pt-[10px] hover:bg-gray-100 cursor-pointer" onClick={modalShow} id={index} key={index}>
+              <img src="/kindergarten.svg" className="w-20 mx-2.5 lg:w-24" id={index} />
               <div>
-                <div className="text-xs">
-                  <h2 className="text-base font-bold lg:text-xl">{CRNAME}</h2>
-                  <p className="text-gray-500 lg:text-base">{CRADDR}</p>
-                  <p className="text-gray-500 lg:text-base">{`전화) : ${CRTELNO}`}</p>
+                <div className="text-xs" id={index}>
+                  <h2 className="text-base font-bold lg:text-xl" id={index}>
+                    {CRNAME}
+                  </h2>
+                  <p className="text-gray-500 lg:text-base" id={index}>
+                    {CRADDR}
+                  </p>
+                  <p className="text-gray-500 lg:text-base" id={index}>{`전화) : ${CRTELNO}`}</p>
                 </div>
                 <div className="hidden flex-row absolute top-1/2 translate-y-[-50%] right-8 gap-2 xl:flex">
                   <BiMap className="w-5 h-5 lg:w-7 lg:h-7" />
