@@ -22,20 +22,26 @@ const KindergartemModal = ({ kinderList, index, setModalClose }) => {
     }
   };
 
+  const clickDefault = (e) => e.preventDefault();
+
   const item = kinderList[index];
   const { CRNAME, CRTELNO, CRTYPENAME, NRTRROOMCNT, CHCRTESCNT, CRCAPAT, CRCHCNT, CRCARGBNAME, CCTVINSTLCNT, CRADDR, ZIPCODE, CRHOME } = item;
 
+  console.log(CRHOME);
   return (
     <div className="fixed w-screen h-screen bg-black bg-opacity-30 z-[999]" ref={modalRef}>
-      <div className="relative mt-[-120px] max-w-[35rem] h-[35rem] translateCenter text-lg text-left p-4 rounded-xl border-4 border-main-color bg-white lg:max-w-[45rem] lg:h-[40rem] lg:text-xl" key={index}>
-        <div className="flex flex-row h-[20%] items-center border-b-2 border-main-color py-2 gap-2">
+      <div className="relative max-w-[35rem] h-[35rem] modalPosition text-lg text-left p-4 rounded-xl border-4 border-main-color bg-white lg:max-w-[45rem] lg:h-[40rem] lg:text-xl">
+        <div className="flex flex-row h-[20%] items-center border-b-2 border-main-color py-2 gap-3">
           <button type="button" className="absolute top-1 right-1 p-3" onClick={modalClose}>
             <GrClose className="w-5 h-5" />
           </button>
-          <img src="/bird.svg" />
-          <h2 className="text-3xl font-extrabold mr-2 text-orange-400 truncate lg:text-4xl">{CRNAME}</h2>
-          <span className="truncate">{`전화) ${CRTELNO ? CRTELNO : "제공되지 않습니다."}`}</span>
+          <img src="/bird.svg" className="w-14 h-14" />
+          <div>
+            <h2 className="text-2xl font-extrabold mb-2 text-orange-400 truncate lg:text-3xl">{CRNAME}</h2>
+            <p className="text-lg lg:text-xl truncate">{`전화) ${CRTELNO ? CRTELNO : "제공되지 않습니다."}`}</p>
+          </div>
         </div>
+
         <div className="text-lg leading-10 lg:text-xl lg:leading-10">
           <ul className=" text-gray-600 py-3 ">
             <li className="listStyles">{`유형 : ${CRTYPENAME}`}</li>
@@ -44,17 +50,19 @@ const KindergartemModal = ({ kinderList, index, setModalClose }) => {
             <li className="listStyles">{`정원/현원 : ${CRCAPAT}명 / ${CRCHCNT}명`}</li>
             <li className="listStyles">{`통학차량 : ${CRCARGBNAME ? "운영" : "미운영"}`}</li>
             <li className="listStyles">{`CCTV 설치수 : ${CCTVINSTLCNT}`}</li>
-            <li className="listStyles">{`주소 :  ${CRADDR} (${ZIPCODE})`}</li>
+            <li className="border border-transparent border-b-gray-300" key={index}>{`주소 : ${CRADDR} (${ZIPCODE})`}</li>
             <li className="truncate">
-              {`홈페이지 : ${
-                CRHOME ? (
-                  <Link to={CRHOME} className="text-green-500 hover:text-gray-600" target="_blank">
-                    {CRHOME}
-                  </Link>
-                ) : (
-                  "제공되지 않습니다."
-                )
-              }`}
+              홈페이지 :
+              <Link
+                to={CRHOME}
+                onClick={() => {
+                  CRHOME ? CRHOME : "#";
+                }}
+                className="text-orange-400 hover:text-2xl"
+                target="_blank"
+              >
+                {` ${CRHOME ? CRHOME : "제공되지 않습니다."}`}
+              </Link>
             </li>
           </ul>
         </div>
