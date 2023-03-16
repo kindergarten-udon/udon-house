@@ -7,6 +7,7 @@ import axios from "axios";
 const Map = () => {
   const [modalClose, setModalClose] = useState(false);
   const [kinderList, setKinderList] = useState(null);
+  const [index, setIndex] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
@@ -21,7 +22,8 @@ const Map = () => {
     getData();
   }, []);
 
-  const modalShow = () => {
+  const modalShow = (e) => {
+    setIndex(e.target.id);
     setModalClose(true);
   };
 
@@ -31,9 +33,9 @@ const Map = () => {
 
   return (
     <section className="flex flex-row h-screen lg:pt-[120px] pt-[72px]">
+      {modalClose && kinderList && <KindergartenModal kinderList={kinderList} index={index} setModalClose={setModalClose} />}
       <KindergartenMap />
       {kinderList && <KindergartenList kinderList={kinderList} modalShow={modalShow} />}
-      {modalClose && <KindergartenModal kinderList={kinderList} setModalClose={setModalClose} />}
     </section>
   );
 };

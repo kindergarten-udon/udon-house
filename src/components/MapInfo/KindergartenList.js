@@ -58,15 +58,19 @@ const KindergartenList = ({ kinderList, modalShow }) => {
         </div>
       </div>
       <div className="text-left">
-        <ul>
+        <ul className="lists">
           {kinderList.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
-            <li className="relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer" onClick={modalShow} key={index}>
+            <li className="kinList relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer" onClick={modalShow} id={index} key={index}>
               <div className="flex flex-row items-center">
-                <img src="/kindergarten.svg" className="w-20 mx-2 lg:w-24" />
-                <div className="text-xs truncate">
-                  <h2 className="truncate text-base font-bold lg:text-xl">{CRNAME}</h2>
-                  <p className="truncate text-gray-500 lg:text-base">{CRADDR}</p>
-                  <p className="text-gray-500 lg:text-base">{`전화) : ${CRTELNO ? CRTELNO : "제공되지 않습니다"}`}</p>
+                <img src="/kindergarten.svg" className="w-20 mx-2 lg:w-24" id={index} />
+                <div className="text-xs truncate" id={index}>
+                  <h2 className="truncate text-base font-bold lg:text-xl" id={index}>
+                    {CRNAME}
+                  </h2>
+                  <p className="truncate text-gray-500 lg:text-base" id={index}>
+                    {CRADDR}
+                  </p>
+                  <p className="text-gray-500 lg:text-base" id={index}>{`전화) : ${CRTELNO ? CRTELNO : "제공되지 않습니다"}`}</p>
                 </div>
               </div>
               <button type="button" className="mx-3">
