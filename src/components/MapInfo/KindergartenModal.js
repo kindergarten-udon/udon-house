@@ -22,28 +22,6 @@ const KindergartemModal = ({ kinderList, index, setModalClose }) => {
     }
   };
 
-  // const index = kinderList.STCODE;
-  // console.log(kinderList[0].CRNAME);
-  // event.stopPropagation();
-  // console.log(event.currentTarget);
-
-  // const boxs = document.querySelectorAll(".lists > li");
-  // // console.log(boxs);
-
-  // const [targetLi, setTarget] = useState(null);
-
-  // boxs.forEach((el) => {
-  //   el.onclick = () => {
-  //     const num = el.id;
-  //     return setTarget(num);
-  //     // return kinderList[el.id];
-  //   };
-  // });
-  // useEffect(() => {
-  //   // console.log(targetLi);
-  // }, []);
-  // // const targetl = getList();
-
   const item = kinderList[index];
   const { CRNAME, CRTELNO, CRTYPENAME, NRTRROOMCNT, CHCRTESCNT, CRCAPAT, CRCHCNT, CRCARGBNAME, CCTVINSTLCNT, CRADDR, ZIPCODE, CRHOME } = item;
 
@@ -51,12 +29,12 @@ const KindergartemModal = ({ kinderList, index, setModalClose }) => {
     <div className="fixed w-screen h-screen bg-black bg-opacity-30 z-[999]" ref={modalRef}>
       <div className="relative mt-[-120px] max-w-[35rem] h-[35rem] translateCenter text-lg text-left p-4 rounded-xl border-4 border-main-color bg-white lg:max-w-[45rem] lg:h-[40rem] lg:text-xl" key={index}>
         <div className="flex flex-row h-[20%] items-center border-b-2 border-main-color py-2 gap-2">
-          <button className="absolute top-1 right-1 p-3" onClick={modalClose}>
+          <button type="button" className="absolute top-1 right-1 p-3" onClick={modalClose}>
             <GrClose className="w-5 h-5" />
           </button>
           <img src="/bird.svg" />
           <h2 className="text-3xl font-extrabold mr-2 text-orange-400 truncate lg:text-4xl">{CRNAME}</h2>
-          <span className="truncate">{`전화) ${CRTELNO}`}</span>
+          <span className="truncate">{`전화) ${CRTELNO ? CRTELNO : "제공되지 않습니다."}`}</span>
         </div>
         <div className="text-lg leading-10 lg:text-xl lg:leading-10">
           <ul className=" text-gray-600 py-3 ">
@@ -68,10 +46,15 @@ const KindergartemModal = ({ kinderList, index, setModalClose }) => {
             <li className="listStyles">{`CCTV 설치수 : ${CCTVINSTLCNT}`}</li>
             <li className="listStyles">{`주소 :  ${CRADDR} (${ZIPCODE})`}</li>
             <li className="truncate">
-              홈페이지 :{" "}
-              <Link to={CRHOME} className="text-green-500 hover:text-gray-600" target="_blank">
-                {CRHOME}
-              </Link>
+              {`홈페이지 : ${
+                CRHOME ? (
+                  <Link to={CRHOME} className="text-green-500 hover:text-gray-600" target="_blank">
+                    {CRHOME}
+                  </Link>
+                ) : (
+                  "제공되지 않습니다."
+                )
+              }`}
             </li>
           </ul>
         </div>

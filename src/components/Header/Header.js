@@ -7,7 +7,6 @@ const Header = () => {
   const [active, setActive] = useState(true);
   const location = useLocation();
   const path = location.pathname;
-  console.log(path);
   const arr = ["/", "/map"];
 
   return (

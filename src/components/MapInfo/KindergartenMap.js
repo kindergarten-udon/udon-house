@@ -3,19 +3,19 @@ const { kakao } = window;
 
 const testPosition = [
   {
-    title: "카카오",
+    title: "사랑별어린이집",
     latlng: new kakao.maps.LatLng(33.450705, 126.570677),
   },
   {
-    title: "생태연못",
+    title: "현대캐피탈 도담어린이집",
     latlng: new kakao.maps.LatLng(33.450936, 126.569477),
   },
   {
-    title: "텃밭",
+    title: "멋쟁이사자처럼 어린이집",
     latlng: new kakao.maps.LatLng(33.450879, 126.56994),
   },
   {
-    title: "근린공원",
+    title: "서울어린이집",
     latlng: new kakao.maps.LatLng(33.451393, 126.570738),
   },
 ];
@@ -34,29 +34,33 @@ const KindergartenMap = () => {
       let imageSize = new kakao.maps.Size(24, 35);
       let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
-      let info = `<div class="text-center">${title}</div>`;
+      let infoContent = `<div style="margin:5px 35px; white-space: nowrap; color:orange">${title}</div>`;
       let infoPosition = new kakao.maps.LatLng(33.450705, 126.570677);
+      let iwRemoveable = true;
 
       let infowindow = new kakao.maps.InfoWindow({
         position: infoPosition,
-        content: info,
+        content: infoContent,
+        removable: iwRemoveable,
       });
 
       let marker = new kakao.maps.Marker({
         map: map,
         position: latlng,
-        // title: title,
+        title: title,
         image: markerImage,
       });
 
-      infowindow.open(map, marker);
+      kakao.maps.event.addListener(marker, "click", function () {
+        infowindow.open(map, marker);
+      });
     });
 
     let zoomControl = new kakao.maps.ZoomControl();
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
   }, []);
 
-  return <div id="map" className="flex-1 lg:flex-[1.5]"></div>;
+  return <div id="map" className="w-3/5"></div>;
 };
 
 export default KindergartenMap;
