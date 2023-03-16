@@ -22,12 +22,9 @@ const KindergartemModal = ({ kinderList, index, setModalClose }) => {
     }
   };
 
-  const clickDefault = (e) => e.preventDefault();
-
   const item = kinderList[index];
   const { CRNAME, CRTELNO, CRTYPENAME, NRTRROOMCNT, CHCRTESCNT, CRCAPAT, CRCHCNT, CRCARGBNAME, CCTVINSTLCNT, CRADDR, ZIPCODE, CRHOME } = item;
 
-  console.log(CRHOME);
   return (
     <div className="fixed w-screen h-screen bg-black bg-opacity-30 z-[999]" ref={modalRef}>
       <div className="relative max-w-[35rem] h-[35rem] modalPosition text-lg text-left p-4 rounded-xl border-4 border-main-color bg-white lg:max-w-[45rem] lg:h-[40rem] lg:text-xl">
@@ -55,8 +52,8 @@ const KindergartemModal = ({ kinderList, index, setModalClose }) => {
               홈페이지 :
               <Link
                 to={CRHOME}
-                onClick={() => {
-                  CRHOME ? CRHOME : "#";
+                onClick={(event) => {
+                  if (CRHOME.length <= 0) event.preventDefault();
                 }}
                 className="text-orange-400 hover:text-2xl"
                 target="_blank"
