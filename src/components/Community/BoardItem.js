@@ -37,28 +37,22 @@ const BoardItem = () => {
   const [number, setNumber] = useState("");
   const url = window.location.href;
   const lastIndex = url.lastIndexOf("/");
-  const boardNumber = url.substring(lastIndex + 1);
+  const urlNumber = url.substring(lastIndex + 1);
 
-  useEffect(() => {
-    if (isNaN(number)) {
-      setNumber("");
-    } else {
-      setNumber(number);
-    }
-  }, []);
+  useEffect(() => {}, [urlNumber]);
 
   const getTitleByIndex = () => {
-    return boardData[boardNumber].제목;
+    return boardData[urlNumber].제목;
   };
 
   const getContentByIndex = () => {
-    return boardData[boardNumber].내용;
+    return boardData[urlNumber].내용;
   };
 
   return (
     <>
       <div>
-        <BoardItemDetail title={getTitleByIndex(boardNumber)} content={getContentByIndex(boardNumber)} />
+        <BoardItemDetail title={getTitleByIndex(urlNumber)} content={getContentByIndex(urlNumber)} />
       </div>
     </>
   );
