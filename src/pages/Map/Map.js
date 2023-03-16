@@ -12,7 +12,7 @@ const Map = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const url = `http://openapi.seoul.go.kr:8088/4e7269425a6c656534354f51426a71/json/ChildCareInfo/1/10/`;
+        const url = `http://openapi.seoul.go.kr:8088/4e7269425a6c656534354f51426a71/json/ChildCareInfo/1/1000/`;
         const response = await axios.get(url);
         setKinderList(response.data.ChildCareInfo.row);
       } catch (error) {
@@ -33,7 +33,7 @@ const Map = () => {
 
   return (
     <section className="flex flex-row h-screen lg:pt-[120px] pt-[72px]">
-      {modalClose && kinderList && <KindergartenModal kinderList={kinderList} index={index} setModalClose={setModalClose} />}
+      {modalClose && kinderList && index && <KindergartenModal kinderList={kinderList} index={index} setModalClose={setModalClose} />}
       <KindergartenMap />
       {kinderList && <KindergartenList kinderList={kinderList} modalShow={modalShow} />}
     </section>
