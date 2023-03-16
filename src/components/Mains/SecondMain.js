@@ -32,7 +32,6 @@ const SecondMain = () => {
     { src: "/baby7.jpg", alt: "애기사진" },
     { src: "/baby8.jpg", alt: "애기사진" },
   ];
-
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
@@ -42,7 +41,7 @@ const SecondMain = () => {
         <img className="absolute w-[80%] min-w-[280px] max-w-[550px] lg:w-[60%] lg:min-w-[59%] right-0" src="/main2.svg" />
       </div>
       <div className="test opacity-0 absolute top-44 max-sm:pr-[50px] max-sm:-translate-x-[30px]">
-        <h1 className="text-left font-bold leading-loose text-3xl lg:text-5xl ">
+        <h1 className="text-left font-bold leading-loose text-3xl lg:text-5xl max-sm:pr-5 max-sm:text-2xl">
           함께 나누고 <br />
           함께 성장하는 <span className="text-btn-green-color">우리 동네 어린이집</span>
         </h1>
@@ -83,7 +82,7 @@ const SecondMain = () => {
           })}
         </Swiper>
         <button ref={prevRef} className=" text-black text-3xl px-2" type="button">
-          Prev
+          Pr
         </button>
         <button ref={nextRef} className="text-black text-3xl px-2" type="button">
           Next
