@@ -47,7 +47,7 @@ const tyepOptions = [
 
 const KindergartenList = ({ kinderList, modalShow }) => {
   return (
-    <div className="min-w-min lg:w-2/5 overflow-scroll">
+    <div className="min-w-[28rem] lg:w-2/5 overflow-scroll">
       <div className="py-7 bg-main-color">
         <img src="/kindergarten.svg" className="mx-auto" />
         <div className="flex flex-row items-center justify-center whitespace-nowrap text-sm px-2 gap-2 lg:gap-4">
