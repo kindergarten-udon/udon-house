@@ -20,7 +20,7 @@ const testPosition = [
   },
 ];
 
-const KindergartenMap = () => {
+const KindergartenMap = ({ kinderList }) => {
   useEffect(() => {
     let container = document.getElementById("map");
     let options = {
@@ -58,7 +58,7 @@ const KindergartenMap = () => {
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
   }, []);
 
-  return <div id="map" className="w-3/5"></div>;
+  return <div id="map" className="w-3/5 hidden md:block"></div>;
 };
 
 export default KindergartenMap;
