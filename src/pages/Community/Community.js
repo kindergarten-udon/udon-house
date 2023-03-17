@@ -7,7 +7,7 @@ import BestBoard from "components/Community/BestBoard";
 import { onSnapshot, collection } from "firebase/firestore";
 import { dbService } from "util/fbase";
 
-const Community = () => {
+const Community = ({ isLogin }) => {
   // 게시물 뿌려주기
   const [contents, setContents] = useState([]);
 
@@ -30,7 +30,7 @@ const Community = () => {
       <h2 className="text-2xl lg:text-5xl font-bold text-left lg:px-[10vw] px-7 mt-7 text-gray-800 bg-">커뮤니티</h2>
       <div className="text-sm lg:text-base text-left lg:px-[10vw] px-7 mt-3 lg:mt-6 mb-2 lg:mb-5 text-gray-800">우리아이 자랑 커뮤니티</div>
       <BestBoard />
-      <div>{window.location.href.includes("community/") ? <BoardItem /> : <BoardList contents={contents} />}</div>
+      <div>{window.location.href.includes("community/") ? <BoardItem /> : <BoardList isLogin={isLogin} contents={contents} />}</div>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import { BsHandThumbsUp } from "react-icons/bs";
 import { BsHandThumbsUpFill } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -34,25 +34,14 @@ const BoardItemDetail = ({ title, content }) => {
 };
 
 const BoardItem = () => {
-  const [number, setNumber] = useState("");
-  const url = window.location.href;
-  const lastIndex = url.lastIndexOf("/");
-  const urlNumber = url.substring(lastIndex + 1);
-
-  useEffect(() => {}, [urlNumber]);
-
-  const getTitleByIndex = () => {
-    return boardData[urlNumber].제목;
-  };
-
-  const getContentByIndex = () => {
-    return boardData[urlNumber].내용;
-  };
+  const { id } = useParams();
+  const location = useLocation();
+  console.log(location);
 
   return (
     <>
       <div>
-        <BoardItemDetail title={getTitleByIndex(urlNumber)} content={getContentByIndex(urlNumber)} />
+        <BoardItemDetail title={"타이틀"} content={"콘텐츠"} />
       </div>
     </>
   );

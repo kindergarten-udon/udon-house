@@ -15,6 +15,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "util/fbase";
 
 function App() {
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
   const [userId, setUserId] = useState(null);
   useEffect(() => {
@@ -37,11 +38,11 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/aboutus" element={<AboutUs />} />
-            <Route path="/community" element={<Community />} />
+            <Route path="/community" element={<Community isLogin={isLogin} />} />
+            <Route path="/community/:id" element={<Community />} />
             <Route path="/map/:id" element={<Map />} />
-            <Route path="/community/:index" element={<Community />} />
-            <Route path="/writeCommunity" element={<WriteCommunity userId={userId} />} />
             <Route path="/map" element={<Map />} />
+            <Route path="/writeCommunity" element={<WriteCommunity userId={userId} />} />
           </>
         </Routes>
         <Footer />
