@@ -29,7 +29,6 @@ const WriteCommunity = ({ userId }) => {
     } else if (name == "content") setContent(value);
   };
 
-  console.log(title);
   // 글쓰기 모달창
   const showWriteModal = () => {
     if (title.trim() == "" || content.trim() == "") {

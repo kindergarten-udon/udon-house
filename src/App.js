@@ -39,7 +39,7 @@ function App() {
             <Route path="/signin" element={<SignIn />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/community" element={<Community isLogin={isLogin} />} />
-            <Route path="/community/:id" element={<Community />} />
+            <Route path="/community/:id" element={<Community userId={userId} />} />
             <Route path="/map/:id" element={<Map />} />
             <Route path="/map" element={<Map />} />
             <Route path="/writeCommunity" element={<WriteCommunity userId={userId} />} />

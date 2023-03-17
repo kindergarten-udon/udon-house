@@ -13,7 +13,6 @@ import { IoIosArrowDropleft, IoIosArrowDropright } from "react-icons/io";
 gsap.registerPlugin(ScrollTrigger);
 
 const SecondMain = () => {
-  const [click, setClick] = useState(null);
   useEffect(() => {
     ScrollTrigger.create({
       trigger: ".test1",
@@ -22,7 +21,7 @@ const SecondMain = () => {
       animation: gsap.to(".test", { opacity: 1, duration: 1, stagger: 0.2 }),
       toggleActions: "restart reverse restart reverse",
     });
-  }, [click]);
+  }, []);
 
   const babyImg = [
     { src: "/baby1.jpg", alt: "애기사진" },
@@ -58,7 +57,6 @@ const SecondMain = () => {
           autoplay={{ delay: 2000 }}
           loop={true}
           navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
-          loopAdditionalSlides={1}
           breakpoints={{
             320: {
               slidesPerView: 2,
@@ -86,12 +84,16 @@ const SecondMain = () => {
             );
           })}
           <div className="relative z-40">
-            <button ref={prevRef} className="absolute bottom-[90px] left-5 text-white text-3xl px-2" type="button" onClick={click}>
-              <IoIosArrowDropleft className="test opacity-0 max-sm:w-[45px] max-sm:h-[45px] w-[60px] h-[60px]" />
-            </button>
-            <button ref={nextRef} className="absolute bottom-[90px] right-5 text-white text-3xl px-2" type="button">
-              <IoIosArrowDropright className="test opacity-0 max-sm:w-[45px] max-sm:h-[45px] w-[60px] h-[60px]" />
-            </button>
+            {prevRef && (
+              <button ref={prevRef} className="absolute bottom-[90px] left-5 text-white text-3xl px-2" type="button">
+                <IoIosArrowDropleft className="test opacity-0 max-sm:w-[45px] max-sm:h-[45px] w-[60px] h-[60px]" />
+              </button>
+            )}
+            {nextRef && (
+              <button ref={nextRef} className="absolute bottom-[90px] right-5 text-white text-3xl px-2" type="button">
+                <IoIosArrowDropright className="test opacity-0 max-sm:w-[45px] max-sm:h-[45px] w-[60px] h-[60px]" />
+              </button>
+            )}
           </div>
         </Swiper>
       </div>

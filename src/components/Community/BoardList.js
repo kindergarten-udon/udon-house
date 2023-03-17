@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import BoardListItem from "./BoardListItem";
 
 const BoardList = ({ isLogin, contents }) => {
-  console.log(contents);
   const navigate = useNavigate();
   const writeOnClick = () => {
     if (isLogin) {
