@@ -1,24 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BsHandThumbsUp } from "react-icons/bs";
 import { BsHandThumbsUpFill } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
 import boardData from "./boardData";
-
-const url = window.location.href;
-const lastIndex = url.lastIndexOf("/");
-let number = url.substring(lastIndex + 1);
-if (isNaN(number)) {
-  number = "";
-}
-
-const getTitleByIndex = (index) => {
-  return boardData[index].제목;
-};
-
-const getContentByIndex = (index) => {
-  return boardData[index].내용;
-};
 
 const BoardItemDetail = ({ title, content }) => {
   const [isChecked, setChecked] = useState(false);
@@ -49,10 +34,25 @@ const BoardItemDetail = ({ title, content }) => {
 };
 
 const BoardItem = () => {
+  const [number, setNumber] = useState("");
+  const url = window.location.href;
+  const lastIndex = url.lastIndexOf("/");
+  const urlNumber = url.substring(lastIndex + 1);
+
+  useEffect(() => {}, [urlNumber]);
+
+  const getTitleByIndex = () => {
+    return boardData[urlNumber].제목;
+  };
+
+  const getContentByIndex = () => {
+    return boardData[urlNumber].내용;
+  };
+
   return (
     <>
       <div>
-        <BoardItemDetail title={getTitleByIndex(number)} content={getContentByIndex(number)} />
+        <BoardItemDetail title={getTitleByIndex(urlNumber)} content={getContentByIndex(urlNumber)} />
       </div>
     </>
   );
