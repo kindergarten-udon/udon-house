@@ -2,7 +2,8 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import BoardListItem from "./BoardListItem";
 
-const BoardList = () => {
+const BoardList = ({ contents }) => {
+  console.log(contents);
   return (
     <>
       <section className="board-list w-4/5 mx-auto">
@@ -12,7 +13,7 @@ const BoardList = () => {
           </Link>
         </div>
         <div className="w-full min-w-[280px] mb-20 text-sm lg:text-base text-gray-700">
-          <BoardListItem />
+          <BoardListItem contents={contents} />
         </div>
       </section>
     </>

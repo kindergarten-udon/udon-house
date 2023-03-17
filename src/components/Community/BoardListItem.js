@@ -15,12 +15,12 @@ function BoardItem({ index, title, content }) {
   );
 }
 
-const BoardListItem = () => {
+const BoardListItem = ({ contents }) => {
   return (
     <>
       <div>
-        {boardData.map((item, index) => (
-          <BoardItem title={item.제목} content={item.내용} index={index} />
+        {contents.map((item, index) => (
+          <BoardItem title={item.writer} content={item.title} index={index} />
         ))}
       </div>
     </>
