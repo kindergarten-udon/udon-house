@@ -8,6 +8,7 @@ const Header = ({ isLogin }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname;
+  const arr = ["/", "/map"];
 
   const loginBtn = () => {
     navigate("/signin");
@@ -26,7 +27,7 @@ const Header = ({ isLogin }) => {
 
   return (
     <>
-      <header className={`${path === "/" ? "bg-transparent" : "bg-white"} z-20 w-full lg:h-[120px]  h-[72px] flex justify-between fixed items-center lg:px-[60px] lg:py-[24px] p-[16px]`}>
+      <header className={`${arr.includes(path) ? "bg-transparent" : "bg-white"} z-20 w-full lg:h-[120px]  h-[72px] flex justify-between fixed items-center lg:px-[60px] lg:py-[24px] p-[16px]`}>
         <Link to="/">
           <img src="/udonHouseLogo.svg" alt="우동집 로고" className="lg:h-[72px] h-[40px]" />
         </Link>
