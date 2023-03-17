@@ -35,4 +35,15 @@ const Community = ({ isLogin }) => {
   );
 };
 
+// const Community = () => {
+//   return (
+//     <>
+//       <div>
+//         {/* 추후 best 게시물 id 값을 찾아와서 넣어주는 형식으로 작성하면 될것 같습니다. */}
+//         <CommunityList first={getContentByNumber(0)} second={getContentByNumber(1)} third={getContentByNumber(2)} />
+//       </div>
+//     </>
+//   );
+// };
+
 export default Community;

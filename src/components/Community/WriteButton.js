@@ -34,7 +34,7 @@ const WriteButton = ({ content, title, setWriteModalOpen, userId }) => {
   };
   return (
     <>
-      <section ref={wrapperRef} className="fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-30">
+      <section ref={wrapperRef} className="fixed top-0 left-0 right-0 bottom-0 z-30 bg-black bg-opacity-30">
         <div className="absolute w-[70vw] max-w-[350px] lg:w-[450px] cancel border rounded-xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  z-50 shadow-slate-300 bg-white">
           <div className="text-lg lg:text-xl font-bold text-gray-700 my-8 px-4">글을 작성하시겠습니까?</div>
           <div className="my-5">
