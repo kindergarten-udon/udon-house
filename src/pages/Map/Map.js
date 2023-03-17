@@ -3,35 +3,43 @@ import KindergartenList from "components/MapInfo/KindergartenList";
 import KindergartenMap from "components/MapInfo/KindergartenMap";
 import KindergartenModal from "components/MapInfo/KindergartenModal";
 import axios from "axios";
+const { kakao } = window;
 
 const Map = () => {
+  const [modalClose, setModalClose] = useState(false);
   const [kinderList, setKinderList] = useState(null);
-
-  const getData = async () => {
-    const url = `http://openapi.seoul.go.kr:8088/4e7269425a6c656534354f51426a71/json/ChildCareInfo/1/10/`;
-    const response = await axios.get(url);
-    setKinderList(response.data.ChildCareInfo.row);
-  };
+  const [index, setIndex] = useState(null);
 
   useEffect(() => {
+    const getData = async () => {
+      try {
+        const url = `http://openapi.seoul.go.kr:8088/4e7269425a6c656534354f51426a71/json/ChildCareInfo/1/1000/`;
+        const response = await axios.get(url);
+        setKinderList(response.data.ChildCareInfo.row);
+      } catch (error) {
+        alert("데이터를 불러오는 과정에서 에러가 발생했습니다!!");
+      }
+    };
     getData();
   }, []);
 
-  // console.log(kinderList);
-
-  const [modalClose, setModalClose] = useState(false);
-
-  const modalShow = () => {
-    setModalClose(true);
+  const modalShow = (e) => {
+    // console.log("currentTarget = ", e.currentTarget);
+    // console.log("Target = ", e.target.tagName);
+    if (!(e.target.tagName === "svg" || e.target.tagName === "path")) {
+      setIndex(e.currentTarget.id);
+      setModalClose(true);
+    }
   };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
     <section className="flex flex-row h-screen lg:pt-[120px] pt-[72px]">
-      {modalClose && kinderList && <KindergartenModal kinderList={kinderList} setModalClose={setModalClose} />}
-      <KindergartenMap />
+      {modalClose && kinderList && index && <KindergartenModal kinderList={kinderList} index={index} setModalClose={setModalClose} />}
+      {kinderList && <KindergartenMap kinderList={kinderList} />}
       {kinderList && <KindergartenList kinderList={kinderList} modalShow={modalShow} />}
     </section>
   );
