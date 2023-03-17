@@ -11,12 +11,24 @@ import WriteCommunity from "pages/Community/WriteCommunity";
 import Map from "pages/Map/Map";
 import NotFound from "pages/NotFound/NotFound";
 import { useEffect, useRef, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "util/fbase";
 
 function App() {
+  const [isLogin, setIsLogin] = useState(false);
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setIsLogin(true);
+      } else {
+        setIsLogin(false);
+      }
+    });
+  }, []);
   return (
     <div className="App font-sans">
       <>
-        <Header />
+        <Header isLogin={isLogin} />
         <Routes>
           <>
             <Route path="/" element={<Main />} />
