@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Select from "react-select";
 import { BiSearch, BiMap } from "react-icons/bi";
 import KindergartenModal from "components/MapInfo/KindergartenModal";
 import axios from "axios";
 import { async } from "@firebase/util";
+const { kakao } = window;
 
 const locationOptions = [
   { value: "전체", label: "전체" },
@@ -34,7 +35,7 @@ const locationOptions = [
   { value: "중랑구", label: "중랑구" },
 ];
 
-const tyepOptions = [
+const typeOptions = [
   { value: "전체", label: "전체" },
   { value: "국공립", label: "국공립" },
   { value: "사회복지법인", label: "사회복지법인" },
@@ -46,6 +47,84 @@ const tyepOptions = [
 ];
 
 const KindergartenList = ({ kinderList, modalShow }) => {
+  const [localArr, setLocalArr] = useState(kinderList);
+  const [typeArr, setTypeArr] = useState(kinderList);
+  const [qualifiedArr, setQualifiedArr] = useState(kinderList);
+  const inputName = useRef(null);
+
+  const handleLocationChange = (selectedOption) => {
+    if (selectedOption.value === "전체") {
+      setLocalArr(kinderList);
+      return;
+    }
+    setLocalArr(kinderList.filter((elem) => elem.SIGUNNAME === selectedOption.value));
+  };
+
+  const handleTypeChange = (selectedOption) => {
+    if (selectedOption.value === "전체") {
+      setTypeArr(kinderList);
+      return;
+    }
+
+    setTypeArr(kinderList.filter((elem) => elem.CRTYPENAME === selectedOption.value));
+  };
+
+  const onSubmitSearchEnter = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
+  const handleSearch = () => {
+    const inputValue = inputName.current.value;
+
+    const arr = localArr.filter((elem) => typeArr.includes(elem));
+    setQualifiedArr(arr.filter((elem) => elem.CRNAME.includes(inputValue)));
+  };
+
+  const handleMapClick = (e) => {
+    e.preventDefault();
+    let index = e.currentTarget.id;
+    const item = qualifiedArr[index];
+    const { CRNAME, LA, LO } = item;
+
+    if (LA.length <= 0) {
+      alert("해당 어린이집은 위치 정보가 없습니다");
+      return;
+    }
+
+    let container = document.getElementById("map");
+    let options = {
+      center: new kakao.maps.LatLng(LA, LO),
+      level: 2,
+    };
+    let map = new kakao.maps.Map(container, options);
+
+    let imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+    let imageSize = new kakao.maps.Size(24, 35);
+    let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+    let infoContent = `<div style="margin:5px 35px; white-space: nowrap; color:orange">${CRNAME}</div>`;
+    let infoPosition = new kakao.maps.LatLng(LA, LO);
+    let iwRemoveable = true;
+
+    let infowindow = new kakao.maps.InfoWindow({
+      position: infoPosition,
+      content: infoContent,
+      removable: iwRemoveable,
+    });
+
+    let marker = new kakao.maps.Marker({
+      map: map,
+      position: infoPosition,
+      image: markerImage,
+    });
+
+    kakao.maps.event.addListener(marker, "click", function () {
+      infowindow.open(map, marker);
+    });
+  };
+
   return (
     <div className="flex-1 min-w-[27rem] lg:w-2/5 overflow-scroll">
       <div className="py-7 bg-main-color">
@@ -61,7 +140,7 @@ const KindergartenList = ({ kinderList, modalShow }) => {
       </div>
       <div className="text-left">
         <ul className="lists">
-          {kinderList.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
+          {qualifiedArr.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
             <li className="kinList relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer" onClick={modalShow} id={index} key={index}>
               <div className="min-w-[24rem] flex flex-row items-center justify-center">
                 <img src="/kindergarten.svg" className="w-20 mx-2 lg:w-24" id={index} />
@@ -75,8 +154,8 @@ const KindergartenList = ({ kinderList, modalShow }) => {
                   <p className="text-gray-500 xl:text-base" id={index}>{`전화) : ${CRTELNO ? CRTELNO : "제공되지 않습니다"}`}</p>
                 </div>
               </div>
-              <button type="button" className="p-2 hidden md:block hover:text-orange-400">
-                <BiMap className="w-6 h-6 lg:w-8 lg:h-8" />
+              <button type="button" className="p-2 hidden md:block hover:text-orange-400 ">
+                <BiMap className="w-6 h-6 lg:w-8 lg:h-8" id={index} onClick={handleMapClick} />
               </button>
             </li>
           ))}
