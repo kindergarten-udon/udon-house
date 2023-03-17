@@ -4,6 +4,7 @@ import { BiSearch, BiMap } from "react-icons/bi";
 import KindergartenModal from "components/MapInfo/KindergartenModal";
 import axios from "axios";
 import { async } from "@firebase/util";
+const { kakao } = window;
 
 const locationOptions = [
   { value: "전체", label: "전체" },
@@ -81,6 +82,49 @@ const KindergartenList = ({ kinderList, modalShow }) => {
     setQualifiedArr(arr.filter((elem) => elem.CRNAME.includes(inputValue)));
   };
 
+  const handleMapClick = (e) => {
+    e.preventDefault();
+    let index = e.currentTarget.id;
+    const item = qualifiedArr[index];
+    const { CRNAME, LA, LO } = item;
+
+    if (LA.length <= 0) {
+      alert("해당 어린이집은 위치 정보가 없습니다");
+      return;
+    }
+
+    let container = document.getElementById("map");
+    let options = {
+      center: new kakao.maps.LatLng(LA, LO),
+      level: 2,
+    };
+    let map = new kakao.maps.Map(container, options);
+
+    let imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+    let imageSize = new kakao.maps.Size(24, 35);
+    let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+    let infoContent = `<div style="margin:5px 35px; white-space: nowrap; color:orange">${CRNAME}</div>`;
+    let infoPosition = new kakao.maps.LatLng(LA, LO);
+    let iwRemoveable = true;
+
+    let infowindow = new kakao.maps.InfoWindow({
+      position: infoPosition,
+      content: infoContent,
+      removable: iwRemoveable,
+    });
+
+    let marker = new kakao.maps.Marker({
+      map: map,
+      position: infoPosition,
+      image: markerImage,
+    });
+
+    kakao.maps.event.addListener(marker, "click", function () {
+      infowindow.open(map, marker);
+    });
+  };
+
   return (
     <div className="min-w-[27rem] lg:w-2/5 overflow-scroll">
       <div className="py-7 bg-main-color">
@@ -97,19 +141,15 @@ const KindergartenList = ({ kinderList, modalShow }) => {
           {qualifiedArr.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
             <li className="kinList relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer" onClick={modalShow} id={index} key={index}>
               <div className="flex flex-row items-center">
-                <img src="/kindergarten.svg" className="w-20 mx-2 lg:w-24" id={index} />
-                <div className="text-xs truncate" id={index}>
-                  <h2 className="truncate text-base font-bold lg:text-xl" id={index}>
-                    {CRNAME}
-                  </h2>
-                  <p className="truncate text-gray-500 lg:text-base" id={index}>
-                    {CRADDR}
-                  </p>
-                  <p className="text-gray-500 lg:text-base" id={index}>{`전화) : ${CRTELNO ? CRTELNO : "제공되지 않습니다"}`}</p>
+                <img src="/kindergarten.svg" className="w-20 mx-2 lg:w-24" />
+                <div className="text-xs truncate">
+                  <h2 className="truncate text-base font-bold lg:text-xl">{CRNAME}</h2>
+                  <p className="truncate text-gray-500 lg:text-base">{CRADDR}</p>
+                  <p className="text-gray-500 lg:text-base">{`전화) : ${CRTELNO ? CRTELNO : "제공되지 않습니다"}`}</p>
                 </div>
               </div>
-              <button type="button" className="mx-3">
-                <BiMap className="w-5 h-5 lg:w-8 lg:h-8" />
+              <button type="button" className="mx-3 ">
+                <BiMap className="w-5 h-5 lg:w-8 lg:h-8" id={index} onClick={handleMapClick} />
               </button>
             </li>
           ))}
