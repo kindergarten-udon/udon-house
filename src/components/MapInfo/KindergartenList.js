@@ -126,30 +126,36 @@ const KindergartenList = ({ kinderList, modalShow }) => {
   };
 
   return (
-    <div className="min-w-[27rem] lg:w-2/5 overflow-scroll">
+    <div className="flex-1 min-w-[27rem] lg:w-2/5 overflow-scroll">
       <div className="py-7 bg-main-color">
         <img src="/kindergarten.svg" className="mx-auto" />
-        <div className="flex flex-row items-center justify-center whitespace-nowrap text-sm px-2 gap-2 lg:gap-4">
-          <Select className="w-24 lg:w-32 lg:text-base" maxMenuHeight={220} options={locationOptions} onChange={handleLocationChange} placeholder="자치구" />
-          <Select className="w-32 lg:w-40 lg:text-base" maxMenuHeight={220} options={typeOptions} onChange={handleTypeChange} placeholder="어린이집유형" />
-          <input type="text" placeholder="어린이집을 입력해주세요." className="w-44 h-9 rounded-md px-2 lg:w-48" ref={inputName} onKeyPress={onSubmitSearchEnter}></input>
-          <BiSearch className="lg:w-5 lg:h-5 inline-block cursor-pointer" onClick={handleSearch} />
+        <div className="flex flex-row items-center justify-center whitespace-nowrap mx-2 text-sm gap-2 lg:gap-3">
+          <Select className="min-w-[5rem] lg:w-32 lg:text-base" maxMenuHeight={220} options={locationOptions} placeholder="자치구" />
+          <Select className="min-w-[7rem] lg:w-40 lg:text-base" maxMenuHeight={220} options={tyepOptions} placeholder="어린이집유형" />
+          <input type="text" placeholder="어린이집을 입력해주세요." className="w-44 h-9 rounded-md px-2 lg:w-48"></input>
+          <button type="button">
+            <BiSearch className="lg:w-5 lg:h-5 cursor-pointer" />
+          </button>
         </div>
       </div>
       <div className="text-left">
         <ul className="lists">
           {qualifiedArr.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
             <li className="kinList relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer" onClick={modalShow} id={index} key={index}>
-              <div className="flex flex-row items-center">
-                <img src="/kindergarten.svg" className="w-20 mx-2 lg:w-24" />
-                <div className="text-xs truncate">
-                  <h2 className="truncate text-base font-bold lg:text-xl">{CRNAME}</h2>
-                  <p className="truncate text-gray-500 lg:text-base">{CRADDR}</p>
-                  <p className="text-gray-500 lg:text-base">{`전화) : ${CRTELNO ? CRTELNO : "제공되지 않습니다"}`}</p>
+              <div className="min-w-[24rem] flex flex-row items-center justify-center">
+                <img src="/kindergarten.svg" className="w-20 mx-2 lg:w-24" id={index} />
+                <div className="w-96 lg:w-[27rem] text-sm truncate" id={index}>
+                  <h2 className="truncate text-base font-bold xl:text-xl" id={index}>
+                    {CRNAME}
+                  </h2>
+                  <p className="truncate text-gray-500 xl:text-base" id={index}>
+                    {CRADDR}
+                  </p>
+                  <p className="text-gray-500 xl:text-base" id={index}>{`전화) : ${CRTELNO ? CRTELNO : "제공되지 않습니다"}`}</p>
                 </div>
               </div>
-              <button type="button" className="mx-3 ">
-                <BiMap className="w-5 h-5 lg:w-8 lg:h-8" id={index} onClick={handleMapClick} />
+              <button type="button" className="p-2 hidden md:block hover:text-orange-400 ">
+                <BiMap className="w-6 h-6 lg:w-8 lg:h-8" id={index} onClick={handleMapClick} />
               </button>
             </li>
           ))}

@@ -20,7 +20,6 @@ const KindergartenMap = ({ kinderList }) => {
       let iwRemoveable = true;
 
       let infowindow = new kakao.maps.InfoWindow({
-        position: infoPosition,
         content: infoContent,
         removable: iwRemoveable,
       });
@@ -40,7 +39,7 @@ const KindergartenMap = ({ kinderList }) => {
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
   }, []);
 
-  return <div id="map" className="w-3/5"></div>;
+  return <div id="map" className="w-3/5 hidden md:block"></div>;
 };
 
 export default KindergartenMap;
