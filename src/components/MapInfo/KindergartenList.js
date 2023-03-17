@@ -131,7 +131,7 @@ const KindergartenList = ({ kinderList, modalShow }) => {
         <img src="/kindergarten.svg" className="mx-auto" />
         <div className="flex flex-row items-center justify-center whitespace-nowrap mx-2 text-sm gap-2 lg:gap-3">
           <Select className="min-w-[5rem] lg:w-32 lg:text-base" maxMenuHeight={220} options={locationOptions} placeholder="자치구" />
-          <Select className="min-w-[7rem] lg:w-40 lg:text-base" maxMenuHeight={220} options={tyepOptions} placeholder="어린이집유형" />
+          <Select className="min-w-[7rem] lg:w-40 lg:text-base" maxMenuHeight={220} options={typeOptions} placeholder="어린이집유형" />
           <input type="text" placeholder="어린이집을 입력해주세요." className="w-44 h-9 rounded-md px-2 lg:w-48"></input>
           <button type="button">
             <BiSearch className="lg:w-5 lg:h-5 cursor-pointer" />
