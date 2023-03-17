@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -8,6 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
+import { IoIosArrowDropleft, IoIosArrowDropright } from "react-icons/io";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -54,14 +55,17 @@ const SecondMain = () => {
           className="test w-full rounded-md opacity-0 -left-[50px]"
           modules={[Navigation, Pagination, A11y, Autoplay]}
           autoplay={{ delay: 2000 }}
+          loop={true}
           navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
+          loopAdditionalSlides={1}
           breakpoints={{
             320: {
               slidesPerView: 2,
-              spaceBetween: 10,
+              spaceBetween: 5,
             },
             480: {
               slidesPerView: 3,
+              spaceBetween: 10,
             },
             720: {
               slidesPerView: 4,
@@ -80,13 +84,15 @@ const SecondMain = () => {
               </SwiperSlide>
             );
           })}
+          <div className="relative -translate-x-[50px] z-40">
+            <button ref={prevRef} className="absolute bottom-[90px] left-5 text-white text-3xl px-2" type="button">
+              <IoIosArrowDropleft className="test opacity-0 w-[60px] h-[60px]" />
+            </button>
+            <button ref={nextRef} className="absolute bottom-[90px] right-5 text-white  text-3xl px-2" type="button">
+              <IoIosArrowDropright className="test opacity-0 w-[60px] h-[60px]" />
+            </button>
+          </div>
         </Swiper>
-        <button ref={prevRef} className=" text-black text-3xl px-2" type="button">
-          Pr
-        </button>
-        <button ref={nextRef} className="text-black text-3xl px-2" type="button">
-          Next
-        </button>
       </div>
     </div>
   );
