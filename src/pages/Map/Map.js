@@ -8,6 +8,7 @@ const { kakao } = window;
 const Map = () => {
   const [modalClose, setModalClose] = useState(false);
   const [kinderList, setKinderList] = useState(null);
+  const [qualifiedList, setQualifiedList] = useState(kinderList);
   const [index, setIndex] = useState(null);
 
   useEffect(() => {
@@ -38,9 +39,9 @@ const Map = () => {
 
   return (
     <section className="flex flex-row h-screen lg:pt-[120px] pt-[72px]">
-      {modalClose && kinderList && index && <KindergartenModal kinderList={kinderList} index={index} setModalClose={setModalClose} />}
+      {modalClose && kinderList && index && <KindergartenModal kinderList={kinderList} index={index} qualifiedList={qualifiedList} setModalClose={setModalClose} />}
       {kinderList && <KindergartenMap kinderList={kinderList} />}
-      {kinderList && <KindergartenList kinderList={kinderList} modalShow={modalShow} />}
+      {kinderList && <KindergartenList kinderList={kinderList} setQualifiedList={setQualifiedList} modalShow={modalShow} />}
     </section>
   );
 };

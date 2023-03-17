@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { GrClose } from "react-icons/gr";
 
-const KindergartemModal = ({ kinderList, index, setModalClose }) => {
+const KindergartemModal = ({ kinderList, index, qualifiedList, setModalClose }) => {
   const modalRef = useRef(null);
 
   const modalClose = () => {
@@ -22,7 +22,7 @@ const KindergartemModal = ({ kinderList, index, setModalClose }) => {
     }
   };
 
-  const item = kinderList[index];
+  const item = qualifiedList === null ? kinderList[index] : qualifiedList[index];
   const { CRNAME, CRTELNO, CRTYPENAME, NRTRROOMCNT, CHCRTESCNT, CRCAPAT, CRCHCNT, CRCARGBNAME, CCTVINSTLCNT, CRADDR, ZIPCODE, CRHOME } = item;
 
   return (
