@@ -15,8 +15,13 @@ const Header = ({ isLogin }) => {
 
   // 로그아웃
   const logout = () => {
-    alert("로그아웃!");
-    auth.signOut();
+    if (window.confirm("로그아웃 하시겠습니까?")) {
+      alert("로그아웃 완료!");
+      navigate("/");
+      auth.signOut();
+    } else {
+      alert("로그인 유지");
+    }
   };
 
   return (

@@ -1,11 +1,28 @@
 import "./Community.css";
-import { React, useRef, useEffect } from "react";
+import { React, useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import BoardList from "components/Community/BoardList";
 import BoardItem from "components/Community/BoardItem";
 import BestBoard from "components/Community/BestBoard";
+import { onSnapshot, collection } from "firebase/firestore";
+import { dbService } from "util/fbase";
 
 const Community = () => {
+  // 게시물 뿌려주기
+  const [contents, setContents] = useState("");
+
+  // onSnapshot으로 실시간 상태관리 하기
+  useEffect(() => {
+    onSnapshot(collection(dbService, "content"), (snapshot) => {
+      const contentArray = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      console.log(contentArray);
+      setContents(contentArray);
+    });
+  }, []);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

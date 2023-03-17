@@ -16,10 +16,12 @@ import { auth } from "util/fbase";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
+  const [userId, setUserId] = useState(null);
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
         setIsLogin(true);
+        setUserId(user);
       } else {
         setIsLogin(false);
       }
@@ -38,7 +40,7 @@ function App() {
             <Route path="/community" element={<Community />} />
             <Route path="/map/:id" element={<Map />} />
             <Route path="/community/:index" element={<Community />} />
-            <Route path="/writeCommunity" element={<WriteCommunity />} />
+            <Route path="/writeCommunity" element={<WriteCommunity userId={userId} />} />
             <Route path="/map" element={<Map />} />
           </>
         </Routes>

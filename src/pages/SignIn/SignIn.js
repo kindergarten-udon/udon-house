@@ -8,8 +8,6 @@ import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const navigate = useNavigate();
-  //firebase
-  const [user, setUser] = useState({});
   // email password값
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +30,7 @@ const SignIn = () => {
   // 로그인
   const handleLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
-      .then((user) => {
+      .then(() => {
         alert("로그인 완료!");
         navigate("/");
       })
@@ -96,7 +94,7 @@ const SignIn = () => {
           </div>
 
           <div className="w-[450px] h-[80px] pt-[20px] pb-[25px]relative m-auto inline-block ">
-            <button type="submit" onClick={handleLogin} className="w-[450px] h-[45px] rounded-[10px] bg-gray-400  hover:bg-btn-green-color border-solid ">
+            <button disabled={(email, password) == ""} type="submit" onClick={handleLogin} className="w-[450px] h-[45px] rounded-[10px] disabled:bg-gray-400  bg-btn-green-color border-solid ">
               로그인
             </button>
           </div>
