@@ -26,8 +26,8 @@ const KindergartemModal = ({ kinderList, index, setModalClose }) => {
   const { CRNAME, CRTELNO, CRTYPENAME, NRTRROOMCNT, CHCRTESCNT, CRCAPAT, CRCHCNT, CRCARGBNAME, CCTVINSTLCNT, CRADDR, ZIPCODE, CRHOME } = item;
 
   return (
-    <div className="fixed w-screen h-screen bg-black bg-opacity-30 z-[999]" ref={modalRef}>
-      <div className="relative max-w-[35rem] h-[35rem] modalPosition text-lg text-left p-4 rounded-xl border-4 border-main-color bg-white lg:max-w-[45rem] lg:h-[40rem] lg:text-xl">
+    <div className="fixed w-screen h-screen top-0 bottom-0 bg-black bg-opacity-30 z-30" ref={modalRef}>
+      <div className="relative max-w-[35rem] h-[35rem] modalPosition text-lg text-left p-4 rounded-xl border-4 border-main-color bg-white z-50 lg:max-w-[45rem] lg:h-[40rem] lg:text-xl">
         <div className="flex flex-row h-[20%] items-center border-b-2 border-main-color py-2 gap-3">
           <button type="button" className="absolute top-1 right-1 p-3" onClick={modalClose}>
             <GrClose className="w-5 h-5" />
