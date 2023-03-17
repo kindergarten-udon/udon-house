@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Link } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,22 +23,28 @@ const ThirdMain = () => {
         <img className="test3 opacity-0 absolute w-[80%] min-w-[280px] max-w-[550px] lg:w-[60%] lg:min-w-[59%] right-0" src="/main2.svg" />
       </div>
       <img className="test3 opacity-0 absolute w-[15vw] max-w-[100px] lg:w-[10vw] lg:max-w-[150px] animate-bounce right-[20%] bottom-[63%] max-sm:bottom-[75%] lg:bottom-[57%] lg:right-[25%]" src="/main_join_bird.png" />
-      <div className="absolute top-36 top-36 lg:top-52 text-left  max-sm:px-5 max-sm:top-24 max-sm:-translate-x-[100px]">
+      <div className="absolute top-36 lg:top-52 text-left  max-sm:px-5 max-sm:top-24 max-sm:-translate-x-[100px]">
         <h2 className="test3 opacity-0 font-bold max-sm:text-2xl text-3xl lg:text-4xl leading-loose">우동집은 이런 기능이 있어요!</h2>
         <div className="test3 opacity-0">우동집의 다양한 기능들을 알려드립니다.</div>
       </div>
       <section className="box-border max-sm:w-full absolute w-screen mx-auto max-sm:top-52 top-1/3 lg:top-[40%] sm:flex justify-center -translate-x-[100px] flex-wrap">
-        <div className="test3 opacity-0 w-[25vw] min-w-[300px] cursor-pointer max-sm:w-[40vw] max-sm:min-w-[230px] max-sm:mx-auto bg-btn-green-color rounded-2xl hover:text-xl hover:drop-shadow-2xl m-5">
-          <img src="/notification1.png" alt="" />
-          <div className="bg-white h-8 rounded-b-2xl">우리 아이가 다닐 어린이집을 찾아봐요!</div>
+        <div className="test3 opacity-0 w-[25vw] min-w-[300px] cursor-pointer max-sm:w-[40vw] max-sm:min-w-[230px] max-sm:mx-auto bg-btn-green-color rounded-2xl hover:text-xl max-sm:text-sm max-sm:hover:text-base hover:drop-shadow-2xl m-5">
+          <Link to={"/map"}>
+            <img src="/notification1.png" alt="" />
+            <div className="bg-white h-8 rounded-b-2xl max-sm:pt-1">우리 아이가 다닐 어린이집을 찾아봐요!</div>
+          </Link>
         </div>
-        <div className="test3 opacity-0 w-[25vw] min-w-[300px] cursor-pointer max-sm:w-[40vw] max-sm:min-w-[230px] max-sm:mx-auto bg-pink-color rounded-2xl hover:text-xl hover:drop-shadow-2xl m-5">
-          <img src="/notification2.png" alt="" />
-          <div className="bg-white h-8 rounded-b-2xl">함께 이야기 나눠봐요!</div>
+        <div className="test3 opacity-0 w-[25vw] min-w-[300px] cursor-pointer max-sm:w-[40vw] max-sm:min-w-[230px] max-sm:mx-auto bg-pink-color rounded-2xl hover:text-xl max-sm:text-sm max-sm:hover:text-base hover:drop-shadow-2xl m-5">
+          <Link to={"/community"}>
+            <img src="/notification2.png" alt="" />
+            <div className="bg-white h-8 rounded-b-2xl max-sm:pt-1">함께 이야기 나눠봐요!</div>
+          </Link>
         </div>
-        <div className="test3 opacity-0 w-[25vw] min-w-[300px] cursor-pointer max-sm:w-[40vw] max-sm:min-w-[230px] max-sm:mx-auto bg-blue-color rounded-2xl hover:text-xl hover:drop-shadow-2xl m-5">
-          <img src="/notification3.png" alt="" />
-          <div className="bg-white h-8 rounded-b-2xl">어린이집에 신청해요! (추가예정)</div>
+        <div className="test3 opacity-0 w-[25vw] min-w-[300px] cursor-pointer max-sm:w-[40vw] max-sm:min-w-[230px] max-sm:mx-auto bg-blue-color rounded-2xl hover:text-xl max-sm:text-sm max-sm:hover:text-base hover:drop-shadow-2xl m-5">
+          <Link to={"/aboutus"}>
+            <img src="/notification3.png" alt="" />
+            <div className="bg-white h-8 rounded-b-2xl max-sm:pt-1">about us</div>
+          </Link>
         </div>
       </section>
     </div>
