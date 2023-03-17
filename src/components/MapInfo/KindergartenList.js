@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Select from "react-select";
 import { BiSearch, BiMap } from "react-icons/bi";
 import KindergartenModal from "components/MapInfo/KindergartenModal";
@@ -34,7 +34,7 @@ const locationOptions = [
   { value: "중랑구", label: "중랑구" },
 ];
 
-const tyepOptions = [
+const typeOptions = [
   { value: "전체", label: "전체" },
   { value: "국공립", label: "국공립" },
   { value: "사회복지법인", label: "사회복지법인" },
@@ -46,20 +46,55 @@ const tyepOptions = [
 ];
 
 const KindergartenList = ({ kinderList, modalShow }) => {
+  const [localArr, setLocalArr] = useState(kinderList);
+  const [typeArr, setTypeArr] = useState(kinderList);
+  const [qualifiedArr, setQualifiedArr] = useState(kinderList);
+  const inputName = useRef(null);
+
+  const handleLocationChange = (selectedOption) => {
+    if (selectedOption.value === "전체") {
+      setLocalArr(kinderList);
+      return;
+    }
+    setLocalArr(kinderList.filter((elem) => elem.SIGUNNAME === selectedOption.value));
+  };
+
+  const handleTypeChange = (selectedOption) => {
+    if (selectedOption.value === "전체") {
+      setTypeArr(kinderList);
+      return;
+    }
+
+    setTypeArr(kinderList.filter((elem) => elem.CRTYPENAME === selectedOption.value));
+  };
+
+  const onSubmitSearchEnter = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
+  const handleSearch = () => {
+    const inputValue = inputName.current.value;
+
+    const arr = localArr.filter((elem) => typeArr.includes(elem));
+    setQualifiedArr(arr.filter((elem) => elem.CRNAME.includes(inputValue)));
+  };
+
   return (
-    <div className="min-w-min lg:w-2/5 overflow-scroll">
+    <div className="min-w-[27rem] lg:w-2/5 overflow-scroll">
       <div className="py-7 bg-main-color">
         <img src="/kindergarten.svg" className="mx-auto" />
         <div className="flex flex-row items-center justify-center whitespace-nowrap text-sm px-2 gap-2 lg:gap-4">
-          <Select className="w-24 lg:w-32 lg:text-base" maxMenuHeight={220} options={locationOptions} placeholder="자치구" />
-          <Select className="w-32 lg:w-40 lg:text-base" maxMenuHeight={220} options={tyepOptions} placeholder="어린이집유형" />
-          <input type="text" placeholder="어린이집을 입력해주세요." className="w-44 h-9 rounded-md px-2 lg:w-48"></input>
-          <BiSearch className="lg:w-5 lg:h-5 inline-block cursor-pointer" />
+          <Select className="w-24 lg:w-32 lg:text-base" maxMenuHeight={220} options={locationOptions} onChange={handleLocationChange} placeholder="자치구" />
+          <Select className="w-32 lg:w-40 lg:text-base" maxMenuHeight={220} options={typeOptions} onChange={handleTypeChange} placeholder="어린이집유형" />
+          <input type="text" placeholder="어린이집을 입력해주세요." className="w-44 h-9 rounded-md px-2 lg:w-48" ref={inputName} onKeyPress={onSubmitSearchEnter}></input>
+          <BiSearch className="lg:w-5 lg:h-5 inline-block cursor-pointer" onClick={handleSearch} />
         </div>
       </div>
       <div className="text-left">
         <ul className="lists">
-          {kinderList.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
+          {qualifiedArr.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
             <li className="kinList relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer" onClick={modalShow} id={index} key={index}>
               <div className="flex flex-row items-center">
                 <img src="/kindergarten.svg" className="w-20 mx-2 lg:w-24" id={index} />
