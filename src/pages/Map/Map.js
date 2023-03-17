@@ -34,7 +34,7 @@ const Map = () => {
   return (
     <section className="flex flex-row h-screen lg:pt-[120px] pt-[72px]">
       {modalClose && kinderList && index && <KindergartenModal kinderList={kinderList} index={index} setModalClose={setModalClose} />}
-      <KindergartenMap />
+      {kinderList && <KindergartenMap kinderList={kinderList} />}
       {kinderList && <KindergartenList kinderList={kinderList} modalShow={modalShow} />}
     </section>
   );
