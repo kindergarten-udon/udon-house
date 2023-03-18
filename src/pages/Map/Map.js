@@ -16,7 +16,9 @@ const Map = () => {
       try {
         const url = `http://openapi.seoul.go.kr:8088/4e7269425a6c656534354f51426a71/json/ChildCareInfo/1/1000/`;
         const response = await axios.get(url);
-        setKinderList(response.data.ChildCareInfo.row);
+        let arr = response.data.ChildCareInfo.row;
+        let filtered = arr.filter((elem) => elem.CRSTATUSNAME !== "폐지");
+        setKinderList(filtered);
       } catch (error) {
         alert("데이터를 불러오는 과정에서 에러가 발생했습니다!!");
       }
