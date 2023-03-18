@@ -189,6 +189,12 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow }) => {
         </div>
       </div>
       <div className="text-left" ref={textArea}>
+        {qualifiedArr.length <= 0 && (
+          <div className="flex flex-col items-center text-lg mt-[80px]">
+            <img src="/bird.svg" className="animate-bounce w-10 h-10" />
+            검색 결과가 없습니다
+          </div>
+        )}
         <ul className="lists">
           {qualifiedArr.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
             <li className="kinList relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer" onClick={modalShow} id={index} key={index}>
