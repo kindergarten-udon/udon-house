@@ -1,12 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, NavLink, useLocation } from "react-router-dom";
 import { cls } from "util/util";
 import { Nav } from "components/Nav/Nav";
+import { signOut, onAuthStateChanged } from "firebase/auth";
+import { auth } from "util/fbase";
 
 const Header = () => {
-  const [active, setActive] = useState(true);
+  // const [active, setActive] = useState(true);
   const location = useLocation();
   const path = location.pathname;
+
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+  }, []);
+
+  const handleLogout = async () => {
+    await signOut(auth);
+  };
+
+  const navigate = useNavigate("");
+  const goSigninButton = () => {
+    if (location.pathname !== "/signin") {
+      navigate("/signin");
+      alert("이동!");
+    }
+  };
 
   return (
     <>
@@ -17,9 +42,25 @@ const Header = () => {
         <div className="flex items-center gap-5 lg:text-[17px] text-[14px] font-bold">
           <Nav className="flex gap-5" />
           <Link to="/signin">
-            <button type="button" className="border-2 border-solid border-gray-300 rounded-full px-2">
+            {/* <button type="button" className="border-2 border-solid border-gray-300 rounded-full px-2" onClick={toggleButton}>
               {active ? "로그인" : "로그아웃"}
-            </button>
+            </button> */}
+            <div>
+              {user ? (
+                <div className="flex-clo pt-[25px]">
+                  <button className="text-base border-2 border-solid border-gray-300 rounded-full px-2" onClick={handleLogout}>
+                    로그아웃
+                  </button>
+                  <p className="text-sm">{user.email}</p>
+                </div>
+              ) : (
+                <div>
+                  <button className="border-2 border-solid border-gray-300 rounded-full px-2" onClick={goSigninButton}>
+                    로그인
+                  </button>
+                </div>
+              )}
+            </div>
           </Link>
         </div>
       </header>
