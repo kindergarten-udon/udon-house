@@ -46,10 +46,20 @@ const typeOptions = [
   { value: "직장", label: "직장" },
 ];
 
-const KindergartenList = ({ kinderList, modalShow }) => {
+const useDidMountEffect = (func, deps) => {
+  const didMount = useRef(false);
+
+  useEffect(() => {
+    if (didMount.current) func();
+    else didMount.current = true;
+  }, deps);
+};
+
+const KindergartenList = ({ kinderList, setQualifiedList, modalShow }) => {
   const [localArr, setLocalArr] = useState(kinderList);
   const [typeArr, setTypeArr] = useState(kinderList);
   const [qualifiedArr, setQualifiedArr] = useState(kinderList);
+  const textArea = useRef(false);
   const inputName = useRef(null);
 
   const handleLocationChange = (selectedOption) => {
@@ -80,7 +90,47 @@ const KindergartenList = ({ kinderList, modalShow }) => {
 
     const arr = localArr.filter((elem) => typeArr.includes(elem));
     setQualifiedArr(arr.filter((elem) => elem.CRNAME.includes(inputValue)));
+    setQualifiedList(arr.filter((elem) => elem.CRNAME.includes(inputValue)));
   };
+  // console.log(qualifiedArr);
+
+  useDidMountEffect(() => {
+    if (qualifiedArr.length <= 0) return;
+    let container = document.getElementById("map");
+    let options = {
+      center: new kakao.maps.LatLng(qualifiedArr[0].LA ? qualifiedArr[0].LA : 37.555949, qualifiedArr[0].LO ? qualifiedArr[0].LO : 126.972329),
+      level: 7,
+    };
+    let map = new kakao.maps.Map(container, options);
+
+    qualifiedArr.map(({ CRNAME, LA, LO }) => {
+      let imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+      let imageSize = new kakao.maps.Size(24, 35);
+      let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+      let infoContent = `<div style="margin:5px 35px; white-space: nowrap; color:orange">${CRNAME}</div>`;
+      let infoPosition = new kakao.maps.LatLng(LA, LO);
+      let iwRemoveable = true;
+
+      let infowindow = new kakao.maps.InfoWindow({
+        content: infoContent,
+        removable: iwRemoveable,
+      });
+
+      let marker = new kakao.maps.Marker({
+        map: map,
+        position: infoPosition,
+        image: markerImage,
+      });
+
+      kakao.maps.event.addListener(marker, "click", function () {
+        infowindow.open(map, marker);
+      });
+    });
+
+    let zoomControl = new kakao.maps.ZoomControl();
+    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+  }, [qualifiedArr]);
 
   const handleMapClick = (e) => {
     e.preventDefault();
@@ -117,7 +167,6 @@ const KindergartenList = ({ kinderList, modalShow }) => {
     let marker = new kakao.maps.Marker({
       map: map,
       position: infoPosition,
-      // title: CRNAME,
       image: markerImage,
     });
 
@@ -139,7 +188,7 @@ const KindergartenList = ({ kinderList, modalShow }) => {
           </button>
         </div>
       </div>
-      <div className="text-left">
+      <div className="text-left" ref={textArea}>
         <ul className="lists">
           {qualifiedArr.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
             <li className="kinList relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer" onClick={modalShow} id={index} key={index}>
