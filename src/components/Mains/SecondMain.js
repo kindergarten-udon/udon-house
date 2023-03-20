@@ -16,10 +16,10 @@ const SecondMain = () => {
   const [click, setClick] = useState(null);
   useEffect(() => {
     ScrollTrigger.create({
-      trigger: ".test1",
+      trigger: ".start2",
       start: "top center",
       end: "bottom center",
-      animation: gsap.to(".test", { opacity: 1, duration: 1, stagger: 0.2 }),
+      animation: gsap.to(".gsap2", { opacity: 1, duration: 1, stagger: 0.2 }),
       toggleActions: "restart reverse restart reverse",
     });
   }, [click]);
@@ -38,11 +38,11 @@ const SecondMain = () => {
   const nextRef = useRef(null);
 
   return (
-    <div className="test1 relative w-full h-screen snap-center bg-white">
+    <div className="start2 relative w-full h-screen snap-center bg-white">
       <div className="h-screen flex flex-col justify-center items-center text-center">
         <img className="absolute w-[80%] min-w-[280px] max-w-[550px] lg:w-[60%] lg:min-w-[59%] right-0" src="/main2.svg" />
       </div>
-      <div className="test opacity-0 absolute top-44 max-sm:pr-[50px] max-sm:ml-10 ml-20">
+      <div className="gsap2 opacity-0 absolute top-44 max-sm:pr-[50px] max-sm:ml-10 ml-20">
         <h1 className="text-left font-bold leading-loose text-3xl lg:text-5xl max-sm:pr-5 max-sm:text-2xl">
           함께 나누고 <br />
           함께 성장하는 <span className="text-btn-green-color">우리 동네 어린이집</span>
@@ -53,7 +53,7 @@ const SecondMain = () => {
       </div>
       <div className="absolute bottom-20 left-0 right-0 w-full">
         <Swiper
-          className="test w-full rounded-md opacity-0"
+          className="gsap2 w-full rounded-md opacity-0"
           modules={[Navigation, Pagination, A11y, Autoplay]}
           autoplay={{ delay: 2000 }}
           loop={true}
@@ -86,11 +86,11 @@ const SecondMain = () => {
             );
           })}
           <div className="relative z-40">
-            <button ref={prevRef} className="absolute bottom-[90px] left-5 text-white text-3xl px-2" type="button" onClick={click}>
-              <IoIosArrowDropleft className="test opacity-0 max-sm:w-[45px] max-sm:h-[45px] w-[60px] h-[60px]" />
+            <button ref={prevRef} className="left-5 secondButton" type="button" onClick={click}>
+              <IoIosArrowDropleft className="gsap2 opacity-0 secondButtonImage" />
             </button>
-            <button ref={nextRef} className="absolute bottom-[90px] right-5 text-white text-3xl px-2" type="button">
-              <IoIosArrowDropright className="test opacity-0 max-sm:w-[45px] max-sm:h-[45px] w-[60px] h-[60px]" />
+            <button ref={nextRef} className="right-5 secondButton" type="button">
+              <IoIosArrowDropright className="gsap2 opacity-0 secondButtonImage" />
             </button>
           </div>
         </Swiper>

@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 const ThirdMain = () => {
   useEffect(() => {
     ScrollTrigger.create({
-      trigger: ".gsap2",
+      trigger: ".start3",
       start: "top center",
       end: "bottom center",
       animation: gsap.to(".gsap3", { x: 100, opacity: 1, duration: 1, stagger: 0.2 }),
@@ -16,7 +16,7 @@ const ThirdMain = () => {
     });
   }, []);
   return (
-    <div className="gsap2 w-screen relative bg-main-color h-screen snap-center">
+    <div className="start3 w-screen relative bg-main-color h-screen snap-center">
       <img className="absolute" src="/main_shape_1.png" />
       <div className="h-screen flex flex-col justify-center items-center text-center">
         <img className="gsap3 opacity-0 thirdBackImage" src="/main_shape_2.png" />

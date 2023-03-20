@@ -8,6 +8,15 @@
   .modalPosition {
     @apply top-1/2 left-1/2 -translate-x-[50%] -translate-y-[65%];
   }
+  .transLeft {
+    @apply -translate-x-[100px];
+  }
+  .secondButton {
+    @apply absolute bottom-[90px] text-white text-3xl px-2;
+  }
+  .secondButtonImage {
+    @apply max-sm:w-[45px] max-sm:h-[45px] w-[60px] h-[60px];
+  }
   .thirdBackImage {
     @apply absolute w-[80%] min-w-[280px] max-w-[550px] lg:w-[60%] lg:min-w-[59%] right-0;
   }
@@ -16,9 +25,6 @@
   }
   .thirdLinkText {
     @apply bg-white h-8 rounded-b-2xl max-sm:pt-1;
-  }
-  .transLeft {
-    @apply -translate-x-[100px];
   }
   .thirdBounce {
     @apply w-[15vw] max-w-[100px] lg:w-[10vw] lg:max-w-[150px] right-[20%] bottom-[63%] max-sm:bottom-[75%] lg:bottom-[57%] lg:right-[25%];
