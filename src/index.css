@@ -8,6 +8,24 @@
   .modalPosition {
     @apply top-1/2 left-1/2 -translate-x-[50%] -translate-y-[65%];
   }
+  .thirdBackImage {
+    @apply absolute w-[80%] min-w-[280px] max-w-[550px] lg:w-[60%] lg:min-w-[59%] right-0;
+  }
+  .thirdLink {
+    @apply w-[25vw] min-w-[300px] cursor-pointer max-sm:w-[40vw] max-sm:min-w-[230px] max-sm:mx-auto rounded-2xl hover:text-xl max-sm:text-sm max-sm:hover:text-base hover:drop-shadow-2xl m-5;
+  }
+  .thirdLinkText {
+    @apply bg-white h-8 rounded-b-2xl max-sm:pt-1;
+  }
+  .transLeft {
+    @apply -translate-x-[100px];
+  }
+  .thirdBounce {
+    @apply w-[15vw] max-w-[100px] lg:w-[10vw] lg:max-w-[150px] right-[20%] bottom-[63%] max-sm:bottom-[75%] lg:bottom-[57%] lg:right-[25%];
+  }
+  .thirdLinkSection {
+    @apply box-border max-sm:w-full w-screen mx-auto max-sm:top-52 top-1/3 lg:top-[40%] sm:flex flex-wrap justify-center;
+  }
 }
 
 @font-face {
