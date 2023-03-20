@@ -11,6 +11,9 @@
   .transLeft {
     @apply -translate-x-[100px];
   }
+  .firstTranslate {
+    @apply -translate-x-1/2 -translate-y-1/2;
+  }
   .secondButton {
     @apply absolute bottom-[90px] text-white text-3xl px-2;
   }
@@ -25,9 +28,6 @@
   }
   .thirdLinkText {
     @apply bg-white h-8 rounded-b-2xl max-sm:pt-1;
-  }
-  .thirdBounce {
-    @apply w-[15vw] max-w-[100px] lg:w-[10vw] lg:max-w-[150px] right-[20%] bottom-[63%] max-sm:bottom-[75%] lg:bottom-[57%] lg:right-[25%];
   }
   .thirdLinkSection {
     @apply box-border max-sm:w-full w-screen mx-auto max-sm:top-52 top-1/3 lg:top-[40%] sm:flex flex-wrap justify-center;
