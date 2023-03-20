@@ -13,7 +13,6 @@ import { IoIosArrowDropleft, IoIosArrowDropright } from "react-icons/io";
 gsap.registerPlugin(ScrollTrigger);
 
 const SecondMain = () => {
-  const [click, setClick] = useState(null);
   useEffect(() => {
     ScrollTrigger.create({
       trigger: ".start2",
@@ -22,7 +21,7 @@ const SecondMain = () => {
       animation: gsap.to(".gsap2", { opacity: 1, duration: 1, stagger: 0.2 }),
       toggleActions: "restart reverse restart reverse",
     });
-  }, [click]);
+  }, []);
 
   const babyImg = [
     { src: "/baby1.jpg", alt: "애기사진" },
@@ -86,12 +85,16 @@ const SecondMain = () => {
             );
           })}
           <div className="relative z-40">
-            <button ref={prevRef} className="left-5 secondButton" type="button" onClick={click}>
-              <IoIosArrowDropleft className="gsap2 opacity-0 secondButtonImage" />
-            </button>
-            <button ref={nextRef} className="right-5 secondButton" type="button">
-              <IoIosArrowDropright className="gsap2 opacity-0 secondButtonImage" />
-            </button>
+            {prevRef && (
+              <button ref={prevRef} className="left-5 secondButton" type="button">
+                <IoIosArrowDropleft className="gsap2 opacity-0 secondButtonImage" />
+              </button>
+            )}
+            {nextRef && (
+              <button ref={nextRef} className="right-5 secondButton" type="button">
+                <IoIosArrowDropright className="gsap2 opacity-0 secondButtonImage" />
+              </button>
+            )}
           </div>
         </Swiper>
       </div>
