@@ -15,8 +15,8 @@ const BoardList = ({ isLogin, contents }) => {
   return (
     <>
       <section className="board-list w-4/5 mx-auto">
-        <div className="text-right mt-8 lg:mt-10">
-          <button onClick={writeOnClick} className="write-button text-gray-700 text-xs lg:text-base right-[10vw] lg:mr-24 my-3 lg:my-5 px-3 py-1 border rounded-2xl border-slate-400 bg-white">
+        <div className="text-right mt-6 lg:mt-8 mb-4  translate-x-2">
+          <button onClick={writeOnClick} className=" write-button text-gray-700 text-xs lg:text-base right-[10vw] my-3 lg:my-5 px-6  py-1 border rounded-2xl border-slate-400 bg-white">
             글쓰기
           </button>
         </div>

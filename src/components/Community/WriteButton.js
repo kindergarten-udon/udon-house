@@ -29,6 +29,7 @@ const WriteButton = ({ content, title, setWriteModalOpen, userId }) => {
       content,
       writer: userId.email,
       creatorId: userId.uid,
+      like: 0,
     });
     navigate("/community");
   };

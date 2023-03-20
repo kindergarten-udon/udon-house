@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { BsHandThumbsUp } from "react-icons/bs";
 import { BsHandThumbsUpFill } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { deleteDoc, doc, getDocs, updateDoc } from "@firebase/firestore";
+import { addDoc, deleteDoc, doc, getDocs, updateDoc } from "@firebase/firestore";
 import { collection } from "firebase/firestore";
 import { dbService } from "util/fbase";
 
 const BoardItemDetail = ({ userId }) => {
   const navigate = useNavigate();
+  // 수정하기 버튼 눌렀을때 focus
+  const editRef = useRef(null);
   const { id } = useParams();
-
   const [contents, setContents] = useState([]);
-  const [selectContent, setSelectContent] = useState([]);
+  const [selectContent, setSelectContent] = useState(null);
   // 수정 content
-  const [newContent, setNewContent] = useState(selectContent && selectContent.content);
-  console.log(newContent);
+  const [newContent, setNewContent] = useState("");
   // 수정 Title
-  const [newTitle, setNewTitle] = useState(selectContent && selectContent.title);
+  const [newTitle, setNewTitle] = useState("");
   // 수정중
   const [editing, setEditing] = useState(false);
 
@@ -47,13 +47,22 @@ const BoardItemDetail = ({ userId }) => {
     }
   };
   //수정하기
-  // const editingOnClick = async () => {
-  //   const conEdit = doc(collection(dbService, "content"), selectContent.id);
-  //   await updateDoc(conEdit, {
-  //     content: newContent,
-  //     title: newTitle,
-  //   });
-  // };
+  const editingOnClick = async () => {
+    const ok = confirm("수정하시겠습니까?");
+    if (ok) {
+      const conEdit = doc(collection(dbService, "content"), selectContent.id);
+      await updateDoc(conEdit, {
+        content: newContent,
+        title: newTitle,
+      });
+      setSelectContent((prevContent) => ({
+        ...prevContent,
+        content: newContent,
+        title: newTitle,
+      }));
+      setEditing(false);
+    }
+  };
   // 수정
   const editOnClick = () => {
     setEditing(true);
@@ -61,7 +70,6 @@ const BoardItemDetail = ({ userId }) => {
   const editCancelOnClick = () => {
     setEditing(false);
   };
-
   // 수정값
   const editOnChange = (e) => {
     const {
@@ -73,29 +81,42 @@ const BoardItemDetail = ({ userId }) => {
       setNewContent(value);
     }
   };
+  // 좋아요
+  const likeOnClick = async () => {
+    const conEdit = doc(collection(dbService, "content"), selectContent.id);
+    await updateDoc(conEdit, {
+      like: (selectContent.like += 1),
+    });
+    const likeBtn = document.querySelector(".likeBtn");
+    likeBtn.classList.add("jello-vertical");
+    setTimeout(() => {
+      likeBtn.classList.remove("jello-vertical");
+    }, 500);
+  };
+
+  // 같은 게시글 아이디
   useEffect(() => {
-    if (contents) {
-      const targetContent = contents.find((el) => el.id === id);
-      setSelectContent(targetContent);
-    }
+    if (!contents) return;
+    const targetContent = contents.find((el) => el.id === id);
+    setSelectContent(targetContent);
+    setNewContent(targetContent?.content);
+    setNewTitle(targetContent?.title);
   }, [contents, id]);
 
-  const [isChecked, setChecked] = useState(false);
-  const toggleMenu = () => {
-    setChecked((isChecked) => !isChecked);
-  };
   return (
     <>
       <section className=" py-[3%] lg:py-[5%] mx-auto w-[70vw] min-w-[280px] lg:min-w-[500px] text-gray-700">
         {selectContent && editing ? (
           <div className="flex flex-col">
-            <input onChange={editOnChange} value={selectContent.title} name="title" className="px-6 py-2 text-left border border-gray-500 rounded-3xl mb-5" required />
-            <input onChange={editOnChange} value={selectContent.content} name="content" className="h-[300px] px-6 py-2 text-left border border-gray-500 rounded-3xl" />
-            <div className="flex">
-              <button className="mr-4" onClick={editCancelOnClick}>
+            <input ref={editRef} onChange={editOnChange} defaultValue={selectContent.title} name="title" className="px-6 py-2 text-left border border-gray-500 rounded-3xl mb-5" />
+            <textarea onChange={editOnChange} defaultValue={selectContent.content} name="content" className="h-[300px] px-6 py-2 text-left border border-gray-500 rounded-3xl" />
+            <div className="flex my-7 align-center justify-center">
+              <button className="mr-3 lg:mr-5 bg-white px-9 lg:px-12 py-2 border border-slate-700 rounded-3xl" onClick={editCancelOnClick}>
+                취소하기
+              </button>
+              <button className="ml-3 lg:ml-5 text-white font-bold bg-btn-green-color px-9 lg:px-12 py-2 border rounded-3xl" onClick={editingOnClick}>
                 수정하기
               </button>
-              <button onClick={editCancelOnClick}>취소하기</button>
             </div>
           </div>
         ) : (
@@ -103,29 +124,32 @@ const BoardItemDetail = ({ userId }) => {
             {selectContent && (
               <>
                 <div className="px-6 py-2 text-left border border-gray-500 rounded-3xl mb-5">{selectContent.title}</div>
-                <div className="h-[300px] px-6 py-2 text-left border border-gray-500 rounded-3xl">{selectContent.content}</div>
+                <div className="whitespace-pre h-[300px] px-6 py-2 text-left border border-gray-500 rounded-3xl">{selectContent.content}</div>
               </>
             )}
+            <div className="text-sm lg:text-base my-4 mx-4 flex justify-between">
+              <div className="">
+                {!editing && userId && selectContent && selectContent.creatorId === userId.uid && (
+                  <>
+                    <button onClick={editOnClick} className="mr-4">
+                      수정하기
+                    </button>
+                    <button onClick={onDeleteClick}>삭제하기</button>
+                  </>
+                )}
+              </div>
+              <div className="flex">
+                <button onClick={likeOnClick} className="likeBtn flex align-center justify-center gap-1 lg:gap-2 text-gray-600 font-bold ">
+                  <BsHandThumbsUpFill className="mt-[1px]" />
+                  {selectContent && selectContent.like}
+                </button>
+                <Link className="ml-4 flex " to="/community">
+                  <GiHamburgerMenu className="block h-5"></GiHamburgerMenu> 목록
+                </Link>
+              </div>
+            </div>
           </>
         )}
-        <div className="text-sm lg:text-base my-4 mx-4 flex justify-between">
-          <div className="">
-            {!editing && userId && selectContent && selectContent.creatorId === userId.uid && (
-              <>
-                <button onClick={editOnClick} className="mr-4">
-                  수정하기
-                </button>
-                <button onClick={onDeleteClick}>삭제하기</button>
-              </>
-            )}
-          </div>
-          <div className="flex">
-            <button onClick={toggleMenu}>{isChecked ? <BsHandThumbsUpFill /> : <BsHandThumbsUp />}</button>
-            <Link className="ml-4 flex " to="/community">
-              <GiHamburgerMenu className="block h-5"></GiHamburgerMenu> 목록
-            </Link>
-          </div>
-        </div>
       </section>
     </>
   );
