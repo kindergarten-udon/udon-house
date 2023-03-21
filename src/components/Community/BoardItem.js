@@ -1,59 +1,164 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { BsHandThumbsUp } from "react-icons/bs";
 import { BsHandThumbsUpFill } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
-import boardData from "./boardData";
+import { addDoc, deleteDoc, doc, getDocs, updateDoc } from "@firebase/firestore";
+import { collection } from "firebase/firestore";
+import { dbService } from "util/fbase";
 
-const url = window.location.href;
-const lastIndex = url.lastIndexOf("/");
-let number = url.substring(lastIndex + 1);
-if (isNaN(number)) {
-  number = "";
-}
+const BoardItemDetail = ({ userId }) => {
+  const navigate = useNavigate();
+  // 수정하기 버튼 눌렀을때 focus
+  const editRef = useRef(null);
+  const { id } = useParams();
+  const [contents, setContents] = useState([]);
+  const [selectContent, setSelectContent] = useState(null);
+  // 수정 content
+  const [newContent, setNewContent] = useState("");
+  // 수정 Title
+  const [newTitle, setNewTitle] = useState("");
+  // 수정중
+  const [editing, setEditing] = useState(false);
 
-const getTitleByIndex = (index) => {
-  return boardData[index].제목;
-};
+  useEffect(() => {
+    const data = async () => {
+      const dbContent = await getDocs(collection(dbService, "content"));
+      const contentArray = dbContent.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setContents(contentArray);
+    };
+    data();
+  }, []);
 
-const getContentByIndex = (index) => {
-  return boardData[index].내용;
-};
-
-const BoardItemDetail = ({ title, content }) => {
-  const [isChecked, setChecked] = useState(false);
-  const toggleMenu = () => {
-    setChecked((isChecked) => !isChecked);
+  // 삭제하기
+  const onDeleteClick = async () => {
+    const ok = window.confirm("삭제하시겠습니까?");
+    if (ok) {
+      try {
+        const conRef = doc(collection(dbService, "content"), selectContent.id);
+        await deleteDoc(conRef);
+        navigate(-1);
+      } catch (error) {
+        console.error("삭제 실패: ", error);
+      }
+    }
   };
+  //수정하기
+  const editingOnClick = async () => {
+    const ok = confirm("수정하시겠습니까?");
+    if (ok) {
+      const conEdit = doc(collection(dbService, "content"), selectContent.id);
+      await updateDoc(conEdit, {
+        content: newContent,
+        title: newTitle,
+      });
+      setSelectContent((prevContent) => ({
+        ...prevContent,
+        content: newContent,
+        title: newTitle,
+      }));
+      setEditing(false);
+    }
+  };
+  // 수정
+  const editOnClick = () => {
+    setEditing(true);
+  };
+  const editCancelOnClick = () => {
+    setEditing(false);
+  };
+  // 수정값
+  const editOnChange = (e) => {
+    const {
+      target: { name, value },
+    } = e;
+    if (name === "title") {
+      setNewTitle(value);
+    } else if (name === "content") {
+      setNewContent(value);
+    }
+  };
+  // 좋아요
+  const likeOnClick = async () => {
+    const conEdit = doc(collection(dbService, "content"), selectContent.id);
+    await updateDoc(conEdit, {
+      like: (selectContent.like += 1),
+    });
+    const likeBtn = document.querySelector(".likeBtn");
+    likeBtn.classList.add("jello-vertical");
+    setTimeout(() => {
+      likeBtn.classList.remove("jello-vertical");
+    }, 500);
+  };
+
+  // 같은 게시글 아이디
+  useEffect(() => {
+    if (!contents) return;
+    const targetContent = contents.find((el) => el.id === id);
+    setSelectContent(targetContent);
+    setNewContent(targetContent?.content);
+    setNewTitle(targetContent?.title);
+  }, [contents, id]);
+
   return (
     <>
       <section className=" py-[3%] lg:py-[5%] mx-auto w-[70vw] min-w-[280px] lg:min-w-[500px] text-gray-700">
-        <div className="px-6 py-2 text-left border border-gray-500 rounded-3xl mb-5">{title}</div>
-        <div className="h-[300px] px-6 py-2 text-left border border-gray-500 rounded-3xl">{content}</div>
-        <div className="text-sm lg:text-base my-4 mx-4 flex justify-between">
-          <div className="">
-            {/* {만약 이 글을 쓴 사람이라면 수정하기, 삭제하기가 보이게하기} */}
-            <button className="mr-4">수정하기</button>
-            <button>삭제하기</button>
+        {selectContent && editing ? (
+          <div className="flex flex-col">
+            <input ref={editRef} onChange={editOnChange} defaultValue={selectContent.title} name="title" className="px-6 py-2 text-left border border-gray-500 rounded-3xl mb-5" />
+            <textarea onChange={editOnChange} defaultValue={selectContent.content} name="content" className="h-[300px] px-6 py-2 text-left border border-gray-500 rounded-3xl" />
+            <div className="flex my-7 align-center justify-center">
+              <button className="mr-3 lg:mr-5 bg-white px-9 lg:px-12 py-2 border border-slate-700 rounded-3xl" onClick={editCancelOnClick}>
+                취소하기
+              </button>
+              <button className="ml-3 lg:ml-5 text-white font-bold bg-btn-green-color px-9 lg:px-12 py-2 border rounded-3xl" onClick={editingOnClick}>
+                수정하기
+              </button>
+            </div>
           </div>
-          <div className="flex">
-            <button onClick={toggleMenu}>{isChecked ? <BsHandThumbsUpFill /> : <BsHandThumbsUp />}</button>
-            <Link className="ml-4 flex " to="/community">
-              <GiHamburgerMenu className="block h-5"></GiHamburgerMenu> 목록
-            </Link>
-          </div>
-        </div>
+        ) : (
+          <>
+            {selectContent && (
+              <>
+                <div className="px-6 py-2 text-left border border-gray-500 rounded-3xl mb-5">{selectContent.title}</div>
+                <div className="whitespace-pre h-[300px] px-6 py-2 text-left border border-gray-500 rounded-3xl">{selectContent.content}</div>
+              </>
+            )}
+            <div className="text-sm lg:text-base my-4 mx-4 flex justify-between">
+              <div className="">
+                {!editing && userId && selectContent && selectContent.creatorId === userId.uid && (
+                  <>
+                    <button onClick={editOnClick} className="mr-4">
+                      수정하기
+                    </button>
+                    <button onClick={onDeleteClick}>삭제하기</button>
+                  </>
+                )}
+              </div>
+              <div className="flex">
+                <button onClick={likeOnClick} className="likeBtn flex align-center justify-center gap-1 lg:gap-2 text-gray-600 font-bold ">
+                  <BsHandThumbsUpFill className="mt-[1px]" />
+                  {selectContent && selectContent.like}
+                </button>
+                <Link className="ml-4 flex " to="/community">
+                  <GiHamburgerMenu className="block h-5"></GiHamburgerMenu> 목록
+                </Link>
+              </div>
+            </div>
+          </>
+        )}
       </section>
     </>
   );
 };
 
-const BoardItem = () => {
+const BoardItem = ({ userId }) => {
   return (
     <>
-      <div>
-        <BoardItemDetail title={getTitleByIndex(number)} content={getContentByIndex(number)} />
-      </div>
+      <BoardItemDetail userId={userId} title={"타이틀"} content={"콘텐츠"} />
     </>
   );
 };
