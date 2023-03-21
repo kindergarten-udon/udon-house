@@ -12,6 +12,10 @@ module.exports = {
         "light-yellow-color": "#FFF5BA",
         "bg-gray-color": "#f2f2f2",
       },
+      screens: {
+        "max-sm": { max: "679px" },
+        "max-md": { max: "767px" },
+      },
       fontFamily: {
         sans: ["BMJUA", "Arial", "sans-serif"],
       },

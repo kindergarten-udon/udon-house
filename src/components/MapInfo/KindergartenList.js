@@ -77,7 +77,7 @@ const KindergartenList = ({ kinderList, modalShow }) => {
 
   const handleSearch = () => {
     const inputValue = inputName.current.value;
-
+    console.log(inputValue);
     const arr = localArr.filter((elem) => typeArr.includes(elem));
     setQualifiedArr(arr.filter((elem) => elem.CRNAME.includes(inputValue)));
   };

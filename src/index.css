@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer components {
   .listStyles {
     @apply border border-transparent border-b-gray-300;
@@ -11,6 +12,81 @@
   .paginateStyle {
     @apply absolute bottom-0 w-full flex flex-row justify-center py-2 gap-6 bg-gray-100;
   }
+  .transLeft {
+    @apply -translate-x-[100px];
+  }
+  .firstTranslate {
+    @apply -translate-x-1/2 -translate-y-1/2;
+  }
+  .secondButton {
+    @apply absolute bottom-[90px] text-white text-3xl px-2;
+  }
+  .secondButtonImage {
+    @apply max-sm:w-[45px] max-sm:h-[45px] w-[60px] h-[60px];
+  }
+  .thirdBackImage {
+    @apply absolute w-[80%] min-w-[280px] max-w-[550px] lg:w-[60%] lg:min-w-[59%] right-0;
+  }
+  .thirdLink {
+    @apply w-[25vw] min-w-[300px] cursor-pointer max-sm:w-[40vw] max-sm:min-w-[230px] max-sm:mx-auto rounded-2xl hover:text-xl max-sm:text-sm max-sm:hover:text-base hover:drop-shadow-2xl m-5;
+  }
+  .thirdLinkText {
+    @apply bg-white h-8 rounded-b-2xl max-sm:pt-1;
+  }
+  .thirdLinkSection {
+    @apply box-border max-sm:w-full w-screen mx-auto max-sm:top-52 top-1/3 lg:top-[40%] sm:flex flex-wrap justify-center;
+  }
+  .aboutPinkImg {
+    @apply absolute w-[35%] lg:w-[8vw] max-md:-translate-x-[25%] -translate-x-[38%] -translate-y-[38%] -rotate-12 -z-50;
+  }
+  .aboutBearImg {
+    @apply absolute w-[15%] lg:w-[20%] max-md:-translate-y-[10%] -translate-y-[25%] rotate-45 -z-50;
+  }
+  .aboutImgae {
+    @apply max-md:max-w-[400px] rounded-full w-full h-full object-cover hover:drop-shadow-xl hover:scale-105 hover:ease-in-out duration-300;
+  }
+  .errorFont {
+    @apply font-sans  text-red-400;
+  }
+  .successFont {
+    @apply text-gray-700;
+  }
+  .center {
+    @apply m-auto relative;
+  }
+  .birdSize {
+    @apply lg:w-24 md:w-24 xl:w-24 w-0;
+  }
+  .bgSize {
+    @apply w-0 h-0 lg:w-1/3 lg:h-[34rem];
+  }
+  .shapeSize {
+    @apply lg:w-[500px] lg:h-[600px] md:w-[400px] md:h-[500px] sm:w-0 w-0 h-0;
+  }
+  .formBorder {
+    @apply border-solid border rounded-2xl drop-shadow-lg;
+  }
+  .formBottom {
+    @apply bottom-48 md:bottom-56 lg:bottom-60;
+  }
+  .inputStyle {
+    @apply w-[28rem] h-11 rounded-xl pl-2.5 border-solid border;
+  }
+  .loginDivStyle {
+    @apply w-[28rem] h-20 relative m-auto;
+  }
+  .loginButtonStyle {
+    @apply w-[28rem] h-11 rounded-xl;
+  }
+  .socialIcon {
+    @apply w-12 h-12 rounded-[1.8rem];
+  }
+  .spanStyle {
+    @apply flex right-52;
+  }
+  .eyeButton {
+    @apply pl-2.5 absolute left-[410px] text-gray-500;
+  }
 }
 
 @font-face {
@@ -19,10 +95,81 @@
   font-weight: normal;
   font-style: normal;
 }
+
+@layer components {
+  .jello-vertical {
+    -webkit-animation: jello-vertical 0.9s both;
+    animation: jello-vertical 0.9s both;
+  }
+}
+
 @layer utilities {
   /* 스크롤바 스타일 */
   ::-webkit-scrollbar {
     /* width: 0;
     height: 0; */
+  }
+
+  /* 커스텀 애니메이션 */
+
+  @-webkit-keyframes jello-vertical {
+    0% {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+    30% {
+      -webkit-transform: scale3d(0.75, 1.25, 1);
+      transform: scale3d(0.75, 1.25, 1);
+    }
+    40% {
+      -webkit-transform: scale3d(1.25, 0.75, 1);
+      transform: scale3d(1.25, 0.75, 1);
+    }
+    50% {
+      -webkit-transform: scale3d(0.85, 1.15, 1);
+      transform: scale3d(0.85, 1.15, 1);
+    }
+    65% {
+      -webkit-transform: scale3d(1.05, 0.95, 1);
+      transform: scale3d(1.05, 0.95, 1);
+    }
+    75% {
+      -webkit-transform: scale3d(0.95, 1.05, 1);
+      transform: scale3d(0.95, 1.05, 1);
+    }
+    100% {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+  }
+  @keyframes jello-vertical {
+    0% {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+    30% {
+      -webkit-transform: scale3d(0.75, 1.25, 1);
+      transform: scale3d(0.75, 1.25, 1);
+    }
+    40% {
+      -webkit-transform: scale3d(1.25, 0.75, 1);
+      transform: scale3d(1.25, 0.75, 1);
+    }
+    50% {
+      -webkit-transform: scale3d(0.85, 1.15, 1);
+      transform: scale3d(0.85, 1.15, 1);
+    }
+    65% {
+      -webkit-transform: scale3d(1.05, 0.95, 1);
+      transform: scale3d(1.05, 0.95, 1);
+    }
+    75% {
+      -webkit-transform: scale3d(0.95, 1.05, 1);
+      transform: scale3d(0.95, 1.05, 1);
+    }
+    100% {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
   }
 }
