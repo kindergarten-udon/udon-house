@@ -35,7 +35,7 @@ const SecondMain = () => {
   ];
   const prevRef = useRef(null);
   const nextRef = useRef(null);
-
+  console.log(prevRef);
   return (
     <div className="start2 relative w-full h-screen snap-center bg-white">
       <div className="h-screen flex flex-col justify-center items-center text-center">
@@ -57,7 +57,6 @@ const SecondMain = () => {
           autoplay={{ delay: 2000 }}
           loop={true}
           navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
-          loopAdditionalSlides={1}
           breakpoints={{
             320: {
               slidesPerView: 2,
