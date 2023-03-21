@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Select from "react-select";
 import { BiSearch, BiMap } from "react-icons/bi";
-import KindergartenModal from "components/MapInfo/KindergartenModal";
+import KindergartenMap from "components/MapInfo/KindergartenMap";
 import axios from "axios";
 import { async } from "@firebase/util";
 import ReactPaginate from "react-paginate";
@@ -47,11 +47,79 @@ const typeOptions = [
   { value: "협동", label: "협동" },
   { value: "직장", label: "직장" },
 ];
-const KindergartenList = ({ kinderList, modalShow }) => {
+
+
+const useDidMountEffect = (func, deps) => {
+  const didMount = useRef(false);
+
+  useEffect(() => {
+    if (didMount.current) func();
+    else didMount.current = true;
+  }, deps);
+};
+
+function createMarkerImage(markerSrc, markerSize) {
+  let markerImage = new kakao.maps.MarkerImage(markerSrc, markerSize);
+
+  return markerImage;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                         KindergartenList Component                         */
+/* -------------------------------------------------------------------------- */
+const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
   const [localArr, setLocalArr] = useState(kinderList);
   const [typeArr, setTypeArr] = useState(kinderList);
   const [qualifiedArr, setQualifiedArr] = useState(kinderList);
+  const [markers, setMarkers] = useState([]);
+  const [selected, setSelected] = useState(null);
+  const [info, setInfo] = useState(null);
+  const [clicked, setClicked] = useState(false);
+  const [listItem, setListItem] = useState(null);
+  const [test, setTest] = useState(null);
+  const textArea = useRef(false);
   const inputName = useRef(null);
+
+  // // setClicked(false);
+  // useEffect(()=> {
+  //   setClicked(false);
+  // }, [clicked])
+
+  let selectedMarker = null; // 클릭한 마커를 담을 변수
+  function addMarker(position, normalSrc) {
+    let markerSize = "";
+    if (normalSrc === "/markerEllipse3.svg") markerSize = new kakao.maps.Size(18, 18);
+    else markerSize = new kakao.maps.Size(28, 43);
+    let clickarkerSize = new kakao.maps.Size(28, 43);
+    let markerSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+    var normalImage = createMarkerImage(normalSrc, markerSize),
+      overImage = createMarkerImage(markerSrc, clickarkerSize),
+      clickImage = createMarkerImage(markerSrc, clickarkerSize);
+
+    var marker = new kakao.maps.Marker({
+      map: map,
+      position: position,
+      image: normalImage,
+    });
+
+    marker.normalImage = normalImage;
+
+    if (!selectedMarker || selectedMarker !== marker) {
+      !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
+
+      marker.setImage(clickImage);
+    }
+
+    selectedMarker = marker;
+    setSelected(marker);
+
+    return marker;
+  }
+
+  /* -------------------------------------------------------------------------- */
+  /*                                   Handler                                  */
+  /* -------------------------------------------------------------------------- */
 
   const handleLocationChange = (selectedOption) => {
     if (selectedOption.value === "전체") {
@@ -75,54 +143,137 @@ const KindergartenList = ({ kinderList, modalShow }) => {
     }
   };
 
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    if (selected !== null) {
+      selected.setMap(null);
+    }
+
     const inputValue = inputName.current.value;
-    console.log(inputValue);
     const arr = localArr.filter((elem) => typeArr.includes(elem));
     setQualifiedArr(arr.filter((elem) => elem.CRNAME.includes(inputValue)));
+    setQualifiedList(arr.filter((elem) => elem.CRNAME.includes(inputValue)));
+  };
+
+  useDidMountEffect(() => {
+    let points = [];
+    let nameArr = [];
+    qualifiedArr.map(({ CRNAME, LA, LO }) => {
+      if (LA !== "37.566470" && LO !== "126.977963" && LA.length !== 0 && CRNAME !== "구립 내일어린이집") {
+        points.push(new kakao.maps.LatLng(LA, LO));
+        nameArr.push(CRNAME);
+      }
+      setInfo(`<div style="margin:5px 35px; white-space: nowrap; color:orange">${CRNAME}</div>`);
+    });
+    if (points.length === 0) {
+      return;
+    }
+    var bounds = new kakao.maps.LatLngBounds();
+
+    setMarkers([]);
+
+    const handleMarker = (marker) => {
+      setMarkers((prevList) => [...prevList, marker]);
+    };
+
+    for (let i = 0; i < points.length; i++) {
+      let marker = addMarker(points[i], "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png");
+      handleMarker(marker);
+      bounds.extend(points[i]);
+
+      let infoContent = `<div style="margin:5px 35px; white-space: nowrap; color:orange">${nameArr[i]}</div>`;
+      let iwRemoveable = true;
+      let infowindow = new kakao.maps.InfoWindow({
+        content: infoContent,
+        removable: iwRemoveable,
+      });
+      kakao.maps.event.addListener(marker, "click", function () {
+        infowindow.open(map, marker);
+      });
+    }
+
+    map.setBounds(bounds);
+  }, [qualifiedArr]);
+
+  function initMarkers(map) {
+    for (var i = 0; i < markers.length; i++) {
+      markers[i].setMap(map);
+    }
+  }
+
+  useEffect(() => {
+    initMarkers(map);
+  }, [markers]);
+
+  initMarkers(null);
+
+  /* -------------------------------------------------------------------------- */
+  /*                               handleMapClick                               */
+  /* -------------------------------------------------------------------------- */
+
+  const testClick = (index) => {
+    if (test === index) {
+      setTest(null);
+    } else {
+      setTest(index);
+    }
   };
 
   const handleMapClick = (e) => {
+    if (selected !== null) {
+      selected.setMap(null);
+    }
     e.preventDefault();
+
+    setClicked(true);
+
+    let li = e.currentTarget.parentNode.parentNode;
+    let id = li.id;
+    console.log("id = ", id);
+    setListItem(li);
+
+    // clicked ? li.classList.add("bg-light-yellow-color") : "";
+    // li.classList.add("bg-light-yellow-color");
+
     let index = e.currentTarget.id;
     const item = qualifiedArr[index];
     const { CRNAME, LA, LO } = item;
+    initMarkers(null);
 
     if (LA.length <= 0) {
       alert("해당 어린이집은 위치 정보가 없습니다");
       return;
     }
 
-    let container = document.getElementById("map");
-    let options = {
-      center: new kakao.maps.LatLng(LA, LO),
-      level: 2,
-    };
-    let map = new kakao.maps.Map(container, options);
+    var points = [new kakao.maps.LatLng(LA, LO)];
+    var bounds = new kakao.maps.LatLngBounds();
 
-    let imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-    let imageSize = new kakao.maps.Size(24, 35);
-    let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+    for (let i = 0; i < points.length; i++) {
+      let marker = addMarker(points[i], "/markerEllipse3.svg");
+
+      kakao.maps.event.addListener(marker, "click", function () {
+        infowindow.open(map, marker);
+      });
+      bounds.extend(points[i]);
+    }
+
+    map.setBounds(bounds);
 
     let infoContent = `<div style="margin:5px 35px; white-space: nowrap; color:orange">${CRNAME}</div>`;
-    let infoPosition = new kakao.maps.LatLng(LA, LO);
     let iwRemoveable = true;
 
     let infowindow = new kakao.maps.InfoWindow({
       content: infoContent,
       removable: iwRemoveable,
     });
-
-    let marker = new kakao.maps.Marker({
-      map: map,
-      position: infoPosition,
-      image: markerImage,
-    });
-
-    kakao.maps.event.addListener(marker, "click", function () {
-      infowindow.open(map, marker);
-    });
   };
+
+  const perPage = 100;
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const handlePageClick = ({ selected: selectedPage }) => {
+    setCurrentPage(selectedPage);
+  };
+
 
   const perPage = 100;
   const [currentPage, setCurrentPage] = useState(0);
@@ -148,7 +299,13 @@ const KindergartenList = ({ kinderList, modalShow }) => {
         </div>
       </div>
       <div className="text-left overflow-auto">
-        <ul>
+        {qualifiedArr.length <= 0 && (
+          <div className="flex flex-col items-center text-lg mt-[80px]">
+            <img src="/bird.svg" className="animate-bounce w-10 h-10" />
+            검색 결과가 없습니다
+          </div>
+        )}
+        <ul className="lists">
           {qualifiedArr.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
             <li className="relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer" onClick={modalShow} id={index} key={index}>
               <div className="min-w-[23rem] flex flex-row items-center justify-center">

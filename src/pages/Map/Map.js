@@ -10,14 +10,18 @@ const { kakao } = window;
 const Map = () => {
   const [modalClose, setModalClose] = useState(false);
   const [kinderList, setKinderList] = useState(null);
+  const [qualifiedList, setQualifiedList] = useState(kinderList);
   const [index, setIndex] = useState(null);
+  const [map, setMap] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
       try {
         const url = `http://openapi.seoul.go.kr:8088/${process.env.REACT_APP_KINDERINFO_KEY}/json/ChildCareInfo/1/1000/`;
         const response = await axios.get(url);
-        setKinderList(response.data.ChildCareInfo.row);
+        let arr = response.data.ChildCareInfo.row;
+        let filtered = arr.filter((elem) => elem.CRSTATUSNAME !== "폐지");
+        setKinderList(filtered);
       } catch (error) {
         alert("데이터를 불러오는 과정에서 에러가 발생했습니다!!");
       }
@@ -38,9 +42,10 @@ const Map = () => {
 
   return (
     <section className="flex flex-row h-screen lg:pt-[120px] pt-[72px]">
-      {modalClose && kinderList && index && <KindergartenModal kinderList={kinderList} index={index} setModalClose={setModalClose} />}
-      {kinderList && <KindergartenMap kinderList={kinderList} />}
-      {kinderList && <KindergartenList kinderList={kinderList} modalShow={modalShow} />}
+      {modalClose && kinderList && index && <KindergartenModal kinderList={kinderList} index={index} qualifiedList={qualifiedList} setModalClose={setModalClose} />}
+      {kinderList && <KindergartenMap kinderList={kinderList} setMap={setMap} />}
+      {/* <div id="map" className="w-3/5 hidden md:block"></div> */}
+      {kinderList && map && <KindergartenList kinderList={kinderList} setQualifiedList={setQualifiedList} map={map} modalShow={modalShow} />}
     </section>
   );
 };
