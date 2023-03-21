@@ -131,7 +131,6 @@ const SignUp = () => {
 
   useEffect(() => {
     const tl = gsap.timeline();
-
     tl.fromTo(gomImageRef.current, { opacity: 0 }, { opacity: 1, duration: 1 })
       .fromTo(backgroundImageRef.current, { opacity: 0 }, { opacity: 1, duration: 1 }, "-=0.5")
       .fromTo(udonHouseLogoRef.current, { opacity: 0 }, { opacity: 1, duration: 1 }, "-=0.5")

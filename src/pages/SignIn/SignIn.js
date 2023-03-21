@@ -1,7 +1,7 @@
 import gsap from "gsap";
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { auth } from "util/fbase";
-import { signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from "firebase/auth";
+import { signInWithEmailAndPassword, GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from "firebase/auth";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub } from "react-icons/ai";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -28,41 +28,6 @@ const SignIn = () => {
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-
-  // //유효성 검사 함수
-  // const handleEmailChange = useCallback((event) => {
-  //   const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-  //   const emailCurrent = event.target.value;
-  //   setInputs((inputs) => ({
-  //     ...inputs,
-  //     email: emailCurrent,
-  //   }));
-
-  //   if (!emailRegex.test(emailCurrent)) {
-  //     setEmailMessage("이메일 형식이 아닙니다.");
-  //     setIsEmail(false);
-  //   } else {
-  //     setEmailMessage("올바른 이메일 형식입니다 :)");
-  //     setIsEmail(true);
-  //   }
-  // }, []);
-
-  // const handlePassWordChange = useCallback((event) => {
-  //   const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,25}$/;
-  //   const passwordCurrent = event.target.value;
-  //   setInputs((inputs) => ({
-  //     ...inputs,
-  //     password: passwordCurrent,
-  //   }));
-
-  //   if (!passwordRegex.test(passwordCurrent)) {
-  //     setPasswordMessage("숫자/문자/특수문자 조합으로 6자 이상 설정해주세요.");
-  //     setIsPassword(false);
-  //   } else {
-  //     setPasswordMessage("올바른 비밀번호 형식 입니다:)");
-  //     setIsPassword(true);
-  //   }
-  // }, []);
 
   const handleChange = useCallback((event) => {
     const { name, value } = event.target;
@@ -118,20 +83,6 @@ const SignIn = () => {
     }
   };
 
-  //로그인 상태 알아보기
-  const [init, setInit] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
-      setInit(true);
-    });
-  }, []);
-
   //submit 버튼 함수
   async function handleSubmit(e) {
     e.preventDefault();
@@ -169,12 +120,9 @@ const SignIn = () => {
   const udonHouseLogoRef = useRef(null);
   const birdRef = useRef(null);
   const formRef = useRef(null);
-
   useEffect(() => {
     window.scrollTo(0, 0);
-
     const tl = gsap.timeline();
-
     tl.fromTo(gomImageRef.current, { opacity: 0 }, { opacity: 1, duration: 1 })
       .fromTo(backgroundImageRef.current, { opacity: 0 }, { opacity: 1, duration: 1 }, "-=0.5")
       .fromTo(udonHouseLogoRef.current, { opacity: 0 }, { opacity: 1, duration: 1 }, "-=0.5")

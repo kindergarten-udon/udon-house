@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const FirstMain = () => {
   return (
-    <div className="relative w-full h-screen snap-center">
+    <div className="relative w-full h-screen">
       <video className="w-full h-full object-cover" autoPlay muted loop>
         <source src="https://cdn-web-management.i-nara.co.kr/common/main/main_intro_2.mp4" type="video/mp4" />
       </video>

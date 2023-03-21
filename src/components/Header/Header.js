@@ -1,36 +1,26 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate, NavLink, useLocation } from "react-router-dom";
-import { cls } from "util/util";
-import { Nav } from "components/Nav/Nav";
-import { signOut, onAuthStateChanged } from "firebase/auth";
+import React, { useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { auth } from "util/fbase";
+import { Nav } from "components/Nav/Nav";
 
-const Header = () => {
-  // const [active, setActive] = useState(true);
+const Header = ({ isLogin }) => {
+  const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname;
   const arr = ["/", "/map"];
 
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-      } else {
-        setUser(null);
-      }
-    });
-  }, []);
-
-  const handleLogout = async () => {
-    await signOut(auth);
+  const loginBtn = () => {
+    navigate("/signin");
   };
 
-  const navigate = useNavigate("");
-  const goSigninButton = () => {
-    if (location.pathname !== "/signin") {
-      navigate("/signin");
-      alert("이동!");
+  // 로그아웃
+  const logout = () => {
+    if (window.confirm("로그아웃 하시겠습니까?")) {
+      alert("로그아웃 완료!");
+      navigate("/");
+      auth.signOut();
+    } else {
+      alert("로그인 유지");
     }
   };
 
@@ -42,27 +32,15 @@ const Header = () => {
         </Link>
         <div className="flex items-center gap-5 lg:text-[17px] text-[14px] font-bold">
           <Nav className="flex gap-5" />
-          <Link to="/signin">
-            {/* <button type="button" className="border-2 border-solid border-gray-300 rounded-full px-2" onClick={toggleButton}>
-              {active ? "로그인" : "로그아웃"}
-            </button> */}
-            <div>
-              {user ? (
-                <div className="flex-clo pt-[25px]">
-                  <button className="text-base border-2 border-solid border-gray-300 rounded-full px-2" onClick={handleLogout}>
-                    로그아웃
-                  </button>
-                  <p className="text-sm">{user.email}</p>
-                </div>
-              ) : (
-                <div>
-                  <button className="border-2 border-solid border-gray-300 rounded-full px-2" onClick={goSigninButton}>
-                    로그인
-                  </button>
-                </div>
-              )}
-            </div>
-          </Link>
+          {isLogin === true ? (
+            <button onClick={logout} type="button" className="border-2 border-solid border-gray-300 rounded-full px-2">
+              로그아웃
+            </button>
+          ) : (
+            <button onClick={loginBtn} type="button" className="border-2 border-solid border-gray-300 rounded-full px-2">
+              로그인
+            </button>
+          )}
         </div>
       </header>
     </>
