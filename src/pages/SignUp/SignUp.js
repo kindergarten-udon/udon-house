@@ -30,59 +30,47 @@ const SignUp = () => {
     setShowPassword(!showPassword);
   };
 
-  //유효성 검사 함수
-  const handleEmailChange = useCallback((event) => {
-    const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-    const emailCurrent = event.target.value;
-    setInputs((inputs) => ({
-      ...inputs,
-      email: emailCurrent,
-    }));
-
-    if (!emailRegex.test(emailCurrent)) {
-      setEmailMessage("이메일 형식이 틀렸습니다. 다시 확인해주세요.");
-      setIsEmail(false);
-    } else {
-      setEmailMessage("올바른 이메일 형식입니다 :)");
-      setIsEmail(true);
-    }
-  }, []);
-
-  const handlePassWordChange = useCallback((event) => {
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,25}$/;
-    const passwordCurrent = event.target.value;
-    setInputs((inputs) => ({
-      ...inputs,
-      password: passwordCurrent,
-    }));
-
-    if (!passwordRegex.test(passwordCurrent)) {
-      setPasswordMessage("숫자/문자/특수문자 조합으로 6자 이상 설정해주세요.");
-      setIsPassword(false);
-    } else {
-      setPasswordMessage("올바른 비밀번호 형식 입니다:)");
-      setIsPassword(true);
-    }
-  }, []);
-
-  const handlePasswordConfirm = useCallback(
+  const handleChange = useCallback(
     (event) => {
-      const passwordConfirmCurrent = event.target.value;
-      setInputs((inputs) => ({
-        ...inputs,
-        passwordConfirm: passwordConfirmCurrent,
+      const { name, value } = event.target;
+      setInputs((prevInputs) => ({
+        ...prevInputs,
+        [name]: value,
       }));
 
-      if (password === passwordConfirmCurrent) {
-        setPasswordConfirmMessage("비밀번호를 똑같이 입력했어요 : )");
-        setIsPasswordConfirm(true);
-      } else {
-        setPasswordConfirmMessage("비밀번호를 다시 입력해주세요.");
-        setIsPasswordConfirm(false);
+      const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+      const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,25}$/;
+
+      if (name === "email") {
+        if (!emailRegex.test(value)) {
+          setEmailMessage("이메일 형식이 아닙니다.");
+          setIsEmail(false);
+        } else {
+          setEmailMessage("올바른 이메일 형식입니다 :)");
+          setIsEmail(true);
+        }
+      } else if (name === "password") {
+        if (!passwordRegex.test(value)) {
+          setPasswordMessage("숫자/문자/특수문자 조합으로 6자 이상 설정해주세요.");
+          setIsPassword(false);
+        } else {
+          setPasswordMessage("올바른 비밀번호 형식입니다 :)");
+          setIsPassword(true);
+          return;
+        }
+      } else if (name === "passwordConfirm") {
+        if (value !== inputs.password) {
+          setPasswordConfirmMessage("비밀번호가 일치하지 않습니다.");
+          setIsPasswordConfirm(false);
+        } else {
+          setPasswordConfirmMessage("비밀번호가 일치합니다 :)");
+          setIsPasswordConfirm(true);
+        }
       }
     },
     [password]
   );
+  useEffect(() => {}, [inputs.password]);
 
   const [emailCheck, setEmailCheck] = useState("");
   const checkEmailExists = async () => {
@@ -152,50 +140,49 @@ const SignUp = () => {
   }, []);
 
   return (
-    <div className="w-full bg-main-color h-[1080px] p-0 m-0">
-      <h2 className="overflow-hidden whitespace-normal w-px m--px">회원가입</h2>
-      <img className="w-[547px] h-[367.08px] absolute left-0 top-0 opacity-50" src="/mainShape1.svg" alt="배경 이미지1" />
-      <img className="lg:w-[800px] lg:h-[846px] w-0 h-0 absolute right-0 top-[260px] bottom-0 opacity-50" src="/mainShape2.svg" alt="배경 이미지2" />
-      <img ref={backgroundImageRef} className="w-0 h-0 lg:w-[500px] lg:h-[600px] absolute inline-blcok p-0 m-0 top-[400px] right-[-73px]" src="/BackgroundImage.svg" alt="곰과 악어가 있는 이미지" />
-      <img ref={gomImageRef} className="w-0 h-0 lg:w-[200px] lg:h-[300px] relative lg:left-[400px] top-[300px] lg:opacity-0" src="/gomImage.svg" alt="빼꼼 곰 이미지" />
-      <img ref={birdRef} className="animate-bounce w-[100px] h-[100px] relative inline-block bottom-[180px] right-[200px] md:opacity-0" src="/bird2.svg" alt="새 이미지" />
-      <img ref={udonHouseLogoRef} className="relative m-auto block w-[212px] h-[72px] lg:bottom-[350px] opacity-0" src="/udonHouseLogo.svg" alt="우리 동네 어린이집 로고" />
-      <div className="lg:w-full lg:h-full  lg:justify-center lg:items-center lg:flex inline-block">
-        <form ref={formRef} className="mt-[100px] md:w-[500px] bottom-[610px] lg:w-[580px] lg:relative border-solid border-[1px] rounded-[10px] drop-shadow-lg bg-[#FFFFF3] opacity-0  pl-[10px] pr-[10px] pb-[100px] z-[1000]" onSubmit={handleSubmit}>
-          <div className=" w-[450px] h-[80px] relative m-auto block pt-[50px]">
-            <span className="flex right-[200px]">이메일</span>
-            <input className="w-[450px] h-[45px] rounded-[10px] pl-[10px] border-solid border-[1px]" name="email" placeholder="이메일" onChange={handleEmailChange} />
-            {email.length > 0 && <span className={`message ${isEmail ? "success" : "error"}`}>{emailMessage}</span>}
-          </div>
-          <div className="w-[100px] h-[45px] relative m-auto block">
-            <button className="w-[100px] h-[45px] rounded-r bg-gray-400  border-solid absolute bottom-[6px] left-[175px] " type="button" onClick={checkEmailExists} disabled={!email}>
+    <div className="w-full h-screen bg-main-color">
+      <h2 className="sr-only">회원가입</h2>
+      <img className="lg:w-[31rem] h-2/5 left-0 top-0 opacity-50 md:w-80 sm:w-80 " src="/mainShape1.svg" alt="배경 이미지1" />
+      <img ref={udonHouseLogoRef} className=" center h-20 bottom-52 opacity-0" src="/main3Logo.svg" alt="우리 동네 어린이집 로고" />
+      <img ref={birdRef} className="animate-bounce birdSize lnline-block relative bottom-56 left-[38rem] " src="/bird2.svg" alt="새 이미지" />
+      {/* <img ref={gomImageRef} className="lg:w-36 w-0 relative bottom-30 right-[500px] pr-2.5 z-[1000] inline-block" src="/gomImage.svg" alt="빼꼼 곰 이미지" /> */}
+      <img ref={backgroundImageRef} className=" bgSize inline-block absolute p-0 m-0 bottom-0 right-[-1rem] z-[10]" src="/BackgroundImage.svg" alt="곰과 악어가 있는 이미지" />
+      <img className=" shapeSize absolute right-0  bottom-0 opacity-50 z-0" src="/mainShape2.svg" alt="배경 이미지2" />
+      <form ref={formRef} className="formBottom center w-[32rem] formBorder bg-[#FFFFF3] px-2.5 z-[10]" onSubmit={handleSubmit}>
+        <div className=" w-[28rem] h-24 center pt-10">
+          <span className="spanStyle">이메일</span>
+          <div className="w-[28rem] h-10 center ">
+            <input className="inputStyle" name="email" placeholder="이메일" onChange={handleChange} />
+            <button
+              className={"w-[6.25rem] h-[2.6rem] rounded-r-xl border-2 bottom-[-0.18rem] left-[21.7rem] border-solid absolute opacity-1 " + (isEmail ? "bg-btn-green-color " : "bg-gray-400 block ")}
+              type="button"
+              onClick={checkEmailExists}
+              disabled={!email}
+            >
               중복확인
             </button>
-            <span className="block absolute bottom-[50px]">{emailCheck ? "중복확인 완료!" : "중복확인 필수!"}</span>
           </div>
-
-          <div className=" w-[450px] h-[80px] relative m-auto block pt-[20px]">
-            <span className="flex right-[200px]">
-              비밀번호{" "}
-              <button className="pl-[10px]" onClick={toggleShowPassword}>
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </button>
-            </span>
-            <input className="w-[450px] h-[45px] rounded-[10px] pl-[10px] border-solid border-[1px]" type={showPassword ? "text" : "password"} name="password" placeholder="비밀번호" onChange={handlePassWordChange} />
-            {password.length > 0 && <span className={`message ${isPassword ? "success" : "error"}`}>{passwordMessage}</span>}
-          </div>
-          <div className=" w-[450px] h-[80px] relative m-auto block pt-[30px]">
-            <span className="flex right-[200px]">비밀번호 확인</span>
-            <input className="w-[450px] h-[45px] rounded-[10px] pl-[10px] border-solid border-[1px]" type={showPassword ? "text" : "password"} name="passwordConfirm" placeholder="비밀번호 확인" onChange={handlePasswordConfirm} />
-            {passwordConfirm.length > 0 && <span className={`message ${isPasswordConfirm ? "success" : "error"}`}>{passwordConfirmMessage}</span>}
-          </div>
-          <div className="w-[450px] h-[80px] pt-[60px] relative m-auto block ">
-            <button className="w-[450px] h-[45px] rounded-[10px] bg-gray-400 border-solidr" onClick={signupButton} type="submit" disabled={!isFormValid}>
-              회원가입
-            </button>
-          </div>
-        </form>
-      </div>
+          {email.length > 0 && <span className={`message ${isEmail ? "success successFont" : "error errorFont"}`}>{emailMessage}</span>}
+        </div>
+        <div className=" loginDivStyle pt-10">
+          <span className="spanStyle">비밀번호 </span>
+          <input className="inputStyle" type={showPassword ? "text" : "password"} name="password" placeholder="비밀번호" onChange={handleChange} />
+          <button className="eyeButton bottom-[-15px] " onClick={toggleShowPassword}>
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </button>
+          {password.length > 0 && <span className={`message ${isPassword ? "success successFont" : "error errorFont"}`}>{passwordMessage}</span>}
+        </div>
+        <div className="loginDivStyle mt-14">
+          <span className="spanStyle">비밀번호 확인</span>
+          <input name="passwordConfirm" className="inputStyle" type={showPassword ? "text" : "password"} placeholder="비밀번호 확인" onChange={handleChange} />
+          {passwordConfirm.length > 0 && <span className={`message ${isPasswordConfirm ? "success successFont" : "error errorFont"}`}>{passwordConfirmMessage}</span>}
+        </div>
+        <div className="loginDivStyle pt-[3.75rem] pb-24  ">
+          <button className={"loginButtonStyle border-solide " + (!isFormValid ? "bg-gray-400" : "bg-btn-green-color")} onClick={signupButton} type="submit" disabled={!isFormValid}>
+            회원가입
+          </button>
+        </div>
+      </form>
     </div>
   );
 };
