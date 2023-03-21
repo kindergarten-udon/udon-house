@@ -1,63 +1,119 @@
 import gsap from "gsap";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { auth } from "util/fbase";
-import { GithubAuthProvider, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { signInWithEmailAndPassword, GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from "firebase/auth";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub } from "react-icons/ai";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
-  const navigate = useNavigate();
-  // email password값
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  //유효성 검사
+  const [isPassword, setIsPassword] = useState(false);
+  const [isEmail, setIsEmail] = useState(false);
 
-  // email, password 값 저장
-  const onChange = (e) => {
-    const {
-      target: { name, value },
-    } = e;
+  //오류 메세지
+  const [emailMessage, setEmailMessage] = useState("");
+  const [passwordMessage, setPasswordMessage] = useState("");
+
+  //input
+  const [inputs, setInputs] = useState({
+    email: "",
+    password: "",
+  });
+  const { email, password } = inputs;
+
+  //비밀번호 타입 text or password
+  const [showPassword, setShowPassword] = useState(false);
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleChange = useCallback((event) => {
+    const { name, value } = event.target;
+    setInputs((inputs) => ({
+      ...inputs,
+      [name]: value,
+    }));
+
+    const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,25}$/;
+
     if (name === "email") {
-      setEmail(value);
+      if (!emailRegex.test(value)) {
+        setEmailMessage("이메일 형식이 아닙니다.");
+        setIsEmail(false);
+      } else {
+        setEmailMessage("올바른 이메일 형식입니다 :)");
+        setIsEmail(true);
+      }
     } else if (name === "password") {
-      setPassword(value);
+      if (!passwordRegex.test(value)) {
+        setPasswordMessage("숫자/문자/특수문자 조합으로 6자 이상 설정해주세요.");
+        setIsPassword(false);
+      } else {
+        setPasswordMessage("올바른 비밀번호 형식입니다 :)");
+        setIsPassword(true);
+      }
+    }
+  }, []);
+
+  //input 요소의 유효성 검사 결과에 따라 ifFormValid 업데이트 -> disabled 처리 하기 위해서
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  useEffect(() => {
+    if (isPassword && isEmail) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
+  }, [isEmail, isPassword]);
+
+  //로그인 버튼 -> 로그인 되었을때 메인페이지, 실패시 alert창
+  const navigate = useNavigate("");
+  const login = async () => {
+    try {
+      const user = await signInWithEmailAndPassword(auth, email, password);
+      console.log(user);
+      alert("로그인 되었습니다");
+      navigate("/");
+    } catch (error) {
+      console.log(error.message);
+      alert("로그인 실패했습니다");
     }
   };
-  // submit
-  const onSubmit = (e) => {
-    e.preventDefault();
-  };
-  // 로그인
-  const handleLogin = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        alert("로그인 완료!");
-        navigate("/");
-      })
-      .catch(() => {
-        alert("사용자 정보가 없습니다.");
-      });
-  };
 
-  // 회원가입 페이지이동
+  //submit 버튼 함수
+  async function handleSubmit(e) {
+    e.preventDefault();
+  }
+
+  //회원가입페이지로 이동 하는 버튼
   const handleSignUp = () => {
     navigate("/signup");
   };
 
-  // 소셜로그인
-  const socialSignUp = async (e) => {
-    const {
-      currentTarget: { name },
-    } = e;
-    let provider;
-    if (name == "google") {
-      provider = new GoogleAuthProvider();
-    } else if (name == "github") {
-      provider = new GithubAuthProvider();
+  //소셜 로그인
+  const signInWithProvider = async (provider) => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      console.log(result);
+      alert("로그인 되었습니다.");
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      alert("로그인에 실패했습니다.");
     }
-    const data = await signInWithPopup(auth, provider);
-    data && navigate("/");
   };
+
+  const signInWithGoogle = () => {
+    signInWithProvider(new GoogleAuthProvider());
+  };
+
+  const signInWithGithub = () => {
+    signInWithProvider(new GithubAuthProvider());
+  };
+
   //GSAP
   const gomImageRef = useRef(null);
   const backgroundImageRef = useRef(null);
@@ -73,46 +129,51 @@ const SignIn = () => {
       .fromTo(birdRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5 }, "-=0.5")
       .fromTo(formRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5 }, "-=0.5");
   }, []);
-  return (
-    <div className="w-full bg-main-color h-[1080px] p-0 m-0">
-      <h2 className="overflow-hidden whitespace-normal w-px m--px">로그인</h2>
-      <img className="w-[547px] h-[367.08px] absolute left-0 top-0 opacity-50" src="/mainShape1.svg" alt="배경 이미지1" />
-      <img className="lg:w-[800px] lg:h-[846px] w-0 h-0 absolute right-0 top-[260px] bottom-0 opacity-50" src="/mainShape2.svg" alt="배경 이미지2" />
-      <img ref={backgroundImageRef} className="w-0 h-0 lg:w-[500px] lg:h-[600px] absolute inline-blcok p-0 m-0 top-[400px] right-[-73px]" src="/BackgroundImage.svg" alt="곰과 악어가 있는 이미지" />
-      <img ref={gomImageRef} className="w-0 h-0 lg:w-[200px] lg:h-[300px] relative lg:left-[400px] top-[300px] opacity-0" src="/gomImage.svg" alt="빼꼼 곰 이미지" />
-      <img ref={birdRef} className="w-[100px] h-[100px] relative inline-block bottom-[180px] right-[200px] opacity-0" src="/bird2.svg" alt="새 이미지" />
-      <img ref={udonHouseLogoRef} className="relative m-auto block w-[212px] h-[72px] lg:bottom-[350px] opacity-0" src="/udonHouseLogo.svg" alt="우리 동네 어린이집 로고" />
-      <div className="lg:w-full lg:h-full  lg:justify-center lg:items-center lg:flex inline-block">
-        <form onSubmit={onSubmit} ref={formRef} className="mt-[100px] md:w-[500px] bottom-[600px] lg:w-[580px] lg:relative border-solid border-[1px] rounded-[10px] drop-shadow-lg bg-[#FFFFF3] opacity-0">
-          <div className=" w-[450px] h-[80px] relative m-auto block pt-[40px] pb-[100px]">
-            <span className="flex right-[200px]">이메일</span>
-            <input className="w-[450px] h-[45px] rounded-[10px] pl-[10px] border-solid border-[1px] " name="email" placeholder="아이디" onChange={onChange} />
-          </div>
-          <div className=" w-[450px] h-[80px] relative m-auto block ">
-            <span className="flex right-[200px]">비밀번호</span>
-            <input className="w-[450px] h-[45px] rounded-[10px] pl-[10px] border-solid border-[1px]" name="password" placeholder="비밀번호" onChange={onChange} />
-          </div>
 
-          <div className="w-[450px] h-[80px] pt-[20px] pb-[25px]relative m-auto inline-block ">
-            <button disabled={(email, password) == ""} type="submit" onClick={handleLogin} className="w-[450px] h-[45px] rounded-[10px] disabled:bg-gray-400  bg-btn-green-color border-solid ">
-              로그인
-            </button>
-          </div>
-          <div className="w-[450px] h-[80px] pt-[20px] relative m-auto block">
-            <button className="w-[450px] h-[45px] rounded-[10px] bg-btn-green-color border-solid" type="button" onClick={handleSignUp}>
-              회원가입
-            </button>
-          </div>
-          <div className=" flex justify-center pt-[40px] pb-[40px] ">
-            <button onClick={socialSignUp} name="google">
-              <FcGoogle className="w-[50px] h-[50px] mr-[20px] cursor-pointer" />
-            </button>
-            <button onClick={socialSignUp} name="github">
-              <AiFillGithub className="w-[50px] h-[50px] cursor-pointer  " />
-            </button>
-          </div>
-        </form>
-      </div>
+  return (
+    <div className="w-full h-screen bg-main-color">
+      <h2 className="sr-only">로그인</h2>
+      <img className="lg:w-[31rem] h-2/5 left-0 top-0 opacity-50 md:w-80 sm:w-80 " src="/mainShape1.svg" alt="배경 이미지1" />
+      <img ref={udonHouseLogoRef} className=" center h-20 bottom-52 opacity-0" src="/main3Logo.svg" alt="우리 동네 어린이집 로고" />
+      <img ref={birdRef} className="animate-bounce birdSize lnline-block relative bottom-56 left-[38rem] " src="/bird2.svg" alt="새 이미지" />
+      {/* <img ref={gomImageRef} className="lg:w-36 w-0 relative bottom-30 right-[500px] pr-2.5 z-[1000] inline-block" src="/gomImage.svg" alt="빼꼼 곰 이미지" /> */}
+      <img ref={backgroundImageRef} className=" bgSize inline-block absolute p-0 m-0 bottom-0 right-[-1rem] z-[10]" src="/BackgroundImage.svg" alt="곰과 악어가 있는 이미지" />
+      <img className=" shapeSize absolute right-0  bottom-0 opacity-50 z-0" src="/mainShape2.svg" alt="배경 이미지2" />
+      <form className="formBottom center w-[32rem] formBorder bg-[#FFFFF3] px-2.5 z-[10]" onSubmit={handleSubmit}>
+        <div className=" w-[28rem] h-20  inline-block pt-10 pb-24">
+          <span className="spanStyle">이메일</span>
+          <input className="inputStyle" name="email" placeholder="이메일" onChange={handleChange} />
+          {email.length > 0 && <span className={`message ${isEmail ? "success successFont" : "error errorFont"}`}>{emailMessage}</span>}
+        </div>
+        <div className="loginDivStyle ">
+          <span className="spanStyle">비밀번호</span>
+
+          <input className="inputStyle" type={showPassword ? "text" : "password"} name="password" placeholder="비밀번호" onChange={handleChange} />
+          <button className="eyeButton bottom-7" onClick={toggleShowPassword}>
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </button>
+          {password.length > 0 && <span className={`message ${isPassword ? "success successFont" : "error errorFont"}`}>{passwordMessage}</span>}
+        </div>
+
+        <div className="loginDivStyle pt-10 pb-6 ">
+          <button className={"loginButtonStyle  " + (!isFormValid ? "bg-gray-400" : "bg-btn-green-color")} onClick={login} disabled={!isFormValid} type="submit">
+            로그인
+          </button>
+        </div>
+        <div className="loginDivStyle pt-10">
+          <button className="loginButtonStyle  bg-gray-400  hover:bg-btn-green-color border-solid " onClick={handleSignUp}>
+            회원가입
+          </button>
+        </div>
+        <div className="pt-7 pb-3.5">
+          <button className="mr-16" onClick={signInWithGoogle} name="google" value="google" type="button">
+            <FcGoogle className="socialIcon" />
+          </button>
+          <button onClick={signInWithGithub} name="github" value="github" type="button">
+            <AiFillGithub className="socialIcon" />
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

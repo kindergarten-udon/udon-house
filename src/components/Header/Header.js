@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { auth } from "util/fbase";
-import { signOut } from "firebase/auth";
 import { Nav } from "components/Nav/Nav";
 
 const Header = ({ isLogin }) => {
