@@ -13,7 +13,8 @@ module.exports = {
         "bg-gray-color": "#f2f2f2",
       },
       screens: {
-        "max-sm": { max: "639px" },
+        "max-sm": { max: "679px" },
+        "max-md": { max: "767px" },
       },
       fontFamily: {
         sans: ["BMJUA", "Arial", "sans-serif"],
