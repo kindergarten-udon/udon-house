@@ -1,18 +1,18 @@
 import "./App.css";
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import Map from "pages/Map/Map";
+import { auth } from "util/fbase";
 import Main from "pages/Main/Main";
-import Header from "components/Header/Header";
-import Footer from "components/Footer/Footer";
 import SignUp from "pages/SignUp/SignUp";
 import SignIn from "pages/SignIn/SignIn";
+import MyPage from "pages/MyPage/MyPage";
 import AboutUs from "pages/AboutUs/AboutUs";
-import Community from "pages/Community/Community";
-import WriteCommunity from "pages/Community/WriteCommunity";
-import Map from "pages/Map/Map";
+import Header from "components/Header/Header";
+import Footer from "components/Footer/Footer";
 import NotFound from "pages/NotFound/NotFound";
+import Community from "pages/Community/Community";
 import { useEffect, useRef, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "util/fbase";
+import WriteCommunity from "pages/Community/WriteCommunity";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 
 function App() {
   const navigate = useNavigate();
@@ -35,13 +35,14 @@ function App() {
         <Routes>
           <>
             <Route path="/" element={<Main />} />
+            <Route path="/map" element={<Map />} />
+            <Route path="/map/:id" element={<Map />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
+            <Route path="/mypage" element={<MyPage />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/community" element={<Community isLogin={isLogin} />} />
             <Route path="/community/:id" element={<Community userId={userId} />} />
-            <Route path="/map/:id" element={<Map />} />
-            <Route path="/map" element={<Map />} />
             <Route path="/writeCommunity" element={<WriteCommunity userId={userId} />} />
           </>
         </Routes>
