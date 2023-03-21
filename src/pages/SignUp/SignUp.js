@@ -1,40 +1,11 @@
-import { RegisterButton, VerificationButton } from "components/SignUp/RegisterButton";
 import gsap from "gsap";
-import React, { useCallback, useEffect, useRef, useState } from "react";
 import { auth } from "util/fbase";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail } from "firebase/auth";
 
 const SignUp = () => {
-  //firebase
-  const [user, setUser] = useState({});
-  const [value, setValue] = useState("");
-  const [inputs, setInputs] = useState({
-    email: "",
-    password: "",
-  });
-  const { email, password } = inputs;
-
-  function onChange(event) {
-    const { value, name } = event.target;
-    setInputs({
-      ...inputs,
-      [name]: value,
-    });
-  }
-
-  const register = async () => {
-    try {
-      const user = await createUserWithEmailAndPassword(auth, email, password);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    await auth(email, password);
-  }
-
+  const navigate = useNavigate();
   //GSAP
   const gomImageRef = useRef(null);
   const backgroundImageRef = useRef(null);
@@ -42,9 +13,45 @@ const SignUp = () => {
   const birdRef = useRef(null);
   const formRef = useRef(null);
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPW, setConfirmPW] = useState("");
+  const [emailExist, setEmailExist] = useState(false);
+
+  // 정규식
+  const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email);
+  const pwRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(password);
+
+  // 중복검사
+  const checkEmailExists = async () => {
+    try {
+      const methods = await fetchSignInMethodsForEmail(auth, email);
+      if (methods.length == 1) {
+        alert("이미 사용중인 이메일 입니다");
+        setEmailExist(false);
+      } else {
+        alert("사용가능한 이메일 입니다.");
+        setEmailExist(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const onChange = (e) => {
+    const {
+      target: { name, value },
+    } = e;
+    if (name === "email") {
+      setEmail(value);
+    } else if (name === "password") {
+      setPassword(value);
+    } else if (name === "confirmPW") {
+      setConfirmPW(value);
+    }
+  };
+
   useEffect(() => {
     const tl = gsap.timeline();
-
     tl.fromTo(gomImageRef.current, { opacity: 0 }, { opacity: 1, duration: 1 })
       .fromTo(backgroundImageRef.current, { opacity: 0 }, { opacity: 1, duration: 1 }, "-=0.5")
       .fromTo(udonHouseLogoRef.current, { opacity: 0 }, { opacity: 1, duration: 1 }, "-=0.5")
@@ -52,6 +59,25 @@ const SignUp = () => {
       .fromTo(formRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5 }, "-=0.5");
   }, []);
 
+  // 회원가입
+  const register = async () => {
+    try {
+      const user = await createUserWithEmailAndPassword(auth, email, password);
+      console.log(user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  // 회원가입시 로그인화면으로이동
+  const signupBtn = () => {
+    register();
+    alert("회원가입 완료!");
+    navigate("/signin");
+  };
   return (
     <div className="w-full bg-main-color h-[1080px] p-0 m-0">
       <h2 className="overflow-hidden whitespace-normal w-px m--px">회원가입</h2>
@@ -62,22 +88,34 @@ const SignUp = () => {
       <img ref={birdRef} className="w-[100px] h-[100px] relative inline-block bottom-[180px] right-[200px] md:opacity-0" src="/bird2.svg" alt="새 이미지" />
       <img ref={udonHouseLogoRef} className="relative m-auto block w-[212px] h-[72px] lg:bottom-[350px] opacity-0" src="/udonHouseLogo.svg" alt="우리 동네 어린이집 로고" />
       <div className="lg:w-full lg:h-full  lg:justify-center lg:items-center lg:flex inline-block">
-        <form ref={formRef} className="mt-[100px] md:w-[500px] bottom-[610px] lg:w-[580px] lg:relative border-solid border-[1px] rounded-[10px] drop-shadow-lg bg-[#FFFFF3] opacity-0  pl-[10px] pr-[10px] pb-[100px] z-[1000]" onSubmit={handleSubmit}>
+        <form onSubmit={handleOnSubmit} ref={formRef} className="mt-[100px] md:w-[500px] bottom-[610px] lg:w-[580px] lg:relative border-solid border-[1px] rounded-[10px] drop-shadow-lg bg-[#FFFFF3] opacity-0  pl-[10px] pr-[10px] pb-[100px]">
           <div className=" w-[450px] h-[80px] relative m-auto block pt-[50px]">
-            <span className="flex right-[200px]">이메일</span>
-            <input className="w-[450px] h-[45px] rounded-[10px] pl-[10px] border-solid border-[1px]" name="email" placeholder="이메일" onChange={onChange} />
+            <span className="relative right-[200px] pl-[10px]">이메일</span>
+            <input onChange={onChange} className="w-[450px] h-[45px] rounded-[10px] pl-[10px] border-solid border-[1px]" name="email" type="email" label="이메일" placeholder="아이디" />
           </div>
-          <VerificationButton />
-          <div className=" w-[450px] h-[80px] relative m-auto block pt-[20px]">
-            <span className="flex right-[200px]">비밀번호</span>
-            <input className="w-[450px] h-[45px] rounded-[10px] pl-[10px] border-solid border-[1px]" name="password" placeholder="비밀번호" onChange={onChange} />
+          <div className="w-[100px] h-[45px] relative m-auto block">
+            <button type="button" disabled={emailRegex == false} onClick={checkEmailExists} className="w-[100px] h-[45px] rounded-r disabled:bg-gray-400  border-solid absolute bottom-[6px] left-[175px] bg-btn-green-color">
+              중복확인
+            </button>
           </div>
-          <div className=" w-[450px] h-[80px] relative m-auto block pt-[30px]">
-            <span className="flex right-[200px]">비밀번호 확인</span>
-            <input className="w-[450px] h-[45px] rounded-[10px] pl-[10px] border-solid border-[1px]" name="password" placeholder="비밀번호 확인" onChange={onChange} />
+          {email !== "" && emailRegex === false && <span>email@text.com형태로 입력해주세요</span>}
+          <div className="w-[450px] h-[80px] relative m-auto block pt-[20px]">
+            <span className="relative right-[200px] pl-[15px]">비밀번호</span>
+            <input onChange={onChange} className="font-black w-[450px] h-[45px] rounded-[10px] pl-[10px] border-solid border-[1px]" name="password" label="패스워드" placeholder="비밀번호" />
+            {password !== "" && pwRegex === false && <span>@$!%*#?&를 포함하여 7글자 이상 비밀번호를 입력주세요.</span>}
           </div>
-          <div className="w-[450px] h-[80px] pt-[60px] relative m-auto block">
-            <button className="w-[450px] h-[45px] rounded-[10px] bg-gray-400 border-solid hover:bg-btn-green-color" onClick={register}>
+          <div className="w-[450px] h-[80px] relative m-auto block pt-[30px]">
+            <span className="relative right-[200px] pl-[43px]">비밀번호 확인</span>
+            <input onChange={onChange} className="w-[450px] h-[45px] rounded-[10px] pl-[10px] border-solid border-[1px]" name="confirmPW" label="패스워드" placeholder="비밀번호 확인" />
+            {confirmPW !== "" && password !== confirmPW && <span>위에 입력한 비밀번호와 다릅니다</span>}
+          </div>
+          <div className="w-[450px] h-[80px] pt-[60px] m-auto block">
+            <button
+              onClick={signupBtn}
+              type="submit"
+              disabled={(email, password, confirmPW) == "" || emailExist == false || (emailRegex, pwRegex) === false || password !== confirmPW}
+              className="w-[450px] h-[45px]rounded-[10px] border-solid bg-btn-green-color disabled:bg-gray-400"
+            >
               회원가입
             </button>
           </div>

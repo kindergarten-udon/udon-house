@@ -77,7 +77,7 @@ const KindergartenList = ({ kinderList, modalShow }) => {
 
   const handleSearch = () => {
     const inputValue = inputName.current.value;
-
+    console.log(inputValue);
     const arr = localArr.filter((elem) => typeArr.includes(elem));
     setQualifiedArr(arr.filter((elem) => elem.CRNAME.includes(inputValue)));
   };
@@ -117,7 +117,6 @@ const KindergartenList = ({ kinderList, modalShow }) => {
     let marker = new kakao.maps.Marker({
       map: map,
       position: infoPosition,
-      // title: CRNAME,
       image: markerImage,
     });
 

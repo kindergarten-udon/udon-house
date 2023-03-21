@@ -1,13 +1,29 @@
 import React, { useState } from "react";
-import { Link, useNavigate, NavLink, useLocation } from "react-router-dom";
-import { cls } from "util/util";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { auth } from "util/fbase";
+import { signOut } from "firebase/auth";
 import { Nav } from "components/Nav/Nav";
 
-const Header = () => {
-  const [active, setActive] = useState(true);
+const Header = ({ isLogin }) => {
+  const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname;
   const arr = ["/", "/map"];
+
+  const loginBtn = () => {
+    navigate("/signin");
+  };
+
+  // 로그아웃
+  const logout = () => {
+    if (window.confirm("로그아웃 하시겠습니까?")) {
+      alert("로그아웃 완료!");
+      navigate("/");
+      auth.signOut();
+    } else {
+      alert("로그인 유지");
+    }
+  };
 
   return (
     <>
@@ -17,11 +33,15 @@ const Header = () => {
         </Link>
         <div className="flex items-center gap-5 lg:text-[17px] text-[14px] font-bold">
           <Nav className="flex gap-5" />
-          <Link to="/signin">
-            <button type="button" className="border-2 border-solid border-gray-300 rounded-full px-2">
-              {active ? "로그인" : "로그아웃"}
+          {isLogin === true ? (
+            <button onClick={logout} type="button" className="border-2 border-solid border-gray-300 rounded-full px-2">
+              로그아웃
             </button>
-          </Link>
+          ) : (
+            <button onClick={loginBtn} type="button" className="border-2 border-solid border-gray-300 rounded-full px-2">
+              로그인
+            </button>
+          )}
         </div>
       </header>
     </>

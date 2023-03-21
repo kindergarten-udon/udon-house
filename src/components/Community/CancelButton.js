@@ -2,6 +2,7 @@ import { React, useEffect, useReducer, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const CancelButton = ({ cancelModalOpen, setcancelModalOpen, props, ref }) => {
+  const navigate = useNavigate();
   const cancelCloseModal = () => {
     setcancelModalOpen(false);
   };
@@ -19,6 +20,9 @@ const CancelButton = ({ cancelModalOpen, setcancelModalOpen, props, ref }) => {
       cancelCloseModal();
     }
   };
+  const checkBtn = () => {
+    navigate(-1);
+  };
 
   return (
     <>
@@ -29,7 +33,9 @@ const CancelButton = ({ cancelModalOpen, setcancelModalOpen, props, ref }) => {
             <button className="mr-2 lg:mr-3 px-8 lg:px-10 py-1 lg:py2 text-sm lg:text-base border rounded-2xl" onClick={cancelCloseModal}>
               취소
             </button>
-            <button className="ml-2 lg:ml-3 text-white font-bold px-8 lg:px-10 py-1 lg:py2 text-sm lg:text-base bg-btn-green-color border rounded-2xl">확인</button>
+            <button onClick={checkBtn} className="ml-2 lg:ml-3 text-white font-bold px-8 lg:px-10 py-1 lg:py2 text-sm lg:text-base bg-btn-green-color border rounded-2xl">
+              확인
+            </button>
           </div>
         </div>
       </section>
