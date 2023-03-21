@@ -2,9 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 const { kakao } = window;
 
 const KindergartenMap = ({ kinderList, setMap }) => {
-  // const [map, setMap] = useState(null);
-  // const [options, setOptions] = useState(null);
-
   useEffect(() => {
     console.log("map 실행됨");
     let container = document.getElementById("map");
@@ -16,8 +13,8 @@ const KindergartenMap = ({ kinderList, setMap }) => {
     setMap(map);
 
     kinderList.map(({ CRNAME, LA, LO }) => {
-      let imageSrc = "/markerEllipse2.svg";
-      let imageSize = new kakao.maps.Size(20, 20);
+      let imageSrc = "/markerEllipse3.svg";
+      let imageSize = new kakao.maps.Size(18, 18);
       let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
       let infoContent = `<div style="margin:5px 35px; white-space: nowrap; color:orange">${CRNAME}</div>`;

@@ -56,7 +56,6 @@ const useDidMountEffect = (func, deps) => {
 };
 
 function createMarkerImage(markerSrc, markerSize) {
-  // let markerSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
   let markerImage = new kakao.maps.MarkerImage(markerSrc, markerSize);
 
   return markerImage;
@@ -72,48 +71,47 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
   const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
   const [info, setInfo] = useState(null);
+  const [clicked, setClicked] = useState(false);
+  const [listItem, setListItem] = useState(null);
+  const [test, setTest] = useState(null);
   const textArea = useRef(false);
   const inputName = useRef(null);
 
-  // 마커를 생성하고 지도 위에 표시하고, 마커에 mouseover, mouseout, click 이벤트를 등록하는 함수입니다
+  // // setClicked(false);
+  // useEffect(()=> {
+  //   setClicked(false);
+  // }, [clicked])
+
   let selectedMarker = null; // 클릭한 마커를 담을 변수
-  function addMarker(position) {
-    let markerSize = new kakao.maps.Size(20, 20);
-    let clickarkerSize = new kakao.maps.Size(34, 45);
-    let normalSrc = "/markerEllipse2.svg";
+  function addMarker(position, normalSrc) {
+    let markerSize = "";
+    if (normalSrc === "/markerEllipse3.svg") markerSize = new kakao.maps.Size(18, 18);
+    else markerSize = new kakao.maps.Size(28, 43);
+    let clickarkerSize = new kakao.maps.Size(28, 43);
     let markerSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-    // 기본 마커이미지, 오버 마커이미지, 클릭 마커이미지를 생성합니다
+
     var normalImage = createMarkerImage(normalSrc, markerSize),
       overImage = createMarkerImage(markerSrc, clickarkerSize),
-      clickImage = createMarkerImage(markerSrc, markerSize);
+      clickImage = createMarkerImage(markerSrc, clickarkerSize);
 
-    // 마커를 생성하고 이미지는 기본 마커 이미지를 사용합니다
     var marker = new kakao.maps.Marker({
       map: map,
       position: position,
       image: normalImage,
     });
 
-    // 마커 객체에 마커아이디와 마커의 기본 이미지를 추가합니다
     marker.normalImage = normalImage;
 
-    // 마커에 click 이벤트를 등록합니다
-    // 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
-    // 마커의 이미지를 클릭 이미지로 변경합니다
     if (!selectedMarker || selectedMarker !== marker) {
-      // 클릭된 마커 객체가 null이 아니면
-      // 클릭된 마커의 이미지를 기본 이미지로 변경하고
       !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
 
-      // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
       marker.setImage(clickImage);
     }
 
-    // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
     selectedMarker = marker;
-    // setSelected(marker);
+    setSelected(marker);
+
     return marker;
-    // });
   }
 
   /* -------------------------------------------------------------------------- */
@@ -144,98 +142,100 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
   };
 
   const handleSearch = (e) => {
+    if (selected !== null) {
+      selected.setMap(null);
+    }
+
     const inputValue = inputName.current.value;
-    console.log(inputValue);
     const arr = localArr.filter((elem) => typeArr.includes(elem));
     setQualifiedArr(arr.filter((elem) => elem.CRNAME.includes(inputValue)));
     setQualifiedList(arr.filter((elem) => elem.CRNAME.includes(inputValue)));
-    // e.preventDefault();
-    // let index = e.currentTarget.id;
-    // const item = qualifiedArr[index];
-    // const { CRNAME, LA, LO } = item;
-    // console.log("CRNAME", CRNAME);
   };
 
   useDidMountEffect(() => {
     let points = [];
+    let nameArr = [];
     qualifiedArr.map(({ CRNAME, LA, LO }) => {
-      if (LA !== "37.566470" && LO !== "126.977963" && LA.length !== 0 && CRNAME !== "구립 내일어린이집") points.push(new kakao.maps.LatLng(LA, LO));
+      if (LA !== "37.566470" && LO !== "126.977963" && LA.length !== 0 && CRNAME !== "구립 내일어린이집") {
+        points.push(new kakao.maps.LatLng(LA, LO));
+        nameArr.push(CRNAME);
+      }
       setInfo(`<div style="margin:5px 35px; white-space: nowrap; color:orange">${CRNAME}</div>`);
     });
-    // console.log(points);
     if (points.length === 0) {
       return;
     }
-
     var bounds = new kakao.maps.LatLngBounds();
-    // var i, marker;
+
     setMarkers([]);
+
     const handleMarker = (marker) => {
       setMarkers((prevList) => [...prevList, marker]);
     };
-    // console.log(points[10]);
 
     for (let i = 0; i < points.length; i++) {
-      // 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
-      let marker = addMarker(points[i]);
-      // marker.setMap(map);
+      let marker = addMarker(points[i], "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png");
       handleMarker(marker);
-      // LatLngBounds 객체에 좌표를 추가합니다
-      // kakao.maps.event.addListener(marker, "click", function () {
-      //   infowindow.open(map, marker);
-      // });
       bounds.extend(points[i]);
+
+      let infoContent = `<div style="margin:5px 35px; white-space: nowrap; color:orange">${nameArr[i]}</div>`;
+      let iwRemoveable = true;
+      let infowindow = new kakao.maps.InfoWindow({
+        content: infoContent,
+        removable: iwRemoveable,
+      });
+      kakao.maps.event.addListener(marker, "click", function () {
+        infowindow.open(map, marker);
+      });
     }
 
-    console.log(markers[0]);
-
     map.setBounds(bounds);
-
-    let iwRemoveable = true;
-
-    // let infowindow = new kakao.maps.InfoWindow({
-    //   content: infoContent,
-    //   removable: iwRemoveable,
-    // });
   }, [qualifiedArr]);
 
   function initMarkers(map) {
-    // console.log("마커 길이 =  ", markers.length);
     for (var i = 0; i < markers.length; i++) {
       markers[i].setMap(map);
     }
   }
 
   useEffect(() => {
-    console.log("마커스 = ", markers);
     initMarkers(map);
-    // if (markers !== null || markers.length !== 0) initMarkers(null);
-    if (markers.length !== 0) {
-      console.log("여기는 실행이 안되니?");
-      // setMarkers([]);
-      // initMarkers(null);
-    }
-    // } else {
-    //   console.log("이번엔 너가?");
-    //   initMarkers(map);
-    // }
   }, [markers]);
-  // setMarkers([]);
 
   initMarkers(null);
 
   /* -------------------------------------------------------------------------- */
   /*                               handleMapClick                               */
   /* -------------------------------------------------------------------------- */
+
+  const testClick = (index) => {
+    if (test === index) {
+      setTest(null);
+    } else {
+      setTest(index);
+    }
+  };
+
   const handleMapClick = (e) => {
+    if (selected !== null) {
+      selected.setMap(null);
+    }
     e.preventDefault();
+
+    setClicked(true);
+
+    let li = e.currentTarget.parentNode.parentNode;
+    let id = li.id;
+    console.log("id = ", id);
+    setListItem(li);
+
+    // clicked ? li.classList.add("bg-light-yellow-color") : "";
+    // li.classList.add("bg-light-yellow-color");
+
     let index = e.currentTarget.id;
     const item = qualifiedArr[index];
     const { CRNAME, LA, LO } = item;
-    console.log("이부분 실행");
     initMarkers(null);
-    // console.log(e.currentTarget);
-    // let target = e.currentTarget;
 
     if (LA.length <= 0) {
       alert("해당 어린이집은 위치 정보가 없습니다");
@@ -243,33 +243,18 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
     }
 
     var points = [new kakao.maps.LatLng(LA, LO)];
-    // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
     var bounds = new kakao.maps.LatLngBounds();
 
-    // var i, marker;
     for (let i = 0; i < points.length; i++) {
-      // 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
+      let marker = addMarker(points[i], "/markerEllipse3.svg");
 
-      // // let imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-      // let imageSize = new kakao.maps.Size(30, 45);
-      // // let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-
-      // marker = new kakao.maps.Marker({ position: points[i], image: markerImage });
-      let marker = addMarker(points[i]);
-      // marker.setMap(map);
-
-      // LatLngBounds 객체에 좌표를 추가합니다
       kakao.maps.event.addListener(marker, "click", function () {
         infowindow.open(map, marker);
       });
       bounds.extend(points[i]);
     }
 
-    // function setBounds() {
-    // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
-    // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
     map.setBounds(bounds);
-    // }
 
     let infoContent = `<div style="margin:5px 35px; white-space: nowrap; color:orange">${CRNAME}</div>`;
     let iwRemoveable = true;
@@ -302,7 +287,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
         )}
         <ul className="lists">
           {qualifiedArr.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
-            <li className="kinList relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer" onClick={modalShow} id={index} key={index}>
+            <li className={`kinList relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer`} onClick={modalShow} id={index} key={index}>
               <div className="min-w-[24rem] flex flex-row items-center justify-center">
                 <img src="/kindergarten.svg" className="w-20 mx-2 lg:w-24" />
                 <div className="w-96 lg:w-[27rem] text-xs truncate">
