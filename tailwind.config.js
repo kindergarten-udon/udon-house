@@ -14,6 +14,7 @@ module.exports = {
       },
       screens: {
         "max-sm": { max: "679px" },
+        "max-md": { max: "767px" },
       },
       fontFamily: {
         sans: ["BMJUA", "Arial", "sans-serif"],
