@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import KindergartenList from "components/MapInfo/KindergartenList";
 import KindergartenMap from "components/MapInfo/KindergartenMap";
 import KindergartenModal from "components/MapInfo/KindergartenModal";
 import axios from "axios";
+import { throttle } from "lodash";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 const { kakao } = window;
 
 const Map = () => {
@@ -13,7 +15,7 @@ const Map = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const url = `http://openapi.seoul.go.kr:8088/4e7269425a6c656534354f51426a71/json/ChildCareInfo/1/1000/`;
+        const url = `http://openapi.seoul.go.kr:8088/${process.env.REACT_APP_KINDERINFO_KEY}/json/ChildCareInfo/1/1000/`;
         const response = await axios.get(url);
         setKinderList(response.data.ChildCareInfo.row);
       } catch (error) {
@@ -24,8 +26,6 @@ const Map = () => {
   }, []);
 
   const modalShow = (e) => {
-    // console.log("currentTarget = ", e.currentTarget);
-    // console.log("Target = ", e.target.tagName);
     if (!(e.target.tagName === "svg" || e.target.tagName === "path")) {
       setIndex(e.currentTarget.id);
       setModalClose(true);
