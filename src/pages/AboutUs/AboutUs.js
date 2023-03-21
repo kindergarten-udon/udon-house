@@ -31,7 +31,7 @@ const AboutUs = () => {
             <figure className="px-[5vw] lg:px-0 relative">
               <div className="flex flex-col">
                 <img src="/noticeImage.png" alt="핑크캐릭터" className="aboutPinkImg" />
-                <img src="/JuHyeong.jpg" alt="하리사진" className="aboutImgae" />
+                <img src="/hari.jpeg" alt="하리사진" className="aboutImgae" />
                 <figcaption className="mt-5 text-lg ">
                   유하리
                   <a href="mailto:" className="block">
