@@ -48,6 +48,7 @@ const typeOptions = [
   { value: "직장", label: "직장" },
 ];
 
+
 const useDidMountEffect = (func, deps) => {
   const didMount = useRef(false);
 
@@ -265,6 +266,14 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
       removable: iwRemoveable,
     });
   };
+
+  const perPage = 100;
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const handlePageClick = ({ selected: selectedPage }) => {
+    setCurrentPage(selectedPage);
+  };
+
 
   const perPage = 100;
   const [currentPage, setCurrentPage] = useState(0);
