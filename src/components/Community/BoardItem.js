@@ -89,8 +89,10 @@ const BoardItemDetail = ({ userId }) => {
     });
     const likeBtn = document.querySelector(".likeBtn");
     likeBtn.classList.add("jello-vertical");
+    likeBtn.classList.add("text-amber-500");
     setTimeout(() => {
       likeBtn.classList.remove("jello-vertical");
+      likeBtn.classList.remove("text-amber-500");
     }, 500);
   };
 
@@ -139,7 +141,7 @@ const BoardItemDetail = ({ userId }) => {
                 )}
               </div>
               <div className="flex">
-                <button onClick={likeOnClick} className="likeBtn flex align-center justify-center gap-1 lg:gap-2 text-gray-600 font-bold ">
+                <button onClick={likeOnClick} className="likeBtn flex align-center justify-center gap-1 lg:gap-2 text-gray-700 font-bold ">
                   <BsHandThumbsUpFill className="mt-[1px]" />
                   {selectContent && selectContent.like}
                 </button>
