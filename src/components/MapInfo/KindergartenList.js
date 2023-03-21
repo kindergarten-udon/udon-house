@@ -4,7 +4,8 @@ import { BiSearch, BiMap } from "react-icons/bi";
 import KindergartenModal from "components/MapInfo/KindergartenModal";
 import axios from "axios";
 import { async } from "@firebase/util";
-import { GiConsoleController } from "react-icons/gi";
+import ReactPaginate from "react-paginate";
+
 const { kakao } = window;
 
 const locationOptions = [
@@ -46,7 +47,7 @@ const typeOptions = [
   { value: "협동", label: "협동" },
   { value: "직장", label: "직장" },
 ];
-const KindergartenList = ({ kinderList, modalShow, target }) => {
+const KindergartenList = ({ kinderList, modalShow }) => {
   const [localArr, setLocalArr] = useState(kinderList);
   const [typeArr, setTypeArr] = useState(kinderList);
   const [qualifiedArr, setQualifiedArr] = useState(kinderList);
@@ -123,22 +124,18 @@ const KindergartenList = ({ kinderList, modalShow, target }) => {
     });
   };
 
-  // const moveScroll = () => {
-  //   const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
-  //   if (scrollTop + clientHeight >= scrollHeight) {
-  //     console.log("끝");
-  //   }
-  // };
+  const perPage = 100;
+  const [currentPage, setCurrentPage] = useState(0);
 
-  // useEffect(() => {
-  //   window.addEventListener("scroll", moveScroll);
-  //   return () => {
-  //     window.removeEventListener("scroll", moveScroll);
-  //   };
-  // }, [moveScroll]);
+  const handlePageClick = ({ selected: selectedPage }) => {
+    setCurrentPage(selectedPage);
+  };
+
+  const offset = currentPage * perPage;
+  const pagedContents = qualifiedArr.slice(offset, offset + perPage);
 
   return (
-    <div className="flex flex-col flex-1 min-w-[27rem]">
+    <div className="relative flex flex-col flex-1 min-w-[27rem] overflow-x-hidden">
       <div className="py-5 bg-main-color">
         <img src="/kindergarten.svg" className="mx-auto" />
         <div className="flex flex-row items-center justify-center whitespace-nowrap mx-2 text-sm gap-2 lg:gap-3">
@@ -150,9 +147,9 @@ const KindergartenList = ({ kinderList, modalShow, target }) => {
           </button>
         </div>
       </div>
-      <div className="text-left overflow-auto" ref={target}>
+      <div className="text-left overflow-auto mb-10">
         <ul>
-          {kinderList.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
+          {pagedContents.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
             <li className="relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer" onClick={modalShow} id={index} key={index}>
               <div className="min-w-[23rem] flex flex-row items-center justify-center">
                 <img src="/kindergarten.svg" className="w-20 mx-2 lg:w-24" />
@@ -169,6 +166,16 @@ const KindergartenList = ({ kinderList, modalShow, target }) => {
           ))}
         </ul>
       </div>
+      <ReactPaginate
+        className="paginateStyle"
+        previousLabel={"<"}
+        nextLabel={">"}
+        pageRangeDisplayed={10}
+        pageCount={Math.ceil(qualifiedArr.length / perPage) || 1}
+        onPageChange={handlePageClick}
+        containerClassName={"pagination"}
+        activeClassName={"active"}
+      />
     </div>
   );
 };
