@@ -7,6 +7,13 @@ import "./main.css";
 import MainFooter from "components/Footer/MainFooter";
 
 const Main = () => {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
+
   return (
     <>
       <FullPage controls controlsProps={{ className: "slide-navigation overflow-scroll h-auto" }}>

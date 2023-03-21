@@ -4,6 +4,7 @@ import { BiSearch, BiMap } from "react-icons/bi";
 import KindergartenModal from "components/MapInfo/KindergartenModal";
 import axios from "axios";
 import { async } from "@firebase/util";
+import { GiConsoleController } from "react-icons/gi";
 const { kakao } = window;
 
 const locationOptions = [
@@ -45,8 +46,7 @@ const typeOptions = [
   { value: "협동", label: "협동" },
   { value: "직장", label: "직장" },
 ];
-
-const KindergartenList = ({ kinderList, modalShow }) => {
+const KindergartenList = ({ kinderList, modalShow, target }) => {
   const [localArr, setLocalArr] = useState(kinderList);
   const [typeArr, setTypeArr] = useState(kinderList);
   const [qualifiedArr, setQualifiedArr] = useState(kinderList);
@@ -65,7 +65,6 @@ const KindergartenList = ({ kinderList, modalShow }) => {
       setTypeArr(kinderList);
       return;
     }
-
     setTypeArr(kinderList.filter((elem) => elem.CRTYPENAME === selectedOption.value));
   };
 
@@ -109,7 +108,6 @@ const KindergartenList = ({ kinderList, modalShow }) => {
     let iwRemoveable = true;
 
     let infowindow = new kakao.maps.InfoWindow({
-      position: infoPosition,
       content: infoContent,
       removable: iwRemoveable,
     });
@@ -117,7 +115,6 @@ const KindergartenList = ({ kinderList, modalShow }) => {
     let marker = new kakao.maps.Marker({
       map: map,
       position: infoPosition,
-      // title: CRNAME,
       image: markerImage,
     });
 
@@ -126,9 +123,23 @@ const KindergartenList = ({ kinderList, modalShow }) => {
     });
   };
 
+  // const moveScroll = () => {
+  //   const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
+  //   if (scrollTop + clientHeight >= scrollHeight) {
+  //     console.log("끝");
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   window.addEventListener("scroll", moveScroll);
+  //   return () => {
+  //     window.removeEventListener("scroll", moveScroll);
+  //   };
+  // }, [moveScroll]);
+
   return (
-    <div className="flex-1 min-w-[27rem] lg:w-2/5 overflow-scroll">
-      <div className="py-7 bg-main-color">
+    <div className="flex flex-col flex-1 min-w-[27rem]">
+      <div className="py-5 bg-main-color">
         <img src="/kindergarten.svg" className="mx-auto" />
         <div className="flex flex-row items-center justify-center whitespace-nowrap mx-2 text-sm gap-2 lg:gap-3">
           <Select className="min-w-[5rem] lg:w-32 lg:text-base" maxMenuHeight={220} options={locationOptions} onChange={handleLocationChange} placeholder="자치구" />
@@ -139,16 +150,16 @@ const KindergartenList = ({ kinderList, modalShow }) => {
           </button>
         </div>
       </div>
-      <div className="text-left">
-        <ul className="lists">
-          {qualifiedArr.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
-            <li className="kinList relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer" onClick={modalShow} id={index} key={index}>
-              <div className="min-w-[24rem] flex flex-row items-center justify-center">
+      <div className="text-left overflow-auto" ref={target}>
+        <ul>
+          {kinderList.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
+            <li className="relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer" onClick={modalShow} id={index} key={index}>
+              <div className="min-w-[23rem] flex flex-row items-center justify-center">
                 <img src="/kindergarten.svg" className="w-20 mx-2 lg:w-24" />
                 <div className="w-96 lg:w-[27rem] text-xs truncate">
-                  <h2 className="truncate text-base font-bold xl:text-xl">{CRNAME}</h2>
-                  <p className="truncate text-gray-500 xl:text-base">{CRADDR}</p>
-                  <p className="text-gray-500 xl:text-base">{`전화) : ${CRTELNO ? CRTELNO : "제공되지 않습니다"}`}</p>
+                  <h2 className="truncate text-base font-bold lg:text-xl">{CRNAME}</h2>
+                  <p className="truncate text-gray-500 lg:text-base">{CRADDR}</p>
+                  <p className="text-gray-500 lg:text-base">{`전화) : ${CRTELNO ? CRTELNO : "제공되지 않습니다"}`}</p>
                 </div>
               </div>
               <button type="button" className="p-2 hidden md:block hover:text-orange-400">

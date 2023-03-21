@@ -39,7 +39,7 @@ const KindergartenMap = ({ kinderList }) => {
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
   }, []);
 
-  return <div id="map" className="w-3/5 hidden md:block"></div>;
+  return <div id="map" className="w-[65%] hidden md:block"></div>;
 };
 
 export default KindergartenMap;

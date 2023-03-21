@@ -38,7 +38,6 @@ const KindergartemModal = ({ kinderList, index, setModalClose }) => {
             <p className="text-lg lg:text-xl truncate">{`전화) ${CRTELNO ? CRTELNO : "제공되지 않습니다."}`}</p>
           </div>
         </div>
-
         <div className="text-lg leading-10 lg:text-xl lg:leading-10">
           <ul className=" text-gray-600 py-3 ">
             <li className="listStyles">{`유형 : ${CRTYPENAME}`}</li>
