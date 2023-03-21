@@ -48,7 +48,6 @@ const typeOptions = [
   { value: "직장", label: "직장" },
 ];
 
-
 const useDidMountEffect = (func, deps) => {
   const didMount = useRef(false);
 
@@ -274,14 +273,6 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
     setCurrentPage(selectedPage);
   };
 
-
-  const perPage = 100;
-  const [currentPage, setCurrentPage] = useState(0);
-
-  const handlePageClick = ({ selected: selectedPage }) => {
-    setCurrentPage(selectedPage);
-  };
-
   const offset = currentPage * perPage;
   const pagedContents = qualifiedArr.slice(offset, offset + perPage);
 
@@ -306,7 +297,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
           </div>
         )}
         <ul className="lists">
-          {qualifiedArr.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
+          {pagedContents.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
             <li className="relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer" onClick={modalShow} id={index} key={index}>
               <div className="min-w-[23rem] flex flex-row items-center justify-center">
                 <img src="/kindergarten.svg" className="w-20 mx-2 lg:w-24" />
