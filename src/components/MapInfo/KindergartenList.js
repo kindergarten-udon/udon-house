@@ -5,7 +5,7 @@ import KindergartenModal from "components/MapInfo/KindergartenModal";
 import axios from "axios";
 import { async } from "@firebase/util";
 import ReactPaginate from "react-paginate";
-
+import "components/Community/boardListItem.css";
 const { kakao } = window;
 
 const locationOptions = [
@@ -147,9 +147,9 @@ const KindergartenList = ({ kinderList, modalShow }) => {
           </button>
         </div>
       </div>
-      <div className="text-left overflow-auto mb-10">
+      <div className="text-left overflow-auto">
         <ul>
-          {pagedContents.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
+          {qualifiedArr.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
             <li className="relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer" onClick={modalShow} id={index} key={index}>
               <div className="min-w-[23rem] flex flex-row items-center justify-center">
                 <img src="/kindergarten.svg" className="w-20 mx-2 lg:w-24" />
@@ -166,16 +166,7 @@ const KindergartenList = ({ kinderList, modalShow }) => {
           ))}
         </ul>
       </div>
-      <ReactPaginate
-        className="paginateStyle"
-        previousLabel={"<"}
-        nextLabel={">"}
-        pageRangeDisplayed={10}
-        pageCount={Math.ceil(qualifiedArr.length / perPage) || 1}
-        onPageChange={handlePageClick}
-        containerClassName={"pagination"}
-        activeClassName={"active"}
-      />
+      <ReactPaginate previousLabel={""} nextLabel={""} pageRangeDisplayed={10} pageCount={Math.ceil(qualifiedArr.length / perPage)} onPageChange={handlePageClick} containerClassName={"pagination mapPagi"} activeClassName={"active"} />
     </div>
   );
 };
