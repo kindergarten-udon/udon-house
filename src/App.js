@@ -1,6 +1,6 @@
 import "./App.css";
 import Map from "pages/Map/Map";
-import { auth } from "util/fbase";
+import { auth, dbService } from "util/fbase";
 import Main from "pages/Main/Main";
 import SignUp from "pages/SignUp/SignUp";
 import SignIn from "pages/SignIn/SignIn";
@@ -13,11 +13,18 @@ import Community from "pages/Community/Community";
 import { useEffect, useRef, useState } from "react";
 import WriteCommunity from "pages/Community/WriteCommunity";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { onSnapshot } from "firebase/firestore";
+import { collection } from "firebase/firestore";
+import { useSetRecoilState } from "recoil";
+import { userData } from "atom/atom";
 
 function App() {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
   const [userId, setUserId] = useState(null);
+  const setContents = useSetRecoilState(userData);
+  console.log(userData);
+
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
@@ -28,10 +35,21 @@ function App() {
       }
     });
   }, []);
+
+  useEffect(() => {
+    onSnapshot(collection(dbService, "content"), (snapshot) => {
+      const contentArray = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setContents(contentArray);
+    });
+  }, []);
+
   return (
     <div className="App font-sans">
       <>
-        <Header isLogin={isLogin} />
+        <Header isLogin={isLogin} userId={userId} />
         <Routes>
           <>
             <Route path="/" element={<Main />} />
@@ -39,7 +57,7 @@ function App() {
             <Route path="/map/:id" element={<Map />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
-            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/mypage" element={<MyPage userId={userId} />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/community" element={<Community isLogin={isLogin} />} />
             <Route path="/community/:id" element={<Community userId={userId} />} />

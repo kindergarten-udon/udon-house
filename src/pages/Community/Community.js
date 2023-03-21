@@ -17,16 +17,6 @@ const Community = ({ isLogin, userId }) => {
     })
     .slice(0, 3);
 
-  // onSnapshot으로 실시간 상태관리 하기
-  useEffect(() => {
-    onSnapshot(collection(dbService, "content"), (snapshot) => {
-      const contentArray = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setContents(contentArray);
-    });
-  }, []);
   // 스크롤을 위로 올리기
   useEffect(() => {
     window.scrollTo(0, 0);
