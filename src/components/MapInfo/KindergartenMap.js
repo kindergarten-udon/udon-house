@@ -1,18 +1,23 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 const { kakao } = window;
 
-const KindergartenMap = ({ kinderList }) => {
+const KindergartenMap = ({ kinderList, setMap }) => {
+  // const [map, setMap] = useState(null);
+  // const [options, setOptions] = useState(null);
+
   useEffect(() => {
+    console.log("map 실행됨");
     let container = document.getElementById("map");
     let options = {
       center: new kakao.maps.LatLng(37.555949, 126.972329),
       level: 5,
     };
     let map = new kakao.maps.Map(container, options);
+    setMap(map);
 
     kinderList.map(({ CRNAME, LA, LO }) => {
-      let imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-      let imageSize = new kakao.maps.Size(24, 35);
+      let imageSrc = "/markerEllipse2.svg";
+      let imageSize = new kakao.maps.Size(20, 20);
       let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
       let infoContent = `<div style="margin:5px 35px; white-space: nowrap; color:orange">${CRNAME}</div>`;
