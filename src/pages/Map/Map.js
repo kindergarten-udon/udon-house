@@ -20,7 +20,7 @@ const Map = () => {
         const url = `http://openapi.seoul.go.kr:8088/${process.env.REACT_APP_KINDERINFO_KEY}/json/ChildCareInfo/1/1000/`;
         const response = await axios.get(url);
         let arr = response.data.ChildCareInfo.row;
-        let filtered = arr.filter((elem) => elem.CRSTATUSNAME !== "폐지");
+        let filtered = arr.filter((elem) => elem.CRSTATUSNAME !== "폐지" && elem.STCODE !== "11545000341" && elem.STCODE !== "11380000668");
         setKinderList(filtered);
       } catch (error) {
         alert("데이터를 불러오는 과정에서 에러가 발생했습니다!!");

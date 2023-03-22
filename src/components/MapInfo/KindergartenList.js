@@ -152,8 +152,8 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
   useDidMountEffect(() => {
     let points = [];
     let nameArr = [];
-    qualifiedArr.map(({ CRNAME, LA, LO }) => {
-      if (LA !== "37.566470" && LO !== "126.977963" && LA.length !== 0 && CRNAME !== "구립 내일어린이집") {
+    qualifiedArr.map(({ CRNAME, LA, LO, STCODE }) => {
+      if (LA !== "37.566470" && LO !== "126.977963" && LA.length !== 0) {
         points.push(new kakao.maps.LatLng(LA, LO));
         nameArr.push(CRNAME);
       }
