@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Select from "react-select";
 import { BiSearch, BiMap } from "react-icons/bi";
+import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import KindergartenMap from "components/MapInfo/KindergartenMap";
 import axios from "axios";
 import { async } from "@firebase/util";
@@ -248,6 +249,14 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
     });
   };
 
+  const handleStar = (e) => {
+    let li = e.currentTarget.parentNode.parentNode;
+    let id = li.id;
+
+    starClickedArr[id] = !starClickedArr[id];
+    setStarClickedArr([...starClickedArr]);
+  };
+
   const perPage = 100;
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -260,7 +269,9 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
   };
 
   let pagedArr = Array(pagedContents.length).fill(false);
+  let newStarArr = Array(pagedContents.length).fill(false);
   const [paged, setPaged] = useState(pagedArr);
+  const [starClickedArr, setStarClickedArr] = useState(newStarArr);
 
   return (
     <div className="relative flex flex-col flex-1 min-w-[27rem] overflow-x-hidden">
@@ -293,8 +304,11 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
                   <p className="text-gray-500 lg:text-base">{`전화) : ${CRTELNO || "제공되지 않습니다"}`}</p>
                 </div>
               </div>
+              <button type="button" className="p-2 hidden md:block hover:text-yellow-400 onClick={handleStar}">
+                {starClickedArr[index] === true ? <AiFillStar className="w-6 h-6 lg:w-8 lg:h-8 text-yellow-400" id={index} onClick={handleStar} /> : <AiOutlineStar className="w-6 h-6 lg:w-8 lg:h-8" id={index} onClick={handleStar} />}
+              </button>
               <button type="button" className="p-2 hidden md:block hover:text-orange-400">
-                <BiMap className="w-6 h-6 lg:w-8 lg:h-8" id={index} onClick={handleMapClick} />
+                <BiMap className="w-6 h-6 lg:w-8 lg:h-8 " id={index} onClick={handleMapClick} />
               </button>
             </li>
           ))}
