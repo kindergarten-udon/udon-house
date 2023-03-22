@@ -87,6 +87,7 @@ const BoardItemDetail = ({ userId }) => {
     await updateDoc(conEdit, {
       like: (selectContent.like += 1),
     });
+    // 좋아요버튼 클릭시 class넣었다 빼주기
     const likeBtn = document.querySelector(".likeBtn");
     likeBtn.classList.add("jello-vertical");
     likeBtn.classList.add("text-amber-500");

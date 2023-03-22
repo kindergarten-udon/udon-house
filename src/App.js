@@ -28,9 +28,11 @@ function App() {
       }
     });
   }, []);
+
   return (
     <div className="App font-sans">
       <>
+        {userId && <img src={userId.photoURL} />}
         <Header isLogin={isLogin} />
         <Routes>
           <>
@@ -39,7 +41,7 @@ function App() {
             <Route path="/map/:id" element={<Map />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
-            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/mypage" element={<MyPage userId={userId} />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/community" element={<Community isLogin={isLogin} />} />
             <Route path="/community/:id" element={<Community userId={userId} />} />
