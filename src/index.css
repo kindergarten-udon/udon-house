@@ -84,6 +84,15 @@
   .eyeButton {
     @apply pl-2.5 absolute left-[410px] text-gray-500;
   }
+  .mypage {
+    @apply hover:cursor-pointer hover:text-gray-600 hover:border-b-4 hover:border-green-200;
+  }
+  .mypageChecked {
+    @apply hover:cursor-pointer hover:text-gray-600 border-b-4 border-green-200;
+  }
+  .mypageMargin {
+    @apply max-sm:mr-[10%] mr-20;
+  }
 }
 
 @font-face {
