@@ -76,20 +76,20 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
   const textArea = useRef(false);
   const inputName = useRef(null);
 
-  let selectedMarker = null; // 클릭한 마커를 담을 변수
+  let selectedMarker = null;
 
   function addMarker(position, normalSrc) {
     let markerSize = "";
     if (normalSrc === "/markerEllipse3.svg") markerSize = new kakao.maps.Size(18, 18);
     else markerSize = new kakao.maps.Size(28, 43);
-    let clickarkerSize = new kakao.maps.Size(28, 43);
+    let clickmarkerSize = new kakao.maps.Size(28, 43);
     let markerSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 
-    var normalImage = createMarkerImage(normalSrc, markerSize),
-      overImage = createMarkerImage(markerSrc, clickarkerSize),
-      clickImage = createMarkerImage(markerSrc, clickarkerSize);
+    let normalImage = createMarkerImage(normalSrc, markerSize),
+      overImage = createMarkerImage(markerSrc, clickmarkerSize),
+      clickImage = createMarkerImage(markerSrc, clickmarkerSize);
 
-    var marker = new kakao.maps.Marker({
+    let marker = new kakao.maps.Marker({
       map: map,
       position: position,
       image: normalImage,
@@ -188,7 +188,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
   }, [qualifiedArr]);
 
   function initMarkers(map) {
-    for (var i = 0; i < markers.length; i++) {
+    for (let i = 0; i < markers.length; i++) {
       markers[i].setMap(map);
     }
   }
@@ -224,8 +224,8 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
       return;
     }
 
-    var points = [new kakao.maps.LatLng(LA, LO)];
-    var bounds = new kakao.maps.LatLngBounds();
+    let points = [new kakao.maps.LatLng(LA, LO)];
+    let bounds = new kakao.maps.LatLngBounds();
 
     for (let i = 0; i < points.length; i++) {
       let marker = addMarker(points[i], "/markerEllipse3.svg");
