@@ -74,30 +74,23 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
   const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
   const [info, setInfo] = useState(null);
-  const [clicked, setClicked] = useState(false);
-  const [listItem, setListItem] = useState(null);
-  const [test, setTest] = useState(null);
   const textArea = useRef(false);
   const inputName = useRef(null);
 
-  // // setClicked(false);
-  // useEffect(()=> {
-  //   setClicked(false);
-  // }, [clicked])
+  let selectedMarker = null;
 
-  let selectedMarker = null; // 클릭한 마커를 담을 변수
   function addMarker(position, normalSrc) {
     let markerSize = "";
     if (normalSrc === "/markerEllipse3.svg") markerSize = new kakao.maps.Size(18, 18);
     else markerSize = new kakao.maps.Size(28, 43);
-    let clickarkerSize = new kakao.maps.Size(28, 43);
+    let clickmarkerSize = new kakao.maps.Size(28, 43);
     let markerSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 
-    var normalImage = createMarkerImage(normalSrc, markerSize),
-      overImage = createMarkerImage(markerSrc, clickarkerSize),
-      clickImage = createMarkerImage(markerSrc, clickarkerSize);
+    let normalImage = createMarkerImage(normalSrc, markerSize),
+      overImage = createMarkerImage(markerSrc, clickmarkerSize),
+      clickImage = createMarkerImage(markerSrc, clickmarkerSize);
 
-    var marker = new kakao.maps.Marker({
+    let marker = new kakao.maps.Marker({
       map: map,
       position: position,
       image: normalImage,
@@ -146,6 +139,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
   const handleSearch = (e) => {
     if (selected !== null) {
       selected.setMap(null);
+      setPaged(pagedArr);
     }
 
     const inputValue = inputName.current.value;
@@ -209,30 +203,17 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
   /* -------------------------------------------------------------------------- */
   /*                               handleMapClick                               */
   /* -------------------------------------------------------------------------- */
-
-  const testClick = (index) => {
-    if (test === index) {
-      setTest(null);
-    } else {
-      setTest(index);
-    }
-  };
-
   const handleMapClick = (e) => {
     if (selected !== null) {
       selected.setMap(null);
     }
     e.preventDefault();
 
-    setClicked(true);
-
     let li = e.currentTarget.parentNode.parentNode;
     let id = li.id;
-    console.log("id = ", id);
-    setListItem(li);
-
-    // clicked ? li.classList.add("bg-light-yellow-color") : "";
-    // li.classList.add("bg-light-yellow-color");
+    const newPagedArr = Array(pagedContents.length).fill(false);
+    newPagedArr[id] = true;
+    setPaged(newPagedArr);
 
     let index = e.currentTarget.id;
     const item = qualifiedArr[index];
@@ -244,8 +225,8 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
       return;
     }
 
-    var points = [new kakao.maps.LatLng(LA, LO)];
-    var bounds = new kakao.maps.LatLngBounds();
+    let points = [new kakao.maps.LatLng(LA, LO)];
+    let bounds = new kakao.maps.LatLngBounds();
 
     for (let i = 0; i < points.length; i++) {
       let marker = addMarker(points[i], "/markerEllipse3.svg");
@@ -275,7 +256,11 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
 
   const handlePageClick = ({ selected: selectedPage }) => {
     setCurrentPage(selectedPage);
+    setPaged(pagedArr);
   };
+
+  let pagedArr = Array(pagedContents.length).fill(false);
+  const [paged, setPaged] = useState(pagedArr);
 
   return (
     <div className="relative flex flex-col flex-1 min-w-[27rem] overflow-x-hidden">
@@ -299,7 +284,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
         )}
         <ul>
           {pagedContents.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
-            <li className="relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer" onClick={modalShow} id={index} key={index}>
+            <li className={`${paged[index] === true ? "bg-light-yellow-color" : ""} relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer`} onClick={modalShow} id={index} key={index}>
               <div className="min-w-[23rem] flex flex-row items-center justify-center">
                 <img src="/kindergarten.svg" className="w-20 mx-2 lg:w-24" />
                 <div className="w-96 lg:w-[27rem] text-xs truncate">

@@ -24,7 +24,6 @@ const KindergartemModal = ({ kinderList, index, qualifiedList, setModalClose }) 
 
   const item = qualifiedList === null ? kinderList[index] : qualifiedList[index];
   const { CRNAME, CRTELNO, CRTYPENAME, NRTRROOMCNT, CHCRTESCNT, CRCAPAT, CRCHCNT, CRCARGBNAME, CCTVINSTLCNT, CRADDR, ZIPCODE, CRHOME } = item;
-  console.log(CRCARGBNAME);
 
   return (
     <div className="fixed w-screen h-screen top-0 bottom-0 bg-black bg-opacity-30 z-30" ref={modalRef}>
