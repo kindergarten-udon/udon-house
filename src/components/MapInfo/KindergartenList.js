@@ -6,6 +6,7 @@ import axios from "axios";
 import { async } from "@firebase/util";
 import ReactPaginate from "react-paginate";
 import "components/Community/boardListItem.css";
+
 const { kakao } = window;
 
 const locationOptions = [
@@ -166,7 +167,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
     if (points.length === 0) {
       return;
     }
-    var bounds = new kakao.maps.LatLngBounds();
+    let bounds = new kakao.maps.LatLngBounds();
 
     setMarkers([]);
 
@@ -194,7 +195,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
   }, [qualifiedArr]);
 
   function initMarkers(map) {
-    for (var i = 0; i < markers.length; i++) {
+    for (let i = 0; i < markers.length; i++) {
       markers[i].setMap(map);
     }
   }
@@ -269,12 +270,12 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
   const perPage = 100;
   const [currentPage, setCurrentPage] = useState(0);
 
+  const offset = currentPage * perPage;
+  const pagedContents = qualifiedArr.slice(offset, offset + perPage);
+
   const handlePageClick = ({ selected: selectedPage }) => {
     setCurrentPage(selectedPage);
   };
-
-  const offset = currentPage * perPage;
-  const pagedContents = qualifiedArr.slice(offset, offset + perPage);
 
   return (
     <div className="relative flex flex-col flex-1 min-w-[27rem] overflow-x-hidden">
@@ -289,14 +290,14 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
           </button>
         </div>
       </div>
-      <div className="text-left overflow-auto">
+      <div className="text-left overflow-auto mb-16">
         {qualifiedArr.length <= 0 && (
           <div className="flex flex-col items-center text-lg mt-[80px]">
             <img src="/bird.svg" className="animate-bounce w-10 h-10" />
             검색 결과가 없습니다
           </div>
         )}
-        <ul className="lists">
+        <ul>
           {pagedContents.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
             <li className="relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer" onClick={modalShow} id={index} key={index}>
               <div className="min-w-[23rem] flex flex-row items-center justify-center">
@@ -304,7 +305,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
                 <div className="w-96 lg:w-[27rem] text-xs truncate">
                   <h2 className="truncate text-base font-bold lg:text-xl">{CRNAME}</h2>
                   <p className="truncate text-gray-500 lg:text-base">{CRADDR}</p>
-                  <p className="text-gray-500 lg:text-base">{`전화) : ${CRTELNO ? CRTELNO : "제공되지 않습니다"}`}</p>
+                  <p className="text-gray-500 lg:text-base">{`전화) : ${CRTELNO || "제공되지 않습니다"}`}</p>
                 </div>
               </div>
               <button type="button" className="p-2 hidden md:block hover:text-orange-400">

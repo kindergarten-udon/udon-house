@@ -24,6 +24,7 @@ const KindergartemModal = ({ kinderList, index, qualifiedList, setModalClose }) 
 
   const item = qualifiedList === null ? kinderList[index] : qualifiedList[index];
   const { CRNAME, CRTELNO, CRTYPENAME, NRTRROOMCNT, CHCRTESCNT, CRCAPAT, CRCHCNT, CRCARGBNAME, CCTVINSTLCNT, CRADDR, ZIPCODE, CRHOME } = item;
+  console.log(CRCARGBNAME);
 
   return (
     <div className="fixed w-screen h-screen top-0 bottom-0 bg-black bg-opacity-30 z-30" ref={modalRef}>
@@ -35,7 +36,7 @@ const KindergartemModal = ({ kinderList, index, qualifiedList, setModalClose }) 
           <img src="/bird.svg" className="w-14 h-14" />
           <div>
             <h2 className="text-2xl font-extrabold mb-2 text-orange-400 truncate lg:text-3xl">{CRNAME}</h2>
-            <p className="text-lg lg:text-xl truncate">{`전화) ${CRTELNO ? CRTELNO : "제공되지 않습니다."}`}</p>
+            <p className="text-lg lg:text-xl truncate">{`전화) ${CRTELNO || "제공되지 않습니다."}`}</p>
           </div>
         </div>
         <div className="text-lg leading-10 lg:text-xl lg:leading-10">
@@ -44,7 +45,7 @@ const KindergartemModal = ({ kinderList, index, qualifiedList, setModalClose }) 
             <li className="listStyles">{`보육실수 : ${NRTRROOMCNT}`}</li>
             <li className="listStyles">{`교직원수 : ${CHCRTESCNT}명`}</li>
             <li className="listStyles">{`정원/현원 : ${CRCAPAT}명 / ${CRCHCNT}명`}</li>
-            <li className="listStyles">{`통학차량 : ${CRCARGBNAME ? "운영" : "미운영"}`}</li>
+            <li className="listStyles">{`통학차량 : ${CRCARGBNAME === "운영" ? CRCARGBNAME : "미운영"}`}</li>
             <li className="listStyles">{`CCTV 설치수 : ${CCTVINSTLCNT}`}</li>
             <li className="border border-transparent border-b-gray-300" key={index}>{`주소 : ${CRADDR} (${ZIPCODE})`}</li>
             <li className="truncate">
@@ -57,7 +58,7 @@ const KindergartemModal = ({ kinderList, index, qualifiedList, setModalClose }) 
                 className="text-orange-400 hover:text-2xl"
                 target="_blank"
               >
-                {` ${CRHOME ? CRHOME : "제공되지 않습니다."}`}
+                {` ${CRHOME || "제공되지 않습니다."}`}
               </Link>
             </li>
           </ul>
