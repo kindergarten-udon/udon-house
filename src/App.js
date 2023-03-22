@@ -23,7 +23,6 @@ function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [userId, setUserId] = useState(null);
   const setContents = useSetRecoilState(userData);
-  console.log(userData);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
