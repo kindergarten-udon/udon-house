@@ -84,6 +84,21 @@
   .eyeButton {
     @apply pl-2.5 absolute left-[410px] text-gray-500;
   }
+  .popup {
+    @apply lg:w-[20rem] xl:w-[20rem] w-[16rem] h-60 bg-gray-200 border-2 rounded-lg relative top-[100px] lg:left-[75%] xl:left-[75%] left-[65%] drop-shadow-md z-[100];
+  }
+  .myPageButton {
+    @apply bg-yellow-50 w-[50px] h-[50px] border-gray-400 rounded-full;
+  }
+  .popupButton {
+    @apply border-2 border-gray-300 block mx-auto rounded-lg w-[15rem]  h-10 bg-slate-50 text-center text-gray-800 mb-1.5;
+  }
+  .popupIcon {
+    @apply relative top-[11px];
+  }
+  .popupSpan {
+    @apply relative inline-block  text-gray-800 text-sm;
+  }
 }
 
 @font-face {
