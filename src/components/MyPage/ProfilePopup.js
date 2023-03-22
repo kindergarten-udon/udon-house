@@ -1,5 +1,5 @@
 import { signOut } from "firebase/auth";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { auth } from "util/fbase";
 import { useNavigate } from "react-router-dom";
 import { RiLogoutBoxRLine } from "react-icons/ri";
