@@ -3,13 +3,20 @@ import { React, useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import BoardList from "components/Community/BoardList";
 import BoardItem from "components/Community/BoardItem";
+import { userData } from "atom/atom";
+import { useRecoilState } from "recoil";
 import { onSnapshot, collection } from "firebase/firestore";
 import { dbService } from "util/fbase";
 
 const Community = ({ isLogin, userId }) => {
-  // 게시물 뿌려주기
   const [contents, setContents] = useState([]);
-  const copied = [...contents];
+  // 게시물 뿌려주기
+  const content = useRecoilState(userData);
+  const myBoard = content[0].filter((el) => {
+    return el;
+  });
+
+  const copied = [...myBoard];
 
   const bestBoard = copied
     .sort((a, b) => {
@@ -43,7 +50,7 @@ const Community = ({ isLogin, userId }) => {
             })}
           </div>
         </section>
-        <div>{window.location.href.includes("community/") ? <BoardItem userId={userId} /> : <BoardList isLogin={isLogin} contents={contents} />}</div>
+        <div>{window.location.href.includes("community/") ? <BoardItem userId={userId} /> : <BoardList isLogin={isLogin} contents={myBoard} />}</div>
       </div>
     </>
   );
