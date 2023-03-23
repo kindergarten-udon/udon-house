@@ -149,7 +149,7 @@ const SignIn = () => {
         <div className="loginDivStyle relative">
           <div className="flex ml-2">비밀번호</div>
           <input className="inputStyle" type={showPassword ? "text" : "password"} name="password" placeholder="비밀번호" onChange={handleChange} />
-          <div className="absolute w-full top-9 z-10 text-right">
+          <div className="absolute right-0 top-9 z-10 text-right">
             <button className=" text-gray-500 mr-2" onClick={toggleShowPassword}>
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
