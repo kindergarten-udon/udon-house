@@ -35,7 +35,7 @@ export const ProfilePopup = ({ onClose }) => {
         ) : (
           <img src="yellow.svg" alt="사용자 기본 프로필 이미지" className="profileImage w-[50px] translate-x-10 translate-y-3" />
         )}
-        {auth.currentUser && <p className="text-md translate-x-3 translate-y-[-20px] lg:translate-x-1 lg:pl-2.5 pl-5">{auth.currentUser.email}</p>}
+        {auth.currentUser && <p className="text-md translate-x-3 translate-y-[-20px] lg:translate-x-1 lg:pl-12 pl-5">{auth.currentUser.email}</p>}
         <div className="m-auto relative top-6 translate-y-[-15px]">
           <button className="popupButton hover:bg-yellow-300" onClick={handleClick}>
             <BsBookmarkHeart className="popupIcon left-[68px]" />

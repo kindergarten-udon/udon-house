@@ -86,8 +86,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId
   const starName = useRef(null);
   const [testUid, setTestUid] = useRecoilState(uid);
   const [isActive, setIsActive] = useState(null);
-
-  // console.log("testUid = ", testUid);
+  const pageScrollInit = useRef(null);
 
   const perPage = 100;
   const [currentPage, setCurrentPage] = useState(0);
@@ -99,23 +98,6 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId
   const [starClickedArr, setStarClickedArr] = useState(newStarArr);
 
   let selectedMarker = null;
-
-  // useEffect(() => {
-  //   pagedContents.map(({ STCODE }, index) => {
-  //     if (localStorage.getItem(STCODE) !== null) {
-  //       starClickedArr[index] = !starClickedArr[index];
-  //       setStarClickedArr([...starClickedArr]);
-  //     }
-  //   });
-  // }, [currentPage]);
-  // useEffect(() => {
-  //   pagedContents.map(({ STCODE }, index) => {
-  //     let name = localStorage.getItem(STCODE);
-  //     if (localStorage.getItem(STCODE) !== null) {
-  //       console.log(name);
-  //     }
-  //   });
-  // }, [currentPage]);
 
   function addMarker(position, normalSrc) {
     let markerSize = "";
@@ -253,7 +235,6 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId
     const newPagedArr = Array(pagedContents.length).fill(false);
     newPagedArr[id] = true;
     setPaged(newPagedArr);
-    // setStarClickedArr(newStarArr);
 
     let index = e.currentTarget.id;
     const item = qualifiedArr[index];
@@ -279,7 +260,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId
 
     map.setBounds(bounds);
 
-    let infoContent = `<div style="margin:5px 35px; white-space: nowrap; color:orange">${CRNAME}</div>`;
+    let infoContent = `<div style="margin:5px 35px; white-space:nowrap; color:orange">${CRNAME}</div>`;
     let iwRemoveable = true;
 
     let infowindow = new kakao.maps.InfoWindow({
@@ -329,11 +310,8 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId
         return elem.creatorId === testUid;
       });
       setFavoriteData(myFavorite);
-      // setActive(myFavorite.active);
     });
   }, []);
-
-  console.log(favoriteData);
 
   useEffect(() => {
     pagedContents.map(({ CRNAME }, index) => {
@@ -353,11 +331,15 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId
     setStarClickedArr(newStarArr);
   };
 
+  useEffect(() => {
+    pageScrollInit.current.scrollTo({ top: 0, behavior: "smooth" });
+  }, [currentPage]);
+
   let pagedArr = Array(pagedContents.length).fill(false);
   const [paged, setPaged] = useState(pagedArr);
 
   return (
-    <div className="relative flex flex-col flex-1 min-w-[27rem] overflow-x-hidden">
+    <div className="relative flex flex-col flex-1 min-w-[27rem]">
       <div className="py-5 bg-main-color">
         <img src="/kindergarten.svg" className="mx-auto" />
         <div className="flex flex-row items-center justify-center whitespace-nowrap mx-2 text-sm gap-2 lg:gap-3">
@@ -369,8 +351,8 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId
           </button>
         </div>
       </div>
-      <div className="text-left overflow-auto mb-16">
-        {qualifiedArr.length <= 0 && (
+      <div className="text-left overflow-x-hidden mb-16" ref={pageScrollInit}>
+        {pagedContents.length <= 0 && (
           <div className="flex flex-col items-center text-lg mt-[80px]">
             <img src="/bird.svg" className="animate-bounce w-10 h-10" />
             검색 결과가 없습니다
@@ -378,8 +360,8 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId
         )}
         <ul>
           {pagedContents.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
-            <li className={`${paged[index] === true ? "bg-light-yellow-color" : ""} relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer`} onClick={modalShow} id={index} key={index}>
-              <div className="min-w-[23rem] flex flex-row items-center justify-center">
+            <li className={`${paged[index] === true ? "bg-light-yellow-color" : "hover:bg-gray-100"} relative flex flex-row items-center justify-between pt-[10px] cursor-pointer`} onClick={modalShow} id={index} key={index}>
+              <div className="min-w-[21rem] flex flex-row items-center justify-center">
                 <img src="/children.jpg" className="w-20 mx-2 lg:w-24" />
                 <div className="w-96 lg:w-[27rem] text-xs truncate">
                   <h2 className="truncate text-base font-bold lg:text-xl" ref={starName}>
@@ -389,12 +371,11 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId
                   <p className="text-gray-500 lg:text-base">{`전화) : ${CRTELNO || "제공되지 않습니다"}`}</p>
                 </div>
               </div>
-              <button type="button" className="p-2 hidden md:block hover:text-yellow-400 onClick={handleStar}">
-                {starClickedArr[index] === true ? <AiFillStar className="w-6 h-6 lg:w-8 lg:h-8 text-yellow-400" id={index} onClick={handleStar} /> : <AiOutlineStar className="w-6 h-6 lg:w-8 lg:h-8" id={index} onClick={handleStar} />}
-                {/* {active === true ? <AiFillStar className="w-6 h-6 lg:w-8 lg:h-8 text-yellow-400" id={index} onClick={handleStar} /> : <AiOutlineStar className="w-6 h-6 lg:w-8 lg:h-8" id={index} onClick={handleStar} />} */}
+              <button type="button" className="mr-2 p-2 md:p-1 hover:text-yellow-400">
+                {starClickedArr[index] === true ? <AiFillStar className="iconStyle text-yellow-400" id={index} onClick={handleStar} /> : <AiOutlineStar className="iconStyle" id={index} onClick={handleStar} />}
               </button>
-              <button type="button" className="p-2 hidden md:block hover:text-orange-400">
-                <BiMap className="w-6 h-6 lg:w-8 lg:h-8 " id={index} onClick={handleMapClick} />
+              <button type="button" className="pr-1 hidden md:block hover:text-orange-400">
+                <BiMap className="iconStyle" id={index} onClick={handleMapClick} />
               </button>
             </li>
           ))}

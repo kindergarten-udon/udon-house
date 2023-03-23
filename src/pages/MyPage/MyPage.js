@@ -4,7 +4,6 @@ import MyBoard from "components/MyPage/MyBoard";
 import React, { useState, useEffect } from "react";
 
 const MyPage = ({ userId, userProfile, setUserProfile }) => {
-  console.log(userId);
   const [active, setActive] = useState(false);
 
   //모달창
@@ -35,6 +34,13 @@ const MyPage = ({ userId, userProfile, setUserProfile }) => {
       return;
     }
   };
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
 
   return (
     <div className="lg:pt-[120px] pt-[72px]">

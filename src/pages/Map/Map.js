@@ -12,8 +12,6 @@ const Map = ({ userId }) => {
   const [index, setIndex] = useState(null);
   const [map, setMap] = useState(null);
 
-  // console.log("userId = ", userId);
-
   useEffect(() => {
     const getData = async () => {
       try {
@@ -35,10 +33,6 @@ const Map = ({ userId }) => {
       setModalClose(true);
     }
   };
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <section className="flex flex-row h-screen lg:pt-[120px] pt-[72px]">

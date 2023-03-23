@@ -13,7 +13,6 @@ const MyBoard = ({ setActive, userId }) => {
   return (
     <div className="mt-10 mb-20">
       {myBoard.map((el) => {
-        console.log(el);
         return (
           <section className="w-[80%] mx-auto" key={el.id}>
             <div className="text-left flex py-2 lg:py-3 border border-transparent border-b-gray-300 w-full">

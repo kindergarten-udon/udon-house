@@ -130,6 +130,13 @@ const SignIn = () => {
       .fromTo(formRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5 }, "-=0.5");
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
+
   return (
     <div className="w-full h-screen bg-main-color relative">
       <h2 className="sr-only">로그인</h2>
