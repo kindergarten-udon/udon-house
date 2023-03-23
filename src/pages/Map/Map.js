@@ -3,7 +3,6 @@ import KindergartenList from "components/MapInfo/KindergartenList";
 import KindergartenMap from "components/MapInfo/KindergartenMap";
 import KindergartenModal from "components/MapInfo/KindergartenModal";
 import axios from "axios";
-import { throttle } from "lodash";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 const { kakao } = window;
 
