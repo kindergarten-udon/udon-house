@@ -3,16 +3,16 @@ import KindergartenList from "components/MapInfo/KindergartenList";
 import KindergartenMap from "components/MapInfo/KindergartenMap";
 import KindergartenModal from "components/MapInfo/KindergartenModal";
 import axios from "axios";
-import { throttle } from "lodash";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 const { kakao } = window;
 
-const Map = () => {
+const Map = ({ userId }) => {
   const [modalClose, setModalClose] = useState(false);
   const [kinderList, setKinderList] = useState(null);
   const [qualifiedList, setQualifiedList] = useState(kinderList);
   const [index, setIndex] = useState(null);
   const [map, setMap] = useState(null);
+
+  // console.log("userId = ", userId);
 
   useEffect(() => {
     const getData = async () => {
@@ -20,7 +20,7 @@ const Map = () => {
         const url = `http://openapi.seoul.go.kr:8088/${process.env.REACT_APP_KINDERINFO_KEY}/json/ChildCareInfo/1/1000/`;
         const response = await axios.get(url);
         let arr = response.data.ChildCareInfo.row;
-        let filtered = arr.filter((elem) => elem.CRSTATUSNAME !== "폐지");
+        let filtered = arr.filter((elem) => elem.CRSTATUSNAME !== "폐지" && elem.STCODE !== "11545000341" && elem.STCODE !== "11380000668");
         setKinderList(filtered);
       } catch (error) {
         alert("데이터를 불러오는 과정에서 에러가 발생했습니다!!");
@@ -45,7 +45,7 @@ const Map = () => {
       {modalClose && kinderList && index && <KindergartenModal kinderList={kinderList} index={index} qualifiedList={qualifiedList} setModalClose={setModalClose} />}
       {kinderList && <KindergartenMap kinderList={kinderList} setMap={setMap} />}
       {/* <div id="map" className="w-3/5 hidden md:block"></div> */}
-      {kinderList && map && <KindergartenList kinderList={kinderList} setQualifiedList={setQualifiedList} map={map} modalShow={modalShow} />}
+      {userId && kinderList && map && <KindergartenList userId={userId} kinderList={kinderList} setQualifiedList={setQualifiedList} map={map} modalShow={modalShow} />}
     </section>
   );
 };

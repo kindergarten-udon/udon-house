@@ -17,6 +17,7 @@ import { onSnapshot } from "firebase/firestore";
 import { collection } from "firebase/firestore";
 import { useSetRecoilState } from "recoil";
 import { userData } from "atom/atom";
+import { uid } from "Atom/atom";
 
 function App() {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ function App() {
   const [userId, setUserId] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
   const setContents = useSetRecoilState(userData);
+  const setUid = useSetRecoilState(uid);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -31,6 +33,7 @@ function App() {
         setIsLogin(true);
         setUserId(user);
         setUserProfile(user.photoURL);
+        setUid(user.uid);
       } else {
         setIsLogin(false);
       }
@@ -54,8 +57,7 @@ function App() {
         <Routes>
           <>
             <Route path="/" element={<Main />} />
-            <Route path="/map" element={<Map />} />
-            <Route path="/map/:id" element={<Map />} />
+            <Route path="/map" element={<Map userId={userId} />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/mypage" element={<MyPage userId={userId} userProfile={userProfile} setUserProfile={setUserProfile} />} />
