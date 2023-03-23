@@ -22,6 +22,7 @@
     "react-scripts": "5.0.1",
     "react-select": "^5.7.0",
     "recoil": "^0.7.7",
+    "recoil-devtools-logger": "^0.5.0",
     "swiper": "^9.1.0",
     "tailwind-scrollbar-hide": "^1.1.7",
     "toidentifier": "^1.0.1",

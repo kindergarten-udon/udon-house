@@ -296,7 +296,6 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId
         creatorId: testUid,
       });
     } else {
-      console.log("실행됨");
       const removeDoc = doc(collection(dbService, "favorite"), favoriteDataId);
       deleteDoc(removeDoc);
     }
@@ -369,7 +368,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId
           {pagedContents.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
             <li className={`${paged[index] === true ? "bg-light-yellow-color" : "hover:bg-gray-100"} relative flex flex-row items-center justify-between pt-[10px] cursor-pointer`} onClick={modalShow} id={index} key={index}>
               <div className="min-w-[21rem] flex flex-row items-center justify-center">
-                <img src="/children.jpg" className="w-20 mx-2 lg:w-24" />
+                <img src="/childrens.svg" className="w-20 mx-2 lg:w-24" />
                 <div className="w-96 lg:w-[27rem] text-xs truncate">
                   <h2 className="truncate text-base font-bold lg:text-xl" ref={starName}>
                     {CRNAME}

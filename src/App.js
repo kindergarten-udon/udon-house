@@ -17,6 +17,7 @@ import { onSnapshot } from "firebase/firestore";
 import { collection } from "firebase/firestore";
 import { useSetRecoilState } from "recoil";
 import { uid, userData } from "Atom/atom";
+import { RecoilLogger } from "recoil-devtools-logger";
 
 function App() {
   const navigate = useNavigate();
@@ -51,6 +52,7 @@ function App() {
 
   return (
     <div className="App font-sans">
+      <RecoilLogger values={[uid, userData]} />
       <>
         <Header isLogin={isLogin} userId={userId} userProfile={userProfile} setUserProfile={setUserProfile} />
         <Routes>

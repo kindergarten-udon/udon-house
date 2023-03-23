@@ -56,6 +56,7 @@ const KindergartemModal = ({ kinderList, index, qualifiedList, setModalClose }) 
                 }}
                 className="text-orange-400 hover:text-2xl"
                 target="_blank"
+                rel="noreferrer"
               >
                 {` ${CRHOME || "제공되지 않습니다."}`}
               </a>
