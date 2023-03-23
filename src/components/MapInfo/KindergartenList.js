@@ -286,7 +286,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
           {pagedContents.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
             <li className={`${paged[index] === true ? "bg-light-yellow-color" : ""} relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer`} onClick={modalShow} id={index} key={index}>
               <div className="min-w-[23rem] flex flex-row items-center justify-center">
-                <img src="/kindergarten.svg" className="w-20 mx-2 lg:w-24" />
+                <img src="/children.jpg" className="w-20 mx-2 lg:w-24" />
                 <div className="w-96 lg:w-[27rem] text-xs truncate">
                   <h2 className="truncate text-base font-bold lg:text-xl">{CRNAME}</h2>
                   <p className="truncate text-gray-500 lg:text-base">{CRADDR}</p>
