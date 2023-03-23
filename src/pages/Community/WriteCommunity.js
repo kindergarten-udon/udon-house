@@ -13,7 +13,7 @@ const WriteCommunity = ({ userId }) => {
   const [content, setContent] = useState("");
 
   const showCancelModal = () => {
-    if (setcancelModalOpen === true) {
+    if (cancelModalOpen === true) {
       setcancelModalOpen(false);
     } else {
       setcancelModalOpen(true);

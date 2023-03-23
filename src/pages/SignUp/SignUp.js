@@ -142,18 +142,19 @@ const SignUp = () => {
     <div className="w-full h-screen bg-main-color">
       <h2 className="sr-only">회원가입</h2>
       <img className="lg:w-[31rem] h-2/5 left-0 top-0 opacity-50 md:w-80 sm:w-80 " src="/mainShape1.svg" alt="배경 이미지1" />
-      <img ref={udonHouseLogoRef} className=" center h-20 bottom-52 opacity-0" src="/main3Logo.svg" alt="우리 동네 어린이집 로고" />
-      <img ref={birdRef} className="animate-bounce birdSize lnline-block relative bottom-56 left-[38rem] " src="/bird2.svg" alt="새 이미지" />
-      {/* <img ref={gomImageRef} className="lg:w-36 w-0 relative bottom-30 right-[500px] pr-2.5 z-[1000] inline-block" src="/gomImage.svg" alt="빼꼼 곰 이미지" /> */}
+      <div className="absoulte w-[clamp(300px,80vw,500px)] lg:w-[32rem] -translate-y-[250px] mb-10 lg:mb-20 mx-auto mt-5">
+        <img ref={udonHouseLogoRef} className=" center h-20 top-2 opacity-0" src="/main3Logo.svg" alt="우리 동네 어린이집 로고" />
+        <img ref={birdRef} className="animate-bounce max-sm:mt-8 max-sm:w-16 w-24 absolute right-5 " src="/bird2.svg" alt="새 이미지" />
+      </div>
       <img ref={backgroundImageRef} className=" bgSize inline-block absolute p-0 m-0 bottom-0 right-[-1rem] z-[10]" src="/BackgroundImage.svg" alt="곰과 악어가 있는 이미지" />
       <img className=" shapeSize absolute right-0  bottom-0 opacity-50 z-0" src="/mainShape2.svg" alt="배경 이미지2" />
-      <form ref={formRef} className="formBottom center w-[32rem] formBorder bg-[#FFFFF3] px-2.5 z-[10]" onSubmit={handleSubmit}>
-        <div className=" w-[28rem] h-24 center pt-10">
-          <span className="spanStyle">이메일</span>
-          <div className="w-[28rem] h-10 center ">
+      <form ref={formRef} className="absoulte formBottom center w-[clamp(300px,80vw,500px)] lg:w-[32rem] formBorder bg-[#FFFFF3] px-6 z-[10]" onSubmit={handleSubmit}>
+        <div className=" w-full h-24 center pt-10">
+          <span className="flex ml-2">이메일</span>
+          <div className="w-full h-10 relative ">
             <input className="inputStyle" name="email" placeholder="이메일" onChange={handleChange} />
             <button
-              className={"w-[6.25rem] h-[2.6rem] rounded-r-xl border-2 bottom-[-0.18rem] left-[21.7rem] border-solid absolute opacity-1 " + (isEmail ? "bg-btn-green-color " : "bg-gray-400 block ")}
+              className={" absolute w-[6.25rem] h-[110%] rounded-r-xl border-2 bottom-[-0.18rem] right-0 text-sm lg:text-base border-solid opacity-1 " + (isEmail ? "bg-btn-green-color " : "bg-gray-400 block ")}
               type="button"
               onClick={checkEmailExists}
               disabled={!email}
@@ -163,23 +164,28 @@ const SignUp = () => {
           </div>
           {email.length > 0 && <span className={`message ${isEmail ? "success successFont" : "error errorFont"}`}>{emailMessage}</span>}
         </div>
-        <div className=" loginDivStyle pt-10">
-          <span className="spanStyle">비밀번호 </span>
+        <div className=" loginDivStyle mt-10">
+          <span className="flex ml-2">비밀번호 </span>
           <input className="inputStyle" type={showPassword ? "text" : "password"} name="password" placeholder="비밀번호" onChange={handleChange} />
-          <button className="eyeButton bottom-[-15px] " onClick={toggleShowPassword}>
-            {showPassword ? <FaEyeSlash /> : <FaEye />}
-          </button>
+          <div className="absolute right-0 top-9 z-10 text-right">
+            <button className=" text-gray-500 mr-2" onClick={toggleShowPassword}>
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
           {password.length > 0 && <span className={`message ${isPassword ? "success successFont" : "error errorFont"}`}>{passwordMessage}</span>}
         </div>
-        <div className="loginDivStyle mt-14">
-          <span className="spanStyle">비밀번호 확인</span>
+        <div className="loginDivStyle">
+          <span className="flex ml-2">비밀번호 확인</span>
           <input name="passwordConfirm" className="inputStyle" type={showPassword ? "text" : "password"} placeholder="비밀번호 확인" onChange={handleChange} />
           {passwordConfirm.length > 0 && <span className={`message ${isPasswordConfirm ? "success successFont" : "error errorFont"}`}>{passwordConfirmMessage}</span>}
         </div>
-        <div className="loginDivStyle pt-[3.75rem] pb-24  ">
-          <button className={"loginButtonStyle border-solide " + (!isFormValid ? "bg-gray-400" : "bg-btn-green-color")} onClick={signupButton} type="submit" disabled={!isFormValid}>
+        <div className="loginDivStyle mt-16 mb-24  ">
+          <button className={"loginButtonStyle border-solide w-full py-2 " + (!isFormValid ? "bg-gray-400" : "bg-btn-green-color")} onClick={signupButton} type="submit" disabled={!isFormValid}>
             회원가입
           </button>
+        </div>
+        <div className="absolute max-sm:w-0 top-0 -translate-x-[105%] z-0">
+          <img ref={gomImageRef} className=" w-36 z-0" src="/gomImage.svg" alt="빼꼼 곰" />
         </div>
       </form>
     </div>
