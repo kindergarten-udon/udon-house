@@ -64,6 +64,7 @@ function App() {
             <Route path="/community" element={<Community isLogin={isLogin} />} />
             <Route path="/community/:id" element={<Community userId={userId} />} />
             <Route path="/writeCommunity" element={<WriteCommunity userId={userId} />} />
+            <Route path="*" element={<NotFound />} />
           </>
         </Routes>
         <Footer />
