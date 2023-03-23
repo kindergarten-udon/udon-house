@@ -36,6 +36,13 @@ const MyPage = ({ userId, userProfile, setUserProfile }) => {
     }
   };
 
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
+
   return (
     <div className="lg:pt-[120px] pt-[72px]">
       {showImagePopup && <AddPhoto userId={userId} onClose={closeImagePopup} setUserProfile={setUserProfile} />}
