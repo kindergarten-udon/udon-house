@@ -39,7 +39,7 @@ const Map = ({ userId }) => {
       {modalClose && kinderList && index && <KindergartenModal kinderList={kinderList} index={index} qualifiedList={qualifiedList} setModalClose={setModalClose} />}
       {kinderList && <KindergartenMap kinderList={kinderList} setMap={setMap} />}
       {/* <div id="map" className="w-3/5 hidden md:block"></div> */}
-      {userId && kinderList && map && <KindergartenList userId={userId} kinderList={kinderList} setQualifiedList={setQualifiedList} map={map} modalShow={modalShow} />}
+      {kinderList && map && <KindergartenList userId={userId} kinderList={kinderList} setQualifiedList={setQualifiedList} map={map} modalShow={modalShow} />}
     </section>
   );
 };
