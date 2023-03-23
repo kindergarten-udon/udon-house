@@ -88,8 +88,6 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId
   const [isActive, setIsActive] = useState(null);
   const pageScrollInit = useRef(null);
 
-  // console.log("testUid = ", testUid);
-
   const perPage = 100;
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -100,23 +98,6 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId
   const [starClickedArr, setStarClickedArr] = useState(newStarArr);
 
   let selectedMarker = null;
-
-  // useEffect(() => {
-  //   pagedContents.map(({ STCODE }, index) => {
-  //     if (localStorage.getItem(STCODE) !== null) {
-  //       starClickedArr[index] = !starClickedArr[index];
-  //       setStarClickedArr([...starClickedArr]);
-  //     }
-  //   });
-  // }, [currentPage]);
-  // useEffect(() => {
-  //   pagedContents.map(({ STCODE }, index) => {
-  //     let name = localStorage.getItem(STCODE);
-  //     if (localStorage.getItem(STCODE) !== null) {
-  //       console.log(name);
-  //     }
-  //   });
-  // }, [currentPage]);
 
   function addMarker(position, normalSrc) {
     let markerSize = "";
@@ -329,7 +310,6 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId
         return elem.creatorId === testUid;
       });
       setFavoriteData(myFavorite);
-      // setActive(myFavorite.active);
     });
   }, []);
 
@@ -380,7 +360,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId
         )}
         <ul>
           {pagedContents.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
-            <li className={`${paged[index] === true ? "bg-light-yellow-color" : ""} relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer`} onClick={modalShow} id={index} key={index}>
+            <li className={`${paged[index] === true ? "bg-light-yellow-color" : "hover:bg-gray-100"} relative flex flex-row items-center justify-between pt-[10px] cursor-pointer`} onClick={modalShow} id={index} key={index}>
               <div className="min-w-[21rem] flex flex-row items-center justify-center">
                 <img src="/children.jpg" className="w-20 mx-2 lg:w-24" />
                 <div className="w-96 lg:w-[27rem] text-xs truncate">

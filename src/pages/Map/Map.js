@@ -12,8 +12,6 @@ const Map = ({ userId }) => {
   const [index, setIndex] = useState(null);
   const [map, setMap] = useState(null);
 
-  // console.log("userId = ", userId);
-
   useEffect(() => {
     const getData = async () => {
       try {

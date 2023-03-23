@@ -1,5 +1,5 @@
 import React from "react";
-import { userData } from "atom/atom";
+import { userData } from "Atom/atom";
 import { useRecoilState } from "recoil";
 import { Link } from "react-router-dom";
 import { BsHandThumbsUpFill } from "react-icons/bs";
@@ -13,7 +13,6 @@ const MyBoard = ({ setActive, userId }) => {
   return (
     <div className="mt-10 mb-20">
       {myBoard.map((el) => {
-        console.log(el);
         return (
           <section className="w-[80%] mx-auto" key={el.id}>
             <div className="text-left flex py-2 lg:py-3 border border-transparent border-b-gray-300 w-full">

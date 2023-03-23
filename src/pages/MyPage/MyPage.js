@@ -4,7 +4,6 @@ import MyBoard from "components/MyPage/MyBoard";
 import React, { useState, useEffect } from "react";
 
 const MyPage = ({ userId, userProfile, setUserProfile }) => {
-  console.log(userId);
   const [active, setActive] = useState(false);
 
   //모달창
