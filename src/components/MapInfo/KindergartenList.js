@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import Select from "react-select";
 import { BiSearch, BiMap } from "react-icons/bi";
+import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import KindergartenMap from "components/MapInfo/KindergartenMap";
 import axios from "axios";
 import { async } from "@firebase/util";
 import ReactPaginate from "react-paginate";
 import "components/Community/boardListItem.css";
+import { dbService } from "util/fbase";
 
 const { kakao } = window;
 
@@ -76,6 +78,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
   const [info, setInfo] = useState(null);
   const textArea = useRef(false);
   const inputName = useRef(null);
+  const pageScrollInit = useRef(null);
 
   let selectedMarker = null;
 
@@ -239,7 +242,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
 
     map.setBounds(bounds);
 
-    let infoContent = `<div style="margin:5px 35px; white-space: nowrap; color:orange">${CRNAME}</div>`;
+    let infoContent = `<div style="margin:5px 35px; white-space:nowrap; color:orange">${CRNAME}</div>`;
     let iwRemoveable = true;
 
     let infowindow = new kakao.maps.InfoWindow({
@@ -257,13 +260,29 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
   const handlePageClick = ({ selected: selectedPage }) => {
     setCurrentPage(selectedPage);
     setPaged(pagedArr);
+    setStarClickedArr(newStarArr);
   };
+
+  useEffect(() => {
+    pageScrollInit.current.scrollTo({ top: 0, behavior: "smooth" });
+  }, [currentPage]);
 
   let pagedArr = Array(pagedContents.length).fill(false);
   const [paged, setPaged] = useState(pagedArr);
 
+  let newStarArr = Array(pagedContents.length).fill(false);
+  const [starClickedArr, setStarClickedArr] = useState(newStarArr);
+
+  const handleStar = (e) => {
+    let li = e.currentTarget.parentNode.parentNode;
+    let id = li.id;
+
+    starClickedArr[id] = !starClickedArr[id];
+    setStarClickedArr([...starClickedArr]);
+  };
+
   return (
-    <div className="relative flex flex-col flex-1 min-w-[27rem] overflow-x-hidden">
+    <div className="relative flex flex-col flex-1 min-w-[27rem]">
       <div className="py-5 bg-main-color">
         <img src="/kindergarten.svg" className="mx-auto" />
         <div className="flex flex-row items-center justify-center whitespace-nowrap mx-2 text-sm gap-2 lg:gap-3">
@@ -275,8 +294,8 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
           </button>
         </div>
       </div>
-      <div className="text-left overflow-auto mb-16">
-        {qualifiedArr.length <= 0 && (
+      <div className="text-left overflow-x-hidden mb-16" ref={pageScrollInit}>
+        {pagedContents.length <= 0 && (
           <div className="flex flex-col items-center text-lg mt-[80px]">
             <img src="/bird.svg" className="animate-bounce w-10 h-10" />
             검색 결과가 없습니다
@@ -285,7 +304,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
         <ul>
           {pagedContents.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
             <li className={`${paged[index] === true ? "bg-light-yellow-color" : ""} relative flex flex-row items-center justify-between pt-[10px] hover:bg-gray-100 cursor-pointer`} onClick={modalShow} id={index} key={index}>
-              <div className="min-w-[23rem] flex flex-row items-center justify-center">
+              <div className="min-w-[21rem] flex flex-row items-center justify-center">
                 <img src="/kindergarten.svg" className="w-20 mx-2 lg:w-24" />
                 <div className="w-96 lg:w-[27rem] text-xs truncate">
                   <h2 className="truncate text-base font-bold lg:text-xl">{CRNAME}</h2>
@@ -293,8 +312,11 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
                   <p className="text-gray-500 lg:text-base">{`전화) : ${CRTELNO || "제공되지 않습니다"}`}</p>
                 </div>
               </div>
-              <button type="button" className="p-2 hidden md:block hover:text-orange-400">
-                <BiMap className="w-6 h-6 lg:w-8 lg:h-8" id={index} onClick={handleMapClick} />
+              <button type="button" className="mr-2 p-2 md:p-1 hover:text-yellow-400">
+                {starClickedArr[index] === true ? <AiFillStar className="iconStyle text-yellow-400" id={index} onClick={handleStar} /> : <AiOutlineStar className="iconStyle" id={index} onClick={handleStar} />}
+              </button>
+              <button type="button" className="pr-1 hidden md:block hover:text-orange-400">
+                <BiMap className="iconStyle" id={index} onClick={handleMapClick} />
               </button>
             </li>
           ))}
