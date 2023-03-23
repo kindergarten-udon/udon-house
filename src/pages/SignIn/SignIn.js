@@ -134,7 +134,7 @@ const SignIn = () => {
     <div className="w-full h-screen bg-main-color relative">
       <h2 className="sr-only">로그인</h2>
       <img className="lg:w-[31rem] h-2/5 left-0 top-0 opacity-0.2 md:w-80 sm:w-80 " src="/mainShape1.svg" alt="배경 이미지1" />
-      <div className="absoulte w-[clamp(300px,80vw,500px)] lg:w-[32rem] -translate-y-[250px] mb-10 lg:mb-20 mx-auto">
+      <div className="absoulte w-[clamp(300px,80vw,500px)] lg:w-[32rem] -translate-y-[250px] mb-10 lg:mb-20 mx-auto mt-5">
         <img ref={udonHouseLogoRef} className=" center h-20 top-2 opacity-0" src="/main3Logo.svg" alt="우리 동네 어린이집 로고" />
         <img ref={birdRef} className="animate-bounce max-sm:mt-8 max-sm:w-16 w-24 absolute right-5 " src="/bird2.svg" alt="새 이미지" />
       </div>
@@ -162,7 +162,7 @@ const SignIn = () => {
           </button>
         </div>
         <div className="loginDivStyle mt-10">
-          <button className="loginButtonStyle w-full py-2  bg-gray-400  hover:bg-btn-green-color border-solid " onClick={handleSignUp}>
+          <button className="loginButtonStyle w-full py-2 bg-btn-green-color hover:bg-main-color border-solid " onClick={handleSignUp}>
             회원가입
           </button>
         </div>

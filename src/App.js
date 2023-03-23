@@ -22,6 +22,7 @@ function App() {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
   const [userId, setUserId] = useState(null);
+  const [userProfile, setUserProfile] = useState(null);
   const setContents = useSetRecoilState(userData);
 
   useEffect(() => {
@@ -29,6 +30,7 @@ function App() {
       if (user) {
         setIsLogin(true);
         setUserId(user);
+        setUserProfile(user.photoURL);
       } else {
         setIsLogin(false);
       }
@@ -48,7 +50,7 @@ function App() {
   return (
     <div className="App font-sans">
       <>
-        <Header isLogin={isLogin} userId={userId} />
+        <Header isLogin={isLogin} userId={userId} userProfile={userProfile} setUserProfile={setUserProfile} />
         <Routes>
           <>
             <Route path="/" element={<Main />} />
@@ -56,7 +58,7 @@ function App() {
             <Route path="/map/:id" element={<Map />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
-            <Route path="/mypage" element={<MyPage userId={userId} />} />
+            <Route path="/mypage" element={<MyPage userId={userId} userProfile={userProfile} setUserProfile={setUserProfile} />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/community" element={<Community isLogin={isLogin} />} />
             <Route path="/community/:id" element={<Community userId={userId} />} />

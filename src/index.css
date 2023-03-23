@@ -81,6 +81,33 @@
   .mypageMargin {
     @apply max-sm:mr-[10%] mr-20;
   }
+  .popup {
+    @apply lg:w-[20rem] w-[16rem] h-60 bg-gray-200 border-2 rounded-lg fixed top-[100px] right-[4%]  drop-shadow-md z-[100];
+  }
+  .myPageButton {
+    @apply bg-yellow-50 w-[50px] h-[50px] border-gray-400 rounded-full hover:drop-shadow-sm hover:border-2;
+  }
+  .popupButton {
+    @apply border-2 border-gray-300 block mx-auto rounded-lg lg:w-[15rem] w-[14rem] h-10 bg-slate-50 text-center text-gray-800 mb-1.5;
+  }
+  .popupIcon {
+    @apply relative top-[11px];
+  }
+  .popupSpan {
+    @apply relative inline-block  text-gray-800 text-sm;
+  }
+  .imageButton {
+    @apply border-2 border-gray-300  rounded-lg w-[4rem] h-8 relative  lg:h-10 bg-slate-50 text-center text-gray-800 mb-1.5;
+  }
+  .profileImage {
+    @apply rounded-full w-full h-full object-cover hover:drop-shadow-xl hover:scale-105;
+  }
+  .modalBlack {
+    @apply fixed top-0 left-0 right-0 bottom-0 z-30 bg-black bg-opacity-30;
+  }
+  .addPhotoConatiner {
+    @apply lg:w-[500px] w-[400px] h-auto block border-2 rounded-lg bg-orange-100 p-5 absolute top-[300px] left-[50%] -translate-x-[50%] z-10;
+  }
 }
 
 @font-face {
