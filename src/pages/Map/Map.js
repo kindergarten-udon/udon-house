@@ -11,6 +11,7 @@ const Map = ({ userId }) => {
   const [qualifiedList, setQualifiedList] = useState(kinderList);
   const [index, setIndex] = useState(null);
   const [map, setMap] = useState(null);
+  const [favoriteData, setFavoriteData] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
@@ -37,9 +38,8 @@ const Map = ({ userId }) => {
   return (
     <section className="flex flex-row h-screen lg:pt-[120px] pt-[72px]">
       {modalClose && kinderList && index && <KindergartenModal kinderList={kinderList} index={index} qualifiedList={qualifiedList} setModalClose={setModalClose} />}
-      {kinderList && <KindergartenMap kinderList={kinderList} setMap={setMap} />}
-      {/* <div id="map" className="w-3/5 hidden md:block"></div> */}
-      {userId && kinderList && map && <KindergartenList userId={userId} kinderList={kinderList} setQualifiedList={setQualifiedList} map={map} modalShow={modalShow} />}
+      {kinderList && <KindergartenMap kinderList={kinderList} setMap={setMap} setFavoriteData={setFavoriteData} />}
+      {userId && kinderList && map && favoriteData && <KindergartenList favoriteData={favoriteData} userId={userId} kinderList={kinderList} setQualifiedList={setQualifiedList} map={map} modalShow={modalShow} />}
     </section>
   );
 };
