@@ -1,7 +1,7 @@
 import { React, useEffect, useReducer, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const CancelButton = ({ cancelModalOpen, setcancelModalOpen, props, ref }) => {
+const CancelButton = ({ setcancelModalOpen }) => {
   const navigate = useNavigate();
   const cancelCloseModal = () => {
     setcancelModalOpen(false);
