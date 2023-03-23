@@ -1,5 +1,5 @@
 import React from "react";
-import { userData } from "atom/atom";
+import { userData } from "Atom/atom";
 import { useRecoilState } from "recoil";
 import { Link } from "react-router-dom";
 import { BsHandThumbsUpFill } from "react-icons/bs";

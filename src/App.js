@@ -16,8 +16,7 @@ import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { onSnapshot } from "firebase/firestore";
 import { collection } from "firebase/firestore";
 import { useSetRecoilState } from "recoil";
-import { userData } from "atom/atom";
-import { uid } from "Atom/atom";
+import { uid, userData } from "Atom/atom";
 
 function App() {
   const navigate = useNavigate();

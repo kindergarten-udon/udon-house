@@ -3,7 +3,7 @@ import { React, useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import BoardList from "components/Community/BoardList";
 import BoardItem from "components/Community/BoardItem";
-import { userData } from "atom/atom";
+import { userData } from "Atom/atom";
 import { useRecoilState } from "recoil";
 import { onSnapshot, collection } from "firebase/firestore";
 import { dbService } from "util/fbase";
