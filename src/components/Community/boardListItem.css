@@ -3,7 +3,7 @@
   justify-content: center;
   list-style: none;
   padding: 0;
-  margin-top: 20px;
+  padding: 20px;
 }
 
 .pagination li {
@@ -25,4 +25,19 @@
 .pagination li.active a {
   background-color: #ffe552;
   color: black;
+}
+
+.pagination li:first-child {
+  display: none;
+}
+
+.pagination li:last-child {
+  display: none;
+}
+
+.mapPagi {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #f5f5f5;
 }

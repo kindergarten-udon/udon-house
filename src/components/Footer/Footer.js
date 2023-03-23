@@ -4,7 +4,7 @@ import { Nav } from "components/Nav/Nav";
 const Footer = () => {
   const location = useLocation();
   const path = location.pathname;
-  const arr = ["/signin", "/signup"];
+  const arr = ["/signin", "/signup", "/map"];
 
   return (
     <>

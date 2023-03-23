@@ -16,6 +16,24 @@ const MyPage = ({ userId, userProfile, setUserProfile }) => {
 
   const closeImagePopup = () => {
     setShowImagePopup(false);
+
+    const [active, setActive] = useState(false);
+  };
+  const handleOptionChange = (event) => {
+    setActive(event.target.id);
+  };
+
+  const testClick = (e) => {
+    const {
+      target: { name },
+    } = e;
+    if (name === "myboard") {
+      setActive(false);
+      return;
+    } else if (name === "favorite") {
+      setActive(true);
+      return;
+    }
   };
 
   return (
@@ -36,9 +54,16 @@ const MyPage = ({ userId, userProfile, setUserProfile }) => {
           {userId && userId.email}
         </div>
       </section>
-      <button></button>
-      <Favorite setActive={setActive} />
-      <MyBoard setActive={setActive} userId={userId} />
+      <div className="max-sm:text-xl text-2xl lg:text-3xl max-sm:translate-x-1 translate-x-5">
+        <button name="myboard" onClick={testClick} className={!active ? "mypageChecked max-sm:mr-[10%] mr-20 " : "mypage max-sm:mr-[10%] mr-20"}>
+          내가 작성한글
+        </button>
+        <button name="favorite" onClick={testClick} className={active ? "mypageChecked " : "mypage "}>
+          어린이집 즐겨찾기
+        </button>
+      </div>
+
+      {active ? <Favorite setActive={setActive} /> : <MyBoard setActive={setActive} userId={userId} />}
     </div>
   );
 };

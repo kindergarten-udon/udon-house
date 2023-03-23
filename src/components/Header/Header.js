@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Nav } from "components/Nav/Nav";
 import { ProfilePopup } from "components/MyPage/ProfilePopup";
@@ -23,7 +23,15 @@ const Header = ({ isLogin, userProfile, userId, setUserProfile }) => {
   const closeProfilePopup = () => {
     setShowProfilePopup(false);
   };
+  // const showModal = () => {
+  //   if (modal === true) {
+  //     setModal(false);
+  //   } else {
+  //     setModal(true);
+  //   }
+  // };
 
+  // Modal setModal 로 넘겨준 모달 상태를 통한 값으로 모달 열고닫기 가능하면 될듯
   return (
     <>
       <div className="relative ">

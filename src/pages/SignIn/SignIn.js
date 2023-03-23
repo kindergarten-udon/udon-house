@@ -131,37 +131,38 @@ const SignIn = () => {
   }, []);
 
   return (
-    <div className="w-full h-screen bg-main-color">
+    <div className="w-full h-screen bg-main-color relative">
       <h2 className="sr-only">로그인</h2>
-      <img className="lg:w-[31rem] h-2/5 left-0 top-0 opacity-50 md:w-80 sm:w-80 " src="/mainShape1.svg" alt="배경 이미지1" />
-      <img ref={udonHouseLogoRef} className=" center h-20 bottom-52 opacity-0" src="/main3Logo.svg" alt="우리 동네 어린이집 로고" />
-      <img ref={birdRef} className="animate-bounce birdSize lnline-block relative bottom-56 left-[38rem] " src="/bird2.svg" alt="새 이미지" />
-      {/* <img ref={gomImageRef} className="lg:w-36 w-0 relative bottom-30 right-[500px] pr-2.5 z-[1000] inline-block" src="/gomImage.svg" alt="빼꼼 곰 이미지" /> */}
-      <img ref={backgroundImageRef} className=" bgSize inline-block absolute p-0 m-0 bottom-0 right-[-1rem] z-[10]" src="/BackgroundImage.svg" alt="곰과 악어가 있는 이미지" />
+      <img className="lg:w-[31rem] h-2/5 left-0 top-0 opacity-0.2 md:w-80 sm:w-80 " src="/mainShape1.svg" alt="배경 이미지1" />
+      <div className="absoulte w-[clamp(300px,80vw,500px)] lg:w-[32rem] -translate-y-[250px] mb-10 lg:mb-20 mx-auto">
+        <img ref={udonHouseLogoRef} className=" center h-20 top-2 opacity-0" src="/main3Logo.svg" alt="우리 동네 어린이집 로고" />
+        <img ref={birdRef} className="animate-bounce max-sm:mt-8 max-sm:w-16 w-24 absolute right-5 " src="/bird2.svg" alt="새 이미지" />
+      </div>
+      <img ref={backgroundImageRef} className="absolute p-0 m-0 bottom-0 right-[-1rem] z-[10]" src="/BackgroundImage.svg" alt="곰과 악어가 있는 이미지" />
       <img className=" shapeSize absolute right-0  bottom-0 opacity-50 z-0" src="/mainShape2.svg" alt="배경 이미지2" />
-      <form className="formBottom center w-[32rem] formBorder bg-[#FFFFF3] px-2.5 z-[10]" onSubmit={handleSubmit}>
-        <div className=" w-[28rem] h-20  inline-block pt-10 pb-24">
-          <span className="spanStyle">이메일</span>
+      <form className="absoulte formBottom center w-[clamp(300px,80vw,500px)] lg:w-[32rem] formBorder bg-[#FFFFF3] px-6 z-10" onSubmit={handleSubmit}>
+        <div className="loginDivStyle ">
+          <div className="flex ml-2">이메일</div>
           <input className="inputStyle" name="email" placeholder="이메일" onChange={handleChange} />
           {email.length > 0 && <span className={`message ${isEmail ? "success successFont" : "error errorFont"}`}>{emailMessage}</span>}
         </div>
-        <div className="loginDivStyle ">
-          <span className="spanStyle">비밀번호</span>
-
+        <div className="loginDivStyle relative">
+          <div className="flex ml-2">비밀번호</div>
           <input className="inputStyle" type={showPassword ? "text" : "password"} name="password" placeholder="비밀번호" onChange={handleChange} />
-          <button className="eyeButton bottom-7" onClick={toggleShowPassword}>
-            {showPassword ? <FaEyeSlash /> : <FaEye />}
-          </button>
+          <div className="absolute right-0 top-9 z-10 text-right">
+            <button className=" text-gray-500 mr-2" onClick={toggleShowPassword}>
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
           {password.length > 0 && <span className={`message ${isPassword ? "success successFont" : "error errorFont"}`}>{passwordMessage}</span>}
         </div>
-
-        <div className="loginDivStyle pt-10 pb-6 ">
-          <button className={"loginButtonStyle  " + (!isFormValid ? "bg-gray-400" : "bg-btn-green-color")} onClick={login} disabled={!isFormValid} type="submit">
+        <div className="loginDivStyle mt-10 mb-6 ">
+          <button className={"loginButtonStyle w-full py-2 " + (!isFormValid ? "bg-gray-400" : "bg-btn-green-color")} onClick={login} disabled={!isFormValid} type="submit">
             로그인
           </button>
         </div>
-        <div className="loginDivStyle pt-10">
-          <button className="loginButtonStyle  bg-gray-400  hover:bg-btn-green-color border-solid " onClick={handleSignUp}>
+        <div className="loginDivStyle mt-10">
+          <button className="loginButtonStyle w-full py-2  bg-gray-400  hover:bg-btn-green-color border-solid " onClick={handleSignUp}>
             회원가입
           </button>
         </div>
@@ -172,6 +173,9 @@ const SignIn = () => {
           <button onClick={signInWithGithub} name="github" value="github" type="button">
             <AiFillGithub className="socialIcon" />
           </button>
+        </div>
+        <div className="absolute max-sm:w-0 top-0 -translate-x-[105%] z-0">
+          <img ref={gomImageRef} className=" w-36 z-0" src="/gomImage.svg" alt="빼꼼 곰" />
         </div>
       </form>
     </div>
