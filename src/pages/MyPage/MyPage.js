@@ -35,15 +35,8 @@ const MyPage = ({ userId, userProfile, setUserProfile }) => {
     }
   };
 
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, []);
-
   return (
-    <div className="lg:pt-[120px] pt-[72px]">
+    <div className="lg:pt-[120px] pt-[72px] overflow-x-hidden">
       {showImagePopup && <AddPhoto userId={userId} onClose={closeImagePopup} setUserProfile={setUserProfile} />}
       <section className="relative mb-10 text-center">
         <div className="bg-main-color h-[50px] lg:h-[70px] z-10"></div>
