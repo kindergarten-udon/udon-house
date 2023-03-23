@@ -35,7 +35,6 @@ const SecondMain = () => {
   ];
   const prevRef = useRef(null);
   const nextRef = useRef(null);
-  console.log(prevRef);
   return (
     <div className="start2 relative w-full h-screen snap-center bg-white">
       <div className="h-screen flex flex-col justify-center items-center text-center">
