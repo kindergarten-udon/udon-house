@@ -13,16 +13,22 @@ import Community from "pages/Community/Community";
 import { useEffect, useRef, useState } from "react";
 import WriteCommunity from "pages/Community/WriteCommunity";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { uid } from "Atom/atom";
 
 function App() {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
   const [userId, setUserId] = useState(null);
+
+  const setUid = useSetRecoilState(uid);
+
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
         setIsLogin(true);
         setUserId(user);
+        setUid(user.uid);
       } else {
         setIsLogin(false);
       }
@@ -35,8 +41,7 @@ function App() {
         <Routes>
           <>
             <Route path="/" element={<Main />} />
-            <Route path="/map" element={<Map />} />
-            <Route path="/map/:id" element={<Map />} />
+            <Route path="/map" element={<Map userId={userId} />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/mypage" element={<MyPage />} />
