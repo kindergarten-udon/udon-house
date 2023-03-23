@@ -73,15 +73,14 @@ function createMarkerImage(markerSrc, markerSize) {
 /* -------------------------------------------------------------------------- */
 /*                         KindergartenList Component                         */
 /* -------------------------------------------------------------------------- */
-const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId }) => {
+const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId, favoriteData }) => {
   const [localArr, setLocalArr] = useState(kinderList);
   const [typeArr, setTypeArr] = useState(kinderList);
   const [qualifiedArr, setQualifiedArr] = useState(kinderList);
   const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
   const [info, setInfo] = useState(null);
-  const [favoriteData, setFavoriteData] = useState([]);
-  const textArea = useRef(false);
+  // const [favoriteData, setFavoriteData] = useState([]);
   const inputName = useRef(null);
   const starName = useRef(null);
   const [testUid, setTestUid] = useRecoilState(uid);
@@ -160,8 +159,8 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId
     if (selected !== null) {
       selected.setMap(null);
       setPaged(pagedArr);
-      setStarClickedArr(newStarArr);
     }
+    setStarClickedArr(newStarArr);
 
     const inputValue = inputName.current.value;
     const arr = localArr.filter((elem) => typeArr.includes(elem));
@@ -276,11 +275,12 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId
     starClickedArr[id] = !starClickedArr[id];
     setStarClickedArr([...starClickedArr]);
 
-    const { CRNAME, CRTELNO, CRADDR } = pagedContents[id];
+    const { CRNAME, CRTELNO, CRADDR, STCODE } = pagedContents[id];
 
     let favoriteDataId = "";
     let favoriteDataActive = null;
 
+    //forEach, find, filter
     favoriteData.map(({ id, title }) => {
       if (title === CRNAME) favoriteDataId = id;
     });
@@ -289,6 +289,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId
     if (starClickedArr[id] === true) {
       addDoc(contentRef, {
         active: true,
+        kindergartenCode: STCODE,
         title: CRNAME,
         tel: CRTELNO,
         address: CRADDR,
@@ -300,30 +301,35 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId
     }
   };
 
-  useEffect(() => {
-    onSnapshot(collection(dbService, "favorite"), (snapshot) => {
-      const contentArray = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      const myFavorite = contentArray.filter((elem) => {
-        return elem.creatorId === testUid;
-      });
-      setFavoriteData(myFavorite);
-    });
-  }, []);
+  // console.log(favoriteData);
+  // useEffect(() => {
+  //   // console.log("onSnapshot");
+  //   onSnapshot(collection(dbService, "favorite"), (snapshot) => {
+  //     const contentArray = snapshot.docs.map((doc) => ({
+  //       id: doc.id,
+  //       ...doc.data(),
+  //     }));
+  //     const myFavorite = contentArray.filter((elem) => {
+  //       return elem.creatorId === testUid;
+  //     });
+  //     setFavoriteData(myFavorite);
+  //   });
+  // }, []);
 
+  // console.log(qualifiedArr);
   useEffect(() => {
-    pagedContents.map(({ CRNAME }, index) => {
-      favoriteData.map(({ id, title }) => {
-        if (title === CRNAME) {
+    // console.log("paged");
+    pagedContents.map(({ STCODE }, index) => {
+      favoriteData.map(({ id, kindergartenCode }) => {
+        if (kindergartenCode === STCODE) {
           starClickedArr[index] = !starClickedArr[index];
           setStarClickedArr([...starClickedArr]);
         }
-        return;
       });
     });
-  }, [currentPage]);
+    // console.log("qualifiedArr = ", qualifiedArr);
+    // console.log("pagedContents = ", pagedContents);
+  }, [currentPage, qualifiedArr]);
 
   const handlePageClick = ({ selected: selectedPage }) => {
     setCurrentPage(selectedPage);
