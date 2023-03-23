@@ -49,16 +49,17 @@ const KindergartemModal = ({ kinderList, index, qualifiedList, setModalClose }) 
             <li className="border border-transparent border-b-gray-300" key={index}>{`주소 : ${CRADDR} (${ZIPCODE})`}</li>
             <li className="truncate">
               홈페이지 :
-              <Link
-                to={CRHOME}
+              <a
+                href={CRHOME}
                 onClick={(event) => {
                   if (CRHOME.length <= 0) event.preventDefault();
                 }}
                 className="text-orange-400 hover:text-2xl"
                 target="_blank"
+                rel="noreferrer"
               >
                 {` ${CRHOME || "제공되지 않습니다."}`}
-              </Link>
+              </a>
             </li>
           </ul>
         </div>
