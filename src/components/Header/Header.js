@@ -36,7 +36,7 @@ const Header = ({ isLogin, userProfile, userId, setUserProfile }) => {
             {isLogin === true ? (
               <>
                 <button className="myPageButton" onClick={handleProfile}>
-                  {userProfile ? <img src={userProfile} alt="사용자 프로필 사진" className="profileImage" /> : <img src="/pink.svg" alt="사용자 프로필 기본 이미지" className="profileImage" />}
+                  {userProfile ? <img src={userProfile} alt="사용자 프로필 사진" className="profileImage" /> : <img src="/yellow.svg" alt="사용자 프로필 기본 이미지" className="profileImage" />}
                 </button>
               </>
             ) : (

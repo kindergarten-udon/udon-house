@@ -91,7 +91,7 @@
     @apply bg-yellow-50 w-[50px] h-[50px] border-gray-400 rounded-full hover:drop-shadow-sm hover:border-2;
   }
   .popupButton {
-    @apply border-2 border-gray-300 block mx-auto rounded-lg lg:w-[15rem] h-10 bg-slate-50 text-center text-gray-800 mb-1.5;
+    @apply border-2 border-gray-300 block mx-auto rounded-lg lg:w-[15rem] w-[14rem] h-10 bg-slate-50 text-center text-gray-800 mb-1.5;
   }
   .popupIcon {
     @apply relative top-[11px];
