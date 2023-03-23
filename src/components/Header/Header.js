@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { auth } from "util/fbase";
 import { Nav } from "components/Nav/Nav";
 import { ProfilePopup } from "components/MyPage/ProfilePopup";
 
-const Header = ({ isLogin }) => {
+const Header = ({ isLogin, userProfile, userId, setUserProfile }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname;
@@ -14,22 +13,11 @@ const Header = ({ isLogin }) => {
     navigate("/signin");
   };
 
-  // // 로그아웃
-  // const logout = () => {
-  //   if (window.confirm("로그아웃 하시겠습니까?")) {
-  //     alert("로그아웃 완료!");
-  //     navigate("/");
-  //     auth.signOut();
-  //   } else {
-  //     alert("로그인 유지");
-  //   }
-  // };
-
   //모달창
   const [showProfilePopup, setShowProfilePopup] = useState(false);
 
   const handleProfile = () => {
-    setShowProfilePopup(true);
+    setShowProfilePopup(!showProfilePopup);
   };
 
   const closeProfilePopup = () => {
@@ -38,7 +26,7 @@ const Header = ({ isLogin }) => {
 
   return (
     <>
-      <div className="relative h-[120px]">
+      <div className="relative ">
         <header className={`${arr.includes(path) ? "bg-transparent" : "bg-white"} z-20 w-full lg:h-[120px]  h-[72px] flex justify-between fixed items-center lg:px-[60px] lg:py-[24px] p-[16px]`}>
           <Link to="/">
             <img src="/udonHouseLogo.svg" alt="우동집 로고" className="lg:h-[72px] h-[40px]" />
@@ -48,7 +36,7 @@ const Header = ({ isLogin }) => {
             {isLogin === true ? (
               <>
                 <button className="myPageButton" onClick={handleProfile}>
-                  <img className="object-fill w-[40px] m-auto" src="/pink.svg" alt="사용자 프로필 사진" />
+                  {userProfile ? <img src={userProfile} alt="사용자 프로필 사진" className="profileImage" /> : <img src="/pink.svg" alt="사용자 프로필 기본 이미지" className="profileImage" />}
                 </button>
               </>
             ) : (
@@ -58,7 +46,7 @@ const Header = ({ isLogin }) => {
             )}
           </div>
         </header>
-        {showProfilePopup && <ProfilePopup onClose={closeProfilePopup} />}
+        {showProfilePopup && <ProfilePopup onClose={closeProfilePopup} userId={userId} setUserProfile={setUserProfile} />}
       </div>
     </>
   );
