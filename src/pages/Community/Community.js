@@ -4,15 +4,15 @@ import { Link } from "react-router-dom";
 import BoardList from "components/Community/BoardList";
 import BoardItem from "components/Community/BoardItem";
 import { userData } from "Atom/atom";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { onSnapshot, collection } from "firebase/firestore";
 import { dbService } from "util/fbase";
 
 const Community = ({ isLogin, userId }) => {
   const [contents, setContents] = useState([]);
   // 게시물 뿌려주기
-  const content = useRecoilState(userData);
-  const myBoard = content[0].filter((el) => {
+  const content = useRecoilValue(userData);
+  const myBoard = content.filter((el) => {
     return el;
   });
 
