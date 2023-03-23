@@ -1,7 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 const { kakao } = window;
+import { collection, addDoc, onSnapshot } from "firebase/firestore";
+import { dbService } from "util/fbase";
+import { deleteDoc, doc } from "@firebase/firestore";
+import { useRecoilState } from "recoil";
+import { uid } from "Atom/atom";
 
-const KindergartenMap = ({ kinderList, setMap }) => {
+const KindergartenMap = ({ kinderList, setMap, setFavoriteData }) => {
+  const [testUid, setTestUid] = useRecoilState(uid);
+  // const [favoriteData, setFavoriteData] = useState([]);
+
   useEffect(() => {
     let container = document.getElementById("map");
     let options = {
@@ -38,6 +46,21 @@ const KindergartenMap = ({ kinderList, setMap }) => {
 
     let zoomControl = new kakao.maps.ZoomControl();
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+    // useEffect(() => {
+    // console.log("onSnapshot");
+    onSnapshot(collection(dbService, "favorite"), (snapshot) => {
+      const contentArray = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      let myFavorite = contentArray.filter((elem) => {
+        return elem.creatorId === testUid;
+      });
+      if (myFavorite.length === 0) myFavorite = [];
+      setFavoriteData(myFavorite);
+    });
+    // }, []);
   }, []);
 
   return <div id="map" className="w-[65%] hidden md:block"></div>;
