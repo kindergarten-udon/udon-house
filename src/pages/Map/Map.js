@@ -3,16 +3,16 @@ import KindergartenList from "components/MapInfo/KindergartenList";
 import KindergartenMap from "components/MapInfo/KindergartenMap";
 import KindergartenModal from "components/MapInfo/KindergartenModal";
 import axios from "axios";
-import { throttle } from "lodash";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 const { kakao } = window;
 
-const Map = () => {
+const Map = ({ userId }) => {
   const [modalClose, setModalClose] = useState(false);
   const [kinderList, setKinderList] = useState(null);
   const [qualifiedList, setQualifiedList] = useState(kinderList);
   const [index, setIndex] = useState(null);
   const [map, setMap] = useState(null);
+
+  // console.log("userId = ", userId);
 
   useEffect(() => {
     const getData = async () => {
@@ -45,7 +45,7 @@ const Map = () => {
       {modalClose && kinderList && index && <KindergartenModal kinderList={kinderList} index={index} qualifiedList={qualifiedList} setModalClose={setModalClose} />}
       {kinderList && <KindergartenMap kinderList={kinderList} setMap={setMap} />}
       {/* <div id="map" className="w-3/5 hidden md:block"></div> */}
-      {kinderList && map && <KindergartenList kinderList={kinderList} setQualifiedList={setQualifiedList} map={map} modalShow={modalShow} />}
+      {userId && kinderList && map && <KindergartenList userId={userId} kinderList={kinderList} setQualifiedList={setQualifiedList} map={map} modalShow={modalShow} />}
     </section>
   );
 };

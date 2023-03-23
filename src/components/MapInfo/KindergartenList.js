@@ -7,6 +7,11 @@ import axios from "axios";
 import { async } from "@firebase/util";
 import ReactPaginate from "react-paginate";
 import "components/Community/boardListItem.css";
+import { collection, addDoc, onSnapshot } from "firebase/firestore";
+import { dbService } from "util/fbase";
+import { uid } from "Atom/atom";
+import { useRecoilState } from "recoil";
+import { deleteDoc, doc } from "@firebase/firestore";
 
 const { kakao } = window;
 
@@ -68,17 +73,49 @@ function createMarkerImage(markerSrc, markerSize) {
 /* -------------------------------------------------------------------------- */
 /*                         KindergartenList Component                         */
 /* -------------------------------------------------------------------------- */
-const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
+const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId }) => {
   const [localArr, setLocalArr] = useState(kinderList);
   const [typeArr, setTypeArr] = useState(kinderList);
   const [qualifiedArr, setQualifiedArr] = useState(kinderList);
   const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
   const [info, setInfo] = useState(null);
+  const [favoriteData, setFavoriteData] = useState([]);
   const textArea = useRef(false);
   const inputName = useRef(null);
+  const starName = useRef(null);
+  const [testUid, setTestUid] = useRecoilState(uid);
+  const [isActive, setIsActive] = useState(null);
+
+  // console.log("testUid = ", testUid);
+
+  const perPage = 100;
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const offset = currentPage * perPage;
+  const pagedContents = qualifiedArr.slice(offset, offset + perPage);
+
+  let newStarArr = Array(pagedContents.length).fill(false);
+  const [starClickedArr, setStarClickedArr] = useState(newStarArr);
 
   let selectedMarker = null;
+
+  // useEffect(() => {
+  //   pagedContents.map(({ STCODE }, index) => {
+  //     if (localStorage.getItem(STCODE) !== null) {
+  //       starClickedArr[index] = !starClickedArr[index];
+  //       setStarClickedArr([...starClickedArr]);
+  //     }
+  //   });
+  // }, [currentPage]);
+  // useEffect(() => {
+  //   pagedContents.map(({ STCODE }, index) => {
+  //     let name = localStorage.getItem(STCODE);
+  //     if (localStorage.getItem(STCODE) !== null) {
+  //       console.log(name);
+  //     }
+  //   });
+  // }, [currentPage]);
 
   function addMarker(position, normalSrc) {
     let markerSize = "";
@@ -141,6 +178,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
     if (selected !== null) {
       selected.setMap(null);
       setPaged(pagedArr);
+      setStarClickedArr(newStarArr);
     }
 
     const inputValue = inputName.current.value;
@@ -215,6 +253,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
     const newPagedArr = Array(pagedContents.length).fill(false);
     newPagedArr[id] = true;
     setPaged(newPagedArr);
+    // setStarClickedArr(newStarArr);
 
     let index = e.currentTarget.id;
     const item = qualifiedArr[index];
@@ -255,23 +294,67 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
 
     starClickedArr[id] = !starClickedArr[id];
     setStarClickedArr([...starClickedArr]);
+
+    const { CRNAME, CRTELNO, CRADDR } = pagedContents[id];
+
+    let favoriteDataId = "";
+    let favoriteDataActive = null;
+
+    favoriteData.map(({ id, title }) => {
+      if (title === CRNAME) favoriteDataId = id;
+    });
+
+    const contentRef = collection(dbService, "favorite");
+    if (starClickedArr[id] === true) {
+      addDoc(contentRef, {
+        active: true,
+        title: CRNAME,
+        tel: CRTELNO,
+        address: CRADDR,
+        creatorId: testUid,
+      });
+    } else {
+      const removeDoc = doc(collection(dbService, "favorite"), favoriteDataId);
+      deleteDoc(removeDoc);
+    }
   };
 
-  const perPage = 100;
-  const [currentPage, setCurrentPage] = useState(0);
+  useEffect(() => {
+    onSnapshot(collection(dbService, "favorite"), (snapshot) => {
+      const contentArray = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      const myFavorite = contentArray.filter((elem) => {
+        return elem.creatorId === testUid;
+      });
+      setFavoriteData(myFavorite);
+      // setActive(myFavorite.active);
+    });
+  }, []);
 
-  const offset = currentPage * perPage;
-  const pagedContents = qualifiedArr.slice(offset, offset + perPage);
+  console.log(favoriteData);
+
+  useEffect(() => {
+    pagedContents.map(({ CRNAME }, index) => {
+      favoriteData.map(({ id, title }) => {
+        if (title === CRNAME) {
+          starClickedArr[index] = !starClickedArr[index];
+          setStarClickedArr([...starClickedArr]);
+        }
+        return;
+      });
+    });
+  }, [currentPage]);
 
   const handlePageClick = ({ selected: selectedPage }) => {
     setCurrentPage(selectedPage);
     setPaged(pagedArr);
+    setStarClickedArr(newStarArr);
   };
 
   let pagedArr = Array(pagedContents.length).fill(false);
-  let newStarArr = Array(pagedContents.length).fill(false);
   const [paged, setPaged] = useState(pagedArr);
-  const [starClickedArr, setStarClickedArr] = useState(newStarArr);
 
   return (
     <div className="relative flex flex-col flex-1 min-w-[27rem] overflow-x-hidden">
@@ -299,13 +382,16 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map }) => {
               <div className="min-w-[23rem] flex flex-row items-center justify-center">
                 <img src="/kindergarten.svg" className="w-20 mx-2 lg:w-24" />
                 <div className="w-96 lg:w-[27rem] text-xs truncate">
-                  <h2 className="truncate text-base font-bold lg:text-xl">{CRNAME}</h2>
+                  <h2 className="truncate text-base font-bold lg:text-xl" ref={starName}>
+                    {CRNAME}
+                  </h2>
                   <p className="truncate text-gray-500 lg:text-base">{CRADDR}</p>
                   <p className="text-gray-500 lg:text-base">{`전화) : ${CRTELNO || "제공되지 않습니다"}`}</p>
                 </div>
               </div>
               <button type="button" className="p-2 hidden md:block hover:text-yellow-400 onClick={handleStar}">
                 {starClickedArr[index] === true ? <AiFillStar className="w-6 h-6 lg:w-8 lg:h-8 text-yellow-400" id={index} onClick={handleStar} /> : <AiOutlineStar className="w-6 h-6 lg:w-8 lg:h-8" id={index} onClick={handleStar} />}
+                {/* {active === true ? <AiFillStar className="w-6 h-6 lg:w-8 lg:h-8 text-yellow-400" id={index} onClick={handleStar} /> : <AiOutlineStar className="w-6 h-6 lg:w-8 lg:h-8" id={index} onClick={handleStar} />} */}
               </button>
               <button type="button" className="p-2 hidden md:block hover:text-orange-400">
                 <BiMap className="w-6 h-6 lg:w-8 lg:h-8 " id={index} onClick={handleMapClick} />
