@@ -162,7 +162,7 @@ const SignIn = () => {
           </button>
         </div>
         <div className="loginDivStyle mt-10">
-          <button className="loginButtonStyle w-full py-2  bg-gray-400  hover:bg-btn-green-color border-solid " onClick={handleSignUp}>
+          <button className="loginButtonStyle w-full py-2 bg-btn-green-color hover:bg-main-color border-solid " onClick={handleSignUp}>
             회원가입
           </button>
         </div>
