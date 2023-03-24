@@ -18,6 +18,8 @@ import { collection } from "firebase/firestore";
 import { useSetRecoilState } from "recoil";
 import { uid, userData } from "Atom/atom";
 import { RecoilLogger } from "recoil-devtools-logger";
+import { Navigate } from "react-router-dom";
+// import PrivateRoute from "./PrivateRoute";
 
 function App() {
   const navigate = useNavigate();
@@ -50,6 +52,10 @@ function App() {
     });
   }, []);
 
+  const PrivateRoute = ({ userId, component: Component }) => {
+    return !userId ? Component : <Navigate to="/" {...alert("로그인 상태입니다.")}></Navigate>;
+  };
+
   return (
     <div className="App font-sans">
       <RecoilLogger values={[uid, userData]} />
@@ -59,8 +65,9 @@ function App() {
           <>
             <Route path="/" element={<Main />} />
             <Route path="/map" element={<Map userId={userId} />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/signin" element={<SignIn />} />
+            {/* <Route path="/viewer/room" element={<PrivateRoute component={<RoomViewer/>} authenticated={token}/>}/> */}
+            <Route path="/signup" element={<PrivateRoute component={<SignUp />} userId={userId} />} />
+            <Route path="/signin" element={<PrivateRoute component={<SignIn />} userId={userId} />} />
             <Route path="/mypage" element={<MyPage userId={userId} userProfile={userProfile} setUserProfile={setUserProfile} />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/community" element={<Community isLogin={isLogin} />} />
