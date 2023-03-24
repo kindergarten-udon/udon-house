@@ -1,12 +1,10 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import FirstMain from "components/Mains/FirstMain";
 import SecondMain from "components/Mains/SecondMain";
 import ThirdMain from "components/Mains/ThirdMain";
-import gsap from "gsap";
 import { FullPage, Slide } from "react-full-page/lib";
-import "./main.css";
+import "components/utilCss/main.css";
 import MainFooter from "components/Footer/MainFooter";
-import { ref } from "firebase/storage";
 
 const Main = () => {
   useEffect(() => {

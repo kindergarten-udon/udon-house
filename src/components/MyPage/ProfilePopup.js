@@ -8,11 +8,9 @@ import { BsBookmarkHeart } from "react-icons/bs";
 export const ProfilePopup = ({ onClose }) => {
   const navigate = useNavigate();
 
-  // 로그아웃
   const logout = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
       alert("로그아웃 완료!");
-      // navigate("/");
       window.location.replace("/");
       onClose();
       auth.signOut();
@@ -26,7 +24,6 @@ export const ProfilePopup = ({ onClose }) => {
     navigate("/mypage");
   };
 
-  //바깥 영역 클릭시 닫힘 버튼
   const popupRef = useRef(null);
 
   useEffect(() => {
@@ -52,7 +49,7 @@ export const ProfilePopup = ({ onClose }) => {
           {auth.currentUser.photoURL ? (
             <img src={auth.currentUser.photoURL} alt="사용자 프로필 이미지" className="profileImage w-[60px] translate-y-5 translate-x-[-90px] inline-block" />
           ) : (
-            <img src="yellow.svg" alt="사용자 기본 프로필 이미지" className="profileImage w-[50px] translate-x-10 translate-y-3" />
+            <img src="util/yellow.svg" alt="사용자 기본 프로필 이미지" className="profileImage w-[50px] translate-x-10 translate-y-3" />
           )}
           {auth.currentUser && <p className="text-md translate-x-3 translate-y-[-20px] lg:translate-x-1 lg:pl-12 pl-5">{auth.currentUser.email}</p>}
           <div className="m-auto relative top-6 translate-y-[-15px]">

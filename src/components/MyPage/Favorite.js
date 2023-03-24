@@ -2,7 +2,7 @@ import { collection, onSnapshot } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { dbService } from "util/fbase";
 import ReactPaginate from "react-paginate";
-import "components/Community/boardListItem.css";
+import "components/utilCss/boardListItem.css";
 
 const Favorite = ({ userId }) => {
   const [favoriteList, setFavoriteList] = useState([]);
@@ -31,7 +31,7 @@ const Favorite = ({ userId }) => {
   const offset = currentPage * perPage;
   const pagedContents = fvList.slice(offset, offset + perPage);
   return (
-    <div className="my-20">
+    <div className="mt-10 mb-20">
       {fvList.length === 0 ? (
         <span>즐겨찾기 항목이 없습니다.</span>
       ) : (
@@ -41,7 +41,7 @@ const Favorite = ({ userId }) => {
               <section className=" w-[80%] mx-auto text-gray-500 text-sm lg:text-lg" key={el.id}>
                 <div className="flex justify-between py-2 lg:py-3 border border-transparent border-b-gray-300 w-full">
                   <div className="flex items-center max-sm:mr-2">
-                    <img src="/childrens.svg" alt="어린이 캐릭터" className="max-sm:w-0 h-[80px]" />
+                    <img src="/util/childrens.svg" alt="어린이 캐릭터" className="max-sm:w-0 h-[80px]" />
                     <span tabIndex={0} className="text-center max-sm:w-[25vw] w-[30vw] font-medium whitespace-normal">
                       {el.title}
                     </span>

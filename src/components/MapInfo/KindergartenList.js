@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import "components/Community/boardListItem.css";
+import "components/utilCss/boardListItem.css";
 import Select from "react-select";
 import { BiSearch, BiMap } from "react-icons/bi";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
-import KindergartenMap from "components/MapInfo/KindergartenMap";
-import { async } from "@firebase/util";
 import ReactPaginate from "react-paginate";
-import { collection, addDoc, onSnapshot } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { dbService } from "util/fbase";
 import { uid } from "Atom/atom";
 import { useRecoilState } from "recoil";
@@ -84,7 +82,6 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
   const inputName = useRef(null);
   const starName = useRef(null);
   const pageScrollInit = useRef(null);
-  // const [favoriteData, setFavoriteData] = useState([]);
 
   const perPage = 100;
   const [currentPage, setCurrentPage] = useState(0);
@@ -103,7 +100,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
 
   function addMarker(position, normalSrc) {
     let markerSize = "";
-    if (normalSrc === "/markerEllipse3.svg") markerSize = new kakao.maps.Size(18, 18);
+    if (normalSrc === "/map/markerEllipse3.svg") markerSize = new kakao.maps.Size(18, 18);
     else markerSize = new kakao.maps.Size(28, 43);
     let clickmarkerSize = new kakao.maps.Size(28, 43);
     let markerSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
@@ -252,7 +249,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
     let bounds = new kakao.maps.LatLngBounds();
 
     for (let i = 0; i < points.length; i++) {
-      let marker = addMarker(points[i], "/markerEllipse3.svg");
+      let marker = addMarker(points[i], "/map/markerEllipse3.svg");
 
       kakao.maps.event.addListener(marker, "click", function () {
         infowindow.open(map, marker);
@@ -283,7 +280,6 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
     let favoriteDataId = "";
     let favoriteDataActive = null;
 
-    //forEach, find, filter
     favoriteData.map(({ id, title }) => {
       if (title === CRNAME) favoriteDataId = id;
     });
@@ -304,24 +300,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
     }
   };
 
-  // console.log(favoriteData);
-  // useEffect(() => {
-  //   // console.log("onSnapshot");
-  //   onSnapshot(collection(dbService, "favorite"), (snapshot) => {
-  //     const contentArray = snapshot.docs.map((doc) => ({
-  //       id: doc.id,
-  //       ...doc.data(),
-  //     }));
-  //     const myFavorite = contentArray.filter((elem) => {
-  //       return elem.creatorId === testUid;
-  //     });
-  //     setFavoriteData(myFavorite);
-  //   });
-  // }, []);
-
-  // console.log(qualifiedArr);
   useEffect(() => {
-    // console.log("paged");
     pagedContents.map(({ STCODE }, index) => {
       favoriteData.map(({ id, kindergartenCode }) => {
         if (kindergartenCode === STCODE) {
@@ -330,8 +309,6 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
         }
       });
     });
-    // console.log("qualifiedArr = ", qualifiedArr);
-    // console.log("pagedContents = ", pagedContents);
   }, [currentPage, qualifiedArr]);
 
   const handlePageClick = ({ selected: selectedPage }) => {
@@ -349,7 +326,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
   return (
     <div className="relative flex flex-col flex-1 min-w-[27rem]">
       <div className="py-5 bg-main-color">
-        <img src="/kindergarten.svg" className="mx-auto" />
+        <img src="/map/kindergarten.svg" className="mx-auto" />
         <div className="flex flex-row items-center justify-center whitespace-nowrap mx-2 text-sm gap-2 lg:gap-3">
           <Select className="min-w-[5rem] lg:w-32 lg:text-base" maxMenuHeight={220} options={locationOptions} onChange={handleLocationChange} placeholder="자치구" />
           <Select className="min-w-[7rem] lg:w-40 lg:text-base" maxMenuHeight={220} options={typeOptions} onChange={handleTypeChange} placeholder="어린이집유형" />
@@ -370,7 +347,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
           {pagedContents.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
             <li className={`${paged[index] === true ? "bg-light-yellow-color" : "hover:bg-gray-100"} relative flex flex-row items-center justify-between pt-[10px] cursor-pointer`} onClick={modalShow} id={index} key={index}>
               <div className="min-w-[21rem] flex flex-row items-center justify-center">
-                <img src="/childrens.svg" className="w-20 mx-2 lg:w-24" />
+                <img src="/util/childrens.svg" className="w-20 mx-2 lg:w-24" />
                 <div className="w-96 lg:w-[27rem] text-xs truncate">
                   <h2 className="truncate text-base font-bold lg:text-xl" ref={starName}>
                     {CRNAME}

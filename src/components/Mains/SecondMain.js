@@ -35,13 +35,14 @@ const SecondMain = () => {
     { src: "imageSilde/slide9.jpeg", alt: "애기사진9" },
     { src: "imageSilde/slide10.jpeg", alt: "애기사진10" },
     { src: "imageSilde/slide11.jpeg", alt: "애기사진11" },
+    { src: "imageSilde/slide12.jpeg", alt: "애기사진12" },
   ];
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   return (
     <div className="start2 relative w-full h-screen snap-center bg-white">
       <div className="h-screen flex flex-col justify-center items-center text-center">
-        <img className="absolute w-[80%] min-w-[280px] max-w-[550px] lg:w-[60%] lg:min-w-[59%] right-0" src="/main2.svg" />
+        <img className="absolute w-[80%] min-w-[280px] max-w-[550px] lg:w-[60%] lg:min-w-[59%] right-0" src="main/main2.svg" />
       </div>
       <div className="gsap2 opacity-0 absolute top-44 max-sm:pr-[50px] max-sm:ml-10 ml-20">
         <h1 className="text-left font-bold leading-loose text-3xl lg:text-5xl max-sm:pr-5 max-sm:text-2xl">
