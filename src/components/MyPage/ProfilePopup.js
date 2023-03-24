@@ -12,7 +12,8 @@ export const ProfilePopup = ({ onClose }) => {
   const logout = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
       alert("로그아웃 완료!");
-      navigate("/");
+      // navigate("/");
+      window.location.replace("/");
       onClose();
       auth.signOut();
     } else {

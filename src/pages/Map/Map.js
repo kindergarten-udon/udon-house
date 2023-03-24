@@ -37,9 +37,9 @@ const Map = ({ userId }) => {
 
   return (
     <section className="flex flex-row h-screen lg:pt-[120px] pt-[72px]">
-      {modalClose && kinderList && index && <KindergartenModal kinderList={kinderList} index={index} qualifiedList={qualifiedList} setModalClose={setModalClose} />}
       {kinderList && <KindergartenMap kinderList={kinderList} setMap={setMap} setFavoriteData={setFavoriteData} />}
       {kinderList && map && favoriteData && <KindergartenList favoriteData={favoriteData} userId={userId} kinderList={kinderList} setQualifiedList={setQualifiedList} map={map} modalShow={modalShow} />}
+      {modalClose && kinderList && index && <KindergartenModal kinderList={kinderList} index={index} qualifiedList={qualifiedList} setModalClose={setModalClose} />}
     </section>
   );
 };
