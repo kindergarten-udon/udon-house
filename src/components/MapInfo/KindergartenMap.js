@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
-const { kakao } = window;
+import React, { useState, useEffect } from "react";
 import { collection, addDoc, onSnapshot } from "firebase/firestore";
 import { dbService } from "util/fbase";
 import { deleteDoc, doc } from "@firebase/firestore";
 import { useRecoilState } from "recoil";
 import { uid } from "Atom/atom";
+const { kakao } = window;
 
 const KindergartenMap = ({ kinderList, setMap, setFavoriteData }) => {
   const [testUid, setTestUid] = useRecoilState(uid);

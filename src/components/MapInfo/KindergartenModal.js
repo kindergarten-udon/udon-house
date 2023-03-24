@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useRef, useEffect } from "react";
 import { GrClose } from "react-icons/gr";
 
 const KindergartemModal = ({ kinderList, index, qualifiedList, setModalClose }) => {

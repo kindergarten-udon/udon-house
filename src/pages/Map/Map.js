@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import KindergartenList from "components/MapInfo/KindergartenList";
 import KindergartenMap from "components/MapInfo/KindergartenMap";
 import KindergartenModal from "components/MapInfo/KindergartenModal";
 import axios from "axios";
-const { kakao } = window;
 
 const Map = ({ userId }) => {
   const [modalClose, setModalClose] = useState(false);
@@ -39,7 +38,7 @@ const Map = ({ userId }) => {
     <section className="flex flex-row h-screen lg:pt-[120px] pt-[72px]">
       {modalClose && kinderList && index && <KindergartenModal kinderList={kinderList} index={index} qualifiedList={qualifiedList} setModalClose={setModalClose} />}
       {kinderList && <KindergartenMap kinderList={kinderList} setMap={setMap} setFavoriteData={setFavoriteData} />}
-      {kinderList && map && favoriteData && <KindergartenList favoriteData={favoriteData} userId={userId} kinderList={kinderList} setQualifiedList={setQualifiedList} map={map} modalShow={modalShow} />}
+      {kinderList && map && favoriteData && <KindergartenList favoriteData={favoriteData} kinderList={kinderList} setQualifiedList={setQualifiedList} map={map} modalShow={modalShow} />}
     </section>
   );
 };
