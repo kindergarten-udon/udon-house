@@ -1,4 +1,3 @@
-import "./Community.css";
 import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineArrowLeft } from "react-icons/ai";
@@ -37,7 +36,7 @@ const WriteCommunity = ({ userId }) => {
   };
 
   return (
-    <div className="lg:pt-[120px] pt-[72px] min-w-full text-center lg:px-[7vw] px-[10vw] pb-10 bg-gray-100">
+    <div className="lg:pt-[120px] pt-[72px] min-w-full text-center lg:px-[7vw] px-[10vw] pb-10 bg-gray-100 box-border">
       {cancelModalOpen && <CancelButton setcancelModalOpen={setcancelModalOpen} />}
       {WriteModalOpen && <WriteButton title={title} content={content} userId={userId} setWriteModalOpen={setWriteModalOpen} />}
       <div className="mt-5 lg:mt-8">

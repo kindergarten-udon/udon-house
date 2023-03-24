@@ -27,8 +27,8 @@ const AboutUs = () => {
           <div>
             <figure className="px-[5vw] lg:px-0 relative">
               <div className="flex flex-col ">
-                <img src="/iNaraChar.png" alt="곰돌이" className="aboutBearImg" />
-                <img src="/JuHyeong.jpg" alt="주형사진" className="aboutImgae" />
+                <img src="/aboutus/iNaraChar.png" alt="곰돌이" className="aboutBearImg" />
+                <img src="/aboutus/JuHyeong.jpg" alt="주형사진" className="aboutImgae" />
                 <figcaption className="mt-5 text-base lg:text-lg block bg-[#282A35] border-transparent rounded-2xl py-2">
                   <span tabIndex={0} className="text-2xl text-white">
                     이주형
@@ -46,8 +46,8 @@ const AboutUs = () => {
           <div>
             <figure className="px-[5vw] lg:px-0 relative">
               <div className="flex flex-col">
-                <img src="/noticeImage.png" alt="핑크캐릭터" className="aboutPinkImg" />
-                <img src="/hari.jpeg" alt="하리사진" className="aboutImgae" />
+                <img src="/main/noticeImage.png" alt="핑크캐릭터" className="aboutPinkImg" />
+                <img src="/aboutus/hari.jpeg" alt="하리사진" className="aboutImgae" />
                 <figcaption className="mt-5 text-lg bg-[#282A35] border-transparent rounded-2xl py-2">
                   <span tabIndex={0} className="text-2xl text-white">
                     유하리
@@ -65,8 +65,8 @@ const AboutUs = () => {
           <div>
             <figure className="px-[5vw] lg:px-0 relative">
               <div className="flex flex-col">
-                <img src="/iNaraChar.png" alt="곰돌이" className="aboutBearImg" />
-                <img src="/JaeWoo.jpeg" alt="재우사진" className="aboutImgae" />
+                <img src="/aboutus/iNaraChar.png" alt="곰돌이" className="aboutBearImg" />
+                <img src="/aboutus/JaeWoo.jpeg" alt="재우사진" className="aboutImgae" />
                 <figcaption className="mt-5 text-lg bg-[#282A35] border-transparent rounded-2xl py-2">
                   <span tabIndex={0} className="text-2xl text-white">
                     장재우
@@ -84,8 +84,8 @@ const AboutUs = () => {
           <div>
             <figure className="px-[5vw] lg:px-0 relative">
               <div className="flex flex-col">
-                <img src="/iNaraChar.png" alt="곰돌이" className="aboutBearImg" />
-                <img src="/YoonHo.jpg" alt="윤호사진" className="aboutImgae" />
+                <img src="/aboutus/iNaraChar.png" alt="곰돌이" className="aboutBearImg" />
+                <img src="/aboutus/YoonHo.jpg" alt="윤호사진" className="aboutImgae" />
                 <figcaption className="mt-5 text-lg bg-[#282A35] border-transparent rounded-2xl py-2">
                   <span tabIndex={0} className="text-2xl text-white">
                     조윤호
@@ -103,8 +103,8 @@ const AboutUs = () => {
           <div>
             <figure className="px-[5vw] lg:px-0 relative">
               <div className="flex flex-col">
-                <img src="/noticeImage.png" alt="핑크캐릭터" className="aboutPinkImg" />
-                <img src="/SuMin.png" alt="수민사진" className="aboutImgae" />
+                <img src="/main/noticeImage.png" alt="핑크캐릭터" className="aboutPinkImg" />
+                <img src="/aboutus/SuMin.png" alt="수민사진" className="aboutImgae" />
                 <figcaption className="mt-5 text-lg bg-[#282A35] border-transparent rounded-2xl py-2">
                   <span tabIndex={0} className="text-2xl text-white">
                     김수민

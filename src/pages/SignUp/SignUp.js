@@ -6,17 +6,14 @@ import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail } from "fire
 import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-  //유효성 검사
   const [isPassword, setIsPassword] = useState(false);
   const [isEmail, setIsEmail] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
 
-  //오류 메세지
   const [emailMessage, setEmailMessage] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
 
-  //input
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -24,7 +21,6 @@ const SignUp = () => {
   });
   const { email, password, passwordConfirm } = inputs;
 
-  //비밀번호 타입 text or password
   const [showPassword, setShowPassword] = useState(false);
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -76,21 +72,18 @@ const SignUp = () => {
   const checkEmailExists = async () => {
     try {
       const result = await fetchSignInMethodsForEmail(auth, email);
-      // 사용자가 존재하지 않으면 에러가 발생하므로 에러 핸들링 필요
       if (result.length > 0) {
-        // 이미 있는 사용자인 경우 true 반환
         alert("이미 사용중인 이메일 입니다");
         setEmailCheck(false);
       } else {
         alert("사용 가능한 이메일 입니다.");
-        setEmailCheck(true); // 없는 사용자인 경우 false 반환
+        setEmailCheck(true);
       }
     } catch (error) {
       console.error(error);
     }
   };
 
-  //input 요소의 유효성 검사 결과에 따라 isFormValid 업데이트 -> 버튼 disabled 처리
   const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
@@ -101,7 +94,6 @@ const SignUp = () => {
     }
   }, [isEmail, isPassword, isPasswordConfirm, emailCheck]);
 
-  //회원가입
   const register = async () => {
     try {
       const user = await createUserWithEmailAndPassword(auth, email, password);
@@ -110,7 +102,6 @@ const SignUp = () => {
     }
   };
 
-  //회원가입 버튼 함수
   const navigate = useNavigate("");
   const signupButton = () => {
     register();
@@ -122,7 +113,6 @@ const SignUp = () => {
     e.preventDefault();
   }
 
-  //GSAP
   const gomImageRef = useRef(null);
   const backgroundImageRef = useRef(null);
   const udonHouseLogoRef = useRef(null);
@@ -148,13 +138,13 @@ const SignUp = () => {
   return (
     <div className="w-full h-screen bg-main-color">
       <h2 className="sr-only">회원가입</h2>
-      <img className="lg:w-[31rem] h-2/5 left-0 top-0 opacity-50 md:w-80 sm:w-80 " src="/mainShape1.svg" alt="배경 이미지1" />
+      <img className="lg:w-[31rem] h-2/5 left-0 top-0 opacity-50 md:w-80 sm:w-80 " src="main/mainShape1.svg" alt="배경 이미지1" />
       <div className="absoulte w-[clamp(300px,80vw,500px)] lg:w-[32rem] -translate-y-[250px] mb-10 lg:mb-20 mx-auto mt-5">
-        <img ref={udonHouseLogoRef} className=" center h-20 top-2 opacity-0" src="/main3Logo.svg" alt="우리 동네 어린이집 로고" />
-        <img ref={birdRef} className="animate-bounce max-sm:mt-8 max-sm:w-16 w-24 absolute right-5 " src="/bird2.svg" alt="새 이미지" />
+        <img ref={udonHouseLogoRef} className=" center h-20 top-2 opacity-0" src="main/main3Logo.svg" alt="우리 동네 어린이집 로고" />
+        <img ref={birdRef} className="animate-bounce max-sm:mt-8 max-sm:w-16 w-24 absolute right-5 " src="util/bird2.svg" alt="새 이미지" />
       </div>
-      <img ref={backgroundImageRef} className=" bgSize inline-block absolute p-0 m-0 bottom-0 right-[-1rem] z-[10]" src="/BackgroundImage.svg" alt="곰과 악어가 있는 이미지" />
-      <img className=" shapeSize absolute right-0  bottom-0 opacity-50 z-0" src="/mainShape2.svg" alt="배경 이미지2" />
+      <img ref={backgroundImageRef} className=" bgSize inline-block absolute p-0 m-0 bottom-0 right-[-1rem] z-[10]" src="util/BackgroundImage.svg" alt="곰과 악어가 있는 이미지" />
+      <img className=" shapeSize absolute right-0  bottom-0 opacity-50 z-0" src="main/mainShape2.svg" alt="배경 이미지2" />
       <form ref={formRef} className="absoulte formBottom center w-[clamp(300px,80vw,500px)] lg:w-[32rem] formBorder bg-[#FFFFF3] px-6 z-[10]" onSubmit={handleSubmit}>
         <div className=" w-full h-24 center pt-10">
           <span className="flex ml-2">이메일</span>
@@ -192,7 +182,7 @@ const SignUp = () => {
           </button>
         </div>
         <div className="absolute max-sm:w-0 top-0 -translate-x-[105%] z-0">
-          <img ref={gomImageRef} className=" w-36 z-0" src="/gomImage.svg" alt="빼꼼 곰" />
+          <img ref={gomImageRef} className=" w-36 z-0" src="util/gomImage.svg" alt="빼꼼 곰" />
         </div>
       </form>
     </div>

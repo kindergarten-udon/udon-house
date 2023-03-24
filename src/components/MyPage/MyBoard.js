@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import { Link } from "react-router-dom";
 import { BsHandThumbsUpFill } from "react-icons/bs";
 import ReactPaginate from "react-paginate";
-import "components/Community/boardListItem.css";
+import "components/utilCss/boardListItem.css";
 
 const MyBoard = ({ setActive, userId }) => {
   const content = useRecoilValue(userData);

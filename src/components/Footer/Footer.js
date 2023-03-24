@@ -9,14 +9,13 @@ const Footer = () => {
   return (
     <>
       <footer className={`${arr.includes(path) ? "lg:h-[clamp(350px,30vw,476px)] h-[535px]" : "hidden h-0"} w-full lg:text-[clamp(12px,1.3vw,16px)] text-sm bg-bg-gray-color box-border`}>
-        {/* <div className="lg:h-[7%] h-[32px] bg-white rounded-b-[30px]"></div> */}
         <div className="w-full h-full lg:p-[clamp(32px,4.5%,80px)] px-[32px] py-[48px] box-border">
           <div className="flex lg:flex-row lg:justify-between flex-col">
             <Nav className="text-left leading-[30px] font-medium" />
             <div className="flex gap-3">
               <span className="mt-[5px]">디자인출처 : </span>
               <Link to="https://i-nara.co.kr/" target="_blank">
-                <img src="/iNaraLogo.svg" alt="아이들나라 로고" className="h-[30px]" />
+                <img src="/util/iNaraLogo.svg" alt="아이들나라 로고" className="h-[30px]" />
               </Link>
             </div>
           </div>

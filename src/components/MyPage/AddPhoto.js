@@ -47,7 +47,6 @@ const AddPhoto = ({ onClose, userId, setUserProfile }) => {
     }
   };
 
-  //팝업 밖 영역 누르면 닫힘 기능
   const imagePopupRef = useRef(null);
 
   useEffect(() => {

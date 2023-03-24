@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { BsHandThumbsUpFill } from "react-icons/bs";
 import ReactPaginate from "react-paginate";
-import "./boardListItem.css";
+import "components/utilCss/boardListItem.css";
 
 function BoardItem({ title, content, id, like }) {
   return (
