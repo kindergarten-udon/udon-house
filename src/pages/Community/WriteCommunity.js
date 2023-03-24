@@ -1,5 +1,5 @@
 import "./Community.css";
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import CancelButton from "components/Community/CancelButton";
@@ -8,7 +8,6 @@ import WriteButton from "components/Community/WriteButton";
 const WriteCommunity = ({ userId }) => {
   const [cancelModalOpen, setcancelModalOpen] = useState(false);
   const [WriteModalOpen, setWriteModalOpen] = useState(false);
-  // 제목과 글 담는 state
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
@@ -19,7 +18,7 @@ const WriteCommunity = ({ userId }) => {
       setcancelModalOpen(true);
     }
   };
-  // title,content 값
+
   const handleValue = (e) => {
     const {
       target: { name, value },
@@ -29,7 +28,6 @@ const WriteCommunity = ({ userId }) => {
     } else if (name == "content") setContent(value);
   };
 
-  // 글쓰기 모달창
   const showWriteModal = () => {
     if (title.trim() == "" || content.trim() == "") {
       alert("제목과 내용을 입력하세요.");
@@ -43,7 +41,7 @@ const WriteCommunity = ({ userId }) => {
       {cancelModalOpen && <CancelButton setcancelModalOpen={setcancelModalOpen} />}
       {WriteModalOpen && <WriteButton title={title} content={content} userId={userId} setWriteModalOpen={setWriteModalOpen} />}
       <div className="mt-5 lg:mt-8">
-        <Link className="flex text-xl text-gray-700 lg:text-2xl font-bold" to={"/community"}>
+        <Link className="flex text-xl w-fit text-gray-700 lg:text-2xl font-bold" to={"/community"}>
           <AiOutlineArrowLeft className="w-8 mt-1"></AiOutlineArrowLeft>뒤로가기
         </Link>
       </div>
