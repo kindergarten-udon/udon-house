@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import KindergartenList from "components/MapInfo/KindergartenList";
 import KindergartenMap from "components/MapInfo/KindergartenMap";
 import KindergartenModal from "components/MapInfo/KindergartenModal";
 import axios from "axios";
-const { kakao } = window;
 
 const Map = ({ userId }) => {
   const [modalClose, setModalClose] = useState(false);

@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
+import "components/Community/boardListItem.css";
 import Select from "react-select";
 import { BiSearch, BiMap } from "react-icons/bi";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import KindergartenMap from "components/MapInfo/KindergartenMap";
-import axios from "axios";
 import { async } from "@firebase/util";
 import ReactPaginate from "react-paginate";
-import "components/Community/boardListItem.css";
 import { collection, addDoc, onSnapshot } from "firebase/firestore";
 import { dbService } from "util/fbase";
 import { uid } from "Atom/atom";
@@ -73,19 +72,19 @@ function createMarkerImage(markerSrc, markerSize) {
 /* -------------------------------------------------------------------------- */
 /*                         KindergartenList Component                         */
 /* -------------------------------------------------------------------------- */
-const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId, favoriteData }) => {
+const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favoriteData }) => {
   const [localArr, setLocalArr] = useState(kinderList);
   const [typeArr, setTypeArr] = useState(kinderList);
   const [qualifiedArr, setQualifiedArr] = useState(kinderList);
   const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
   const [info, setInfo] = useState(null);
-  // const [favoriteData, setFavoriteData] = useState([]);
-  const inputName = useRef(null);
-  const starName = useRef(null);
   const [testUid, setTestUid] = useRecoilState(uid);
   const [isActive, setIsActive] = useState(null);
+  const inputName = useRef(null);
+  const starName = useRef(null);
   const pageScrollInit = useRef(null);
+  // const [favoriteData, setFavoriteData] = useState([]);
 
   const perPage = 100;
   const [currentPage, setCurrentPage] = useState(0);
@@ -95,7 +94,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId
 
   useEffect(() => {
     setQualifiedList(pagedContents);
-  }, [pagedContents]);
+  }, [currentPage]);
 
   let newStarArr = Array(pagedContents.length).fill(false);
   const [starClickedArr, setStarClickedArr] = useState(newStarArr);
@@ -340,7 +339,6 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, userId
     setPaged(pagedArr);
     setStarClickedArr(newStarArr);
   };
-
   useEffect(() => {
     pageScrollInit.current.scrollTo({ top: 0, behavior: "smooth" });
   }, [currentPage]);

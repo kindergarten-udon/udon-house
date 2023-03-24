@@ -24,14 +24,17 @@ const SecondMain = () => {
   }, []);
 
   const babyImg = [
-    { src: "/baby1.jpg", alt: "애기사진" },
-    { src: "/baby2.jpg", alt: "애기사진" },
-    { src: "/baby3.jpg", alt: "애기사진" },
-    { src: "/baby4.jpg", alt: "애기사진" },
-    { src: "/baby5.jpg", alt: "애기사진" },
-    { src: "/baby6.jpg", alt: "애기사진" },
-    { src: "/baby7.jpg", alt: "애기사진" },
-    { src: "/baby8.jpg", alt: "애기사진" },
+    { src: "imageSilde/slide1.jpeg", alt: "애기사진1" },
+    { src: "imageSilde/slide2.jpeg", alt: "애기사진2" },
+    { src: "imageSilde/slide3.jpeg", alt: "애기사진3" },
+    { src: "imageSilde/slide4.jpeg", alt: "애기사진4" },
+    { src: "imageSilde/slide5.jpeg", alt: "애기사진5" },
+    { src: "imageSilde/slide6.jpeg", alt: "애기사진6" },
+    { src: "imageSilde/slide7.jpeg", alt: "애기사진7" },
+    { src: "imageSilde/slide8.jpeg", alt: "애기사진8" },
+    { src: "imageSilde/slide9.jpeg", alt: "애기사진9" },
+    { src: "imageSilde/slide10.jpeg", alt: "애기사진10" },
+    { src: "imageSilde/slide11.jpeg", alt: "애기사진11" },
   ];
   const prevRef = useRef(null);
   const nextRef = useRef(null);
