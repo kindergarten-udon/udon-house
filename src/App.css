@@ -1,3 +1,8 @@
+img {
+  -webkit-user-drag: none;
+  -moz-user-drag: none;
+}
+
 .App {
   text-align: center;
 }
