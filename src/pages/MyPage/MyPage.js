@@ -35,6 +35,13 @@ const MyPage = ({ userId, userProfile, setUserProfile }) => {
     }
   };
 
+  // useEffect(() => {
+  //   document.body.style.overflow = "hidden";
+  //   return () => {
+  //     document.body.style.overflow = "unset";
+  //   };
+  // }, []);
+
   return (
     <div className="lg:pt-[120px] pt-[72px] overflow-x-hidden">
       {showImagePopup && <AddPhoto userId={userId} onClose={closeImagePopup} setUserProfile={setUserProfile} />}
@@ -62,7 +69,7 @@ const MyPage = ({ userId, userProfile, setUserProfile }) => {
         </button>
       </div>
 
-      {active ? <Favorite setActive={setActive} /> : <MyBoard setActive={setActive} userId={userId} />}
+      {active ? <Favorite setActive={setActive} userId={userId} /> : <MyBoard setActive={setActive} userId={userId} />}
     </div>
   );
 };
