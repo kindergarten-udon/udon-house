@@ -38,11 +38,21 @@ const Favorite = ({ userId }) => {
             <div className="flex justify-between py-2 lg:py-3 border border-transparent border-b-gray-300 w-full">
               <div className="flex items-center max-sm:mr-2">
                 <img src="/childrens.svg" alt="어린이 캐릭터" className="max-sm:w-0 h-[80px]" />
-                <span className="text-center max-sm:w-[25vw] w-[30vw] font-medium whitespace-normal">{el.title}</span>
+                <span tabIndex={0} className="text-center max-sm:w-[25vw] w-[30vw] font-medium whitespace-normal">
+                  {el.title}
+                </span>
               </div>
               <div className="flex items-center">
-                <span className="whitespace-normal text-black text-center max-sm:w-[35vw] w-[30vw]">{el.address}</span>
-                {el.tel ? <span className="flex justify-between pl-1 lg:pl-3 whitespace-normal  text-center">{el.tel}</span> : <span>전화번호가 없습니다</span>}
+                <span tabIndex={0} className="whitespace-normal text-black text-center max-sm:w-[35vw] w-[30vw]">
+                  {el.address}
+                </span>
+                {el.tel ? (
+                  <span tabIndex={0} className="flex justify-between pl-1 lg:pl-3 whitespace-normal  text-center">
+                    {el.tel}
+                  </span>
+                ) : (
+                  <span tabIndex={0}>전화번호가 없습니다</span>
+                )}
               </div>
             </div>
           </section>

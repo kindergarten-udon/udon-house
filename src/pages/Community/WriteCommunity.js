@@ -41,7 +41,7 @@ const WriteCommunity = ({ userId }) => {
       {cancelModalOpen && <CancelButton setcancelModalOpen={setcancelModalOpen} />}
       {WriteModalOpen && <WriteButton title={title} content={content} userId={userId} setWriteModalOpen={setWriteModalOpen} />}
       <div className="mt-5 lg:mt-8">
-        <Link className="flex text-xl text-gray-700 lg:text-2xl font-bold" to={"/community"}>
+        <Link className="flex text-xl w-fit text-gray-700 lg:text-2xl font-bold" to={"/community"}>
           <AiOutlineArrowLeft className="w-8 mt-1"></AiOutlineArrowLeft>뒤로가기
         </Link>
       </div>
