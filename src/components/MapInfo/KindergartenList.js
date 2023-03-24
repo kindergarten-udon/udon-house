@@ -94,7 +94,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
 
   useEffect(() => {
     setQualifiedList(pagedContents);
-  }, [pagedContents]);
+  }, [currentPage]);
 
   let newStarArr = Array(pagedContents.length).fill(false);
   const [starClickedArr, setStarClickedArr] = useState(newStarArr);
