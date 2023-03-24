@@ -1,5 +1,20 @@
 import React, { useEffect } from "react";
 
+const LinkTo = () => {
+  return (
+    <>
+      <span className="text-white">{"<"}</span>
+      <span className="text-teal-300">Link </span>
+      <span className="text-[#57F984]">to</span>
+      <span className="text-[#F97AA9]">=</span>
+      <span className="text-teal-300">{"{"}</span>
+      <span className="text-white">github</span>
+      <span className="text-teal-300">{"}"}</span>
+      <span className="text-white">{"/>"}</span>
+    </>
+  );
+};
+
 const AboutUs = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -14,19 +29,14 @@ const AboutUs = () => {
               <div className="flex flex-col ">
                 <img src="/iNaraChar.png" alt="곰돌이" className="aboutBearImg" />
                 <img src="/JuHyeong.jpg" alt="주형사진" className="aboutImgae" />
-                <figcaption className="mt-5 text-lg block bg-[#282A35]">
-                  <span className="text-2xl text-white">이주형</span>
+                <figcaption className="mt-5 text-base lg:text-lg block bg-[#282A35] border-transparent rounded-2xl py-2">
+                  <span tabIndex={0} className="text-2xl text-white">
+                    이주형
+                  </span>
                   <p>
                     <span className="text-[#F97AA9]">const</span> <span className="text-[#57F984]">MBTI</span> <span className="text-[#F97AA9]">=</span> <span className="text-[#F1F881]">INFP;</span>
                     <a target="_blank" href="https://github.com/leejh4197" className="block">
-                      <span className="text-white">{"<"}</span>
-                      <span className="text-teal-300">Link </span>
-                      <span className="text-[#57F984]">to</span>
-                      <span className="text-[#F97AA9]">=</span>
-                      <span className="text-teal-300">{"{"}</span>
-                      <span className="text-white">github</span>
-                      <span className="text-teal-300">{"}"}</span>
-                      <span className="text-white">{"/>"}</span>
+                      <LinkTo />
                     </a>
                   </p>
                 </figcaption>
@@ -38,19 +48,14 @@ const AboutUs = () => {
               <div className="flex flex-col">
                 <img src="/noticeImage.png" alt="핑크캐릭터" className="aboutPinkImg" />
                 <img src="/hari.jpeg" alt="하리사진" className="aboutImgae" />
-                <figcaption className="mt-5 text-lg bg-[#282A35]">
-                  <span className="text-2xl text-white">유하리</span>
+                <figcaption className="mt-5 text-lg bg-[#282A35] border-transparent rounded-2xl py-2">
+                  <span tabIndex={0} className="text-2xl text-white">
+                    유하리
+                  </span>
                   <p>
                     <span className="text-[#F97AA9]">let</span> <span className="text-[#57F984]">MBTI</span> <span className="text-[#F97AA9]">=</span> <span className="text-[#F1F881]"> INFP || INFJ;</span>
-                    <a target="_blank" href="https://github.com/leejh4197" className="block">
-                      <span className="text-white">{"<"}</span>
-                      <span className="text-teal-300">Link </span>
-                      <span className="text-[#57F984]">to</span>
-                      <span className="text-[#F97AA9]">=</span>
-                      <span className="text-teal-300">{"{"}</span>
-                      <span className="text-white">github</span>
-                      <span className="text-teal-300">{"}"}</span>
-                      <span className="text-white">{"/>"}</span>
+                    <a target="_blank" href="https://github.com/YUhari0901" className="block">
+                      <LinkTo />
                     </a>
                   </p>
                 </figcaption>
@@ -62,19 +67,14 @@ const AboutUs = () => {
               <div className="flex flex-col">
                 <img src="/iNaraChar.png" alt="곰돌이" className="aboutBearImg" />
                 <img src="/JaeWoo.jpeg" alt="재우사진" className="aboutImgae" />
-                <figcaption className="mt-5 text-lg bg-[#282A35]">
-                  <span className="text-2xl text-white">장재우</span>
+                <figcaption className="mt-5 text-lg bg-[#282A35] border-transparent rounded-2xl py-2">
+                  <span tabIndex={0} className="text-2xl text-white">
+                    장재우
+                  </span>
                   <p>
                     <span className="text-[#F97AA9]">const</span> <span className="text-[#57F984]">MBTI</span> <span className="text-[#F97AA9]">=</span> <span className="text-[#F1F881]">ISFJ;</span>
-                    <a target="_blank" href="https://github.com/leejh4197" className="block">
-                      <span className="text-white">{"<"}</span>
-                      <span className="text-teal-300">Link </span>
-                      <span className="text-[#57F984]">to</span>
-                      <span className="text-[#F97AA9]">=</span>
-                      <span className="text-teal-300">{"{"}</span>
-                      <span className="text-white">github</span>
-                      <span className="text-teal-300">{"}"}</span>
-                      <span className="text-white">{"/>"}</span>
+                    <a target="_blank" href="https://github.com/oweaj" className="block">
+                      <LinkTo />
                     </a>
                   </p>
                 </figcaption>
@@ -86,19 +86,14 @@ const AboutUs = () => {
               <div className="flex flex-col">
                 <img src="/iNaraChar.png" alt="곰돌이" className="aboutBearImg" />
                 <img src="/YoonHo.jpg" alt="윤호사진" className="aboutImgae" />
-                <figcaption className="mt-5 text-lg bg-[#282A35]">
-                  <span className="text-2xl text-white">조윤호</span>
+                <figcaption className="mt-5 text-lg bg-[#282A35] border-transparent rounded-2xl py-2">
+                  <span tabIndex={0} className="text-2xl text-white">
+                    조윤호
+                  </span>
                   <p>
                     <span className="text-[#F97AA9]">let</span> <span className="text-[#57F984]">MBTI</span> <span className="text-[#F97AA9]">=</span> <span className="text-[#F1F881]">INFJ || INTJ;</span>
-                    <a target="_blank" href="https://github.com/leejh4197" className="block">
-                      <span className="text-white">{"<"}</span>
-                      <span className="text-teal-300">Link </span>
-                      <span className="text-[#57F984]">to</span>
-                      <span className="text-[#F97AA9]">=</span>
-                      <span className="text-teal-300">{"{"}</span>
-                      <span className="text-white">github</span>
-                      <span className="text-teal-300">{"}"}</span>
-                      <span className="text-white">{"/>"}</span>
+                    <a target="_blank" href="https://github.com/dydgh142" className="block">
+                      <LinkTo />
                     </a>
                   </p>
                 </figcaption>
@@ -110,20 +105,14 @@ const AboutUs = () => {
               <div className="flex flex-col">
                 <img src="/noticeImage.png" alt="핑크캐릭터" className="aboutPinkImg" />
                 <img src="/SuMin.png" alt="수민사진" className="aboutImgae" />
-                <figcaption className="mt-5 text-lg bg-[#282A35]">
-                  <span className="text-2xl text-white">김수민</span>
-
+                <figcaption className="mt-5 text-lg bg-[#282A35] border-transparent rounded-2xl py-2">
+                  <span tabIndex={0} className="text-2xl text-white">
+                    김수민
+                  </span>
                   <p>
                     <span className="text-[#F97AA9]">let</span> <span className="text-[#57F984]">MBTI</span> <span className="text-[#F97AA9]">=</span> <span className="text-[#F1F881]">ENFP || ESFP;</span>
-                    <a target="_blank" href="https://github.com/leejh4197" className="block">
-                      <span className="text-white">{"<"}</span>
-                      <span className="text-teal-300">Link </span>
-                      <span className="text-[#57F984]">to</span>
-                      <span className="text-[#F97AA9]">=</span>
-                      <span className="text-teal-300">{"{"}</span>
-                      <span className="text-white">github</span>
-                      <span className="text-teal-300">{"}"}</span>
-                      <span className="text-white">{"/>"}</span>
+                    <a target="_blank" href="https://github.com/sumin-Kim-00" className="block">
+                      <LinkTo />
                     </a>
                   </p>
                 </figcaption>

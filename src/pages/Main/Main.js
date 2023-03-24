@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { FullPage, Slide } from "react-full-page/lib";
 import "./main.css";
 import MainFooter from "components/Footer/MainFooter";
+import { ref } from "firebase/storage";
 
 const Main = () => {
   useEffect(() => {

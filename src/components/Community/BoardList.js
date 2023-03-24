@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import BoardListItem from "./BoardListItem";
 
 const BoardList = ({ isLogin, contents }) => {
@@ -12,6 +12,7 @@ const BoardList = ({ isLogin, contents }) => {
       navigate("/signin");
     }
   };
+
   return (
     <>
       <section className="board-list w-4/5 mx-auto">

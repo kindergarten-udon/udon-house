@@ -9,6 +9,9 @@
   .modalPosition {
     @apply top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%];
   }
+  .modalButtonStyle {
+    @apply px-8  py-1 text-sm  border rounded-2xl;
+  }
   .transLeft {
     @apply -translate-x-[100px];
   }
