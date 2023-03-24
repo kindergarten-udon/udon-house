@@ -1,24 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { BsHandThumbsUp } from "react-icons/bs";
 import { BsHandThumbsUpFill } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { addDoc, deleteDoc, doc, getDocs, updateDoc } from "@firebase/firestore";
+import { deleteDoc, doc, getDocs, updateDoc } from "@firebase/firestore";
 import { collection } from "firebase/firestore";
 import { dbService } from "util/fbase";
 
 const BoardItemDetail = ({ userId }) => {
   const navigate = useNavigate();
-  // 수정하기 버튼 눌렀을때 focus
   const editRef = useRef(null);
   const { id } = useParams();
   const [contents, setContents] = useState([]);
   const [selectContent, setSelectContent] = useState(null);
-  // 수정 content
   const [newContent, setNewContent] = useState("");
-  // 수정 Title
   const [newTitle, setNewTitle] = useState("");
-  // 수정중
   const [editing, setEditing] = useState(false);
 
   useEffect(() => {
@@ -33,7 +28,6 @@ const BoardItemDetail = ({ userId }) => {
     data();
   }, []);
 
-  // 삭제하기
   const onDeleteClick = async () => {
     const ok = window.confirm("삭제하시겠습니까?");
     if (ok) {
@@ -46,7 +40,7 @@ const BoardItemDetail = ({ userId }) => {
       }
     }
   };
-  //수정하기
+
   const editingOnClick = async () => {
     const ok = confirm("수정하시겠습니까?");
     if (ok) {
@@ -63,14 +57,14 @@ const BoardItemDetail = ({ userId }) => {
       setEditing(false);
     }
   };
-  // 수정
+
   const editOnClick = () => {
     setEditing(true);
   };
   const editCancelOnClick = () => {
     setEditing(false);
   };
-  // 수정값
+
   const editOnChange = (e) => {
     const {
       target: { name, value },
@@ -81,7 +75,7 @@ const BoardItemDetail = ({ userId }) => {
       setNewContent(value);
     }
   };
-  // 좋아요
+
   const likeOnClick = async () => {
     const conEdit = doc(collection(dbService, "content"), selectContent.id);
     await updateDoc(conEdit, {
@@ -96,7 +90,6 @@ const BoardItemDetail = ({ userId }) => {
     }, 500);
   };
 
-  // 같은 게시글 아이디
   useEffect(() => {
     if (!contents) return;
     const targetContent = contents.find((el) => el.id === id);

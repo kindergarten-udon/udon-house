@@ -1,30 +1,25 @@
 import "./Community.css";
-import { React, useRef, useEffect, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import BoardList from "components/Community/BoardList";
 import BoardItem from "components/Community/BoardItem";
 import { userData } from "Atom/atom";
 import { useRecoilValue } from "recoil";
-import { onSnapshot, collection } from "firebase/firestore";
-import { dbService } from "util/fbase";
 
 const Community = ({ isLogin, userId }) => {
   const [contents, setContents] = useState([]);
-  // 게시물 뿌려주기
   const content = useRecoilValue(userData);
   const myBoard = content.filter((el) => {
     return el;
   });
 
   const copied = [...myBoard];
-
   const bestBoard = copied
     .sort((a, b) => {
       return b["like"] - a["like"];
     })
     .slice(0, 3);
 
-  // 스크롤을 위로 올리기
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
