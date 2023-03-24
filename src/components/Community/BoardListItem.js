@@ -29,16 +29,25 @@ const BoardListItem = ({ contents }) => {
   };
 
   const offset = currentPage * perPage;
-  const pagedContents = contents.slice(offset, offset + perPage);
+  const contentsSort = contents.sort((a, b) => {
+    return new Date(a.time).getTime() - new Date(b.time).getTime();
+  });
+  const pagedContents = contentsSort.slice(offset, offset + perPage);
 
   return (
     <>
-      <div>
-        {pagedContents.map((item, index) => (
-          <BoardItem key={index} title={item.writer} content={item.title} id={item.id} contents={contents} like={item.like} />
-        ))}
-      </div>
-      <ReactPaginate previousLabel={"<"} nextLabel={">"} pageCount={Math.ceil(contents.length / perPage)} onPageChange={handlePageClick} containerClassName={"pagination"} activeClassName={"active"} />
+      {contents.length === 0 ? (
+        <span>글이 없어요</span>
+      ) : (
+        <>
+          <div>
+            {pagedContents.map((item, index) => (
+              <BoardItem key={index} title={item.writer} content={item.title} id={item.id} contents={contents} like={item.like} />
+            ))}
+          </div>
+          <ReactPaginate previousLabel={"<"} nextLabel={">"} pageCount={Math.ceil(contents.length / perPage)} onPageChange={handlePageClick} containerClassName={"pagination"} activeClassName={"active"} />
+        </>
+      )}
     </>
   );
 };
