@@ -1,5 +1,5 @@
 import "./Community.css";
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import CancelButton from "components/Community/CancelButton";
