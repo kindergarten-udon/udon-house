@@ -8,7 +8,6 @@ import WriteButton from "components/Community/WriteButton";
 const WriteCommunity = ({ userId }) => {
   const [cancelModalOpen, setcancelModalOpen] = useState(false);
   const [WriteModalOpen, setWriteModalOpen] = useState(false);
-  // 제목과 글 담는 state
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
@@ -19,7 +18,7 @@ const WriteCommunity = ({ userId }) => {
       setcancelModalOpen(true);
     }
   };
-  // title,content 값
+
   const handleValue = (e) => {
     const {
       target: { name, value },
@@ -29,7 +28,6 @@ const WriteCommunity = ({ userId }) => {
     } else if (name == "content") setContent(value);
   };
 
-  // 글쓰기 모달창
   const showWriteModal = () => {
     if (title.trim() == "" || content.trim() == "") {
       alert("제목과 내용을 입력하세요.");
