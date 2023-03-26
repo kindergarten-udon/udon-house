@@ -91,6 +91,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
 
   useEffect(() => {
     setQualifiedList(pagedContents);
+    pageScrollInit.current.scrollTo({ top: 0, behavior: "smooth" });
   }, [currentPage]);
 
   let newStarArr = Array(pagedContents.length).fill(false);
@@ -236,7 +237,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
     setPaged(newPagedArr);
 
     let index = e.currentTarget.id;
-    const item = qualifiedArr[index];
+    const item = pagedContents[index];
     const { CRNAME, LA, LO } = item;
     initMarkers(null);
 
@@ -316,9 +317,9 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
     setPaged(pagedArr);
     setStarClickedArr(newStarArr);
   };
-  useEffect(() => {
-    pageScrollInit.current.scrollTo({ top: 0, behavior: "smooth" });
-  }, [currentPage]);
+  // useEffect(() => {
+  //   pageScrollInit.current.scrollTo({ top: 0, behavior: "smooth" });
+  // }, [currentPage]);
 
   let pagedArr = Array(pagedContents.length).fill(false);
   const [paged, setPaged] = useState(pagedArr);
