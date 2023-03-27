@@ -177,7 +177,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
         points.push(new kakao.maps.LatLng(LA, LO));
         nameArr.push(CRNAME);
       }
-      setInfo(`<div style="margin:5px 35px; white-space: nowrap; color:orange">${CRNAME}</div>`);
+      setInfo(`<div style="margin:5px 35px; white-space:nowrap; color:orange">${CRNAME}</div>`);
     });
     if (points.length === 0) {
       return;
@@ -195,7 +195,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
       handleMarker(marker);
       bounds.extend(points[i]);
 
-      let infoContent = `<div style="margin:5px 35px; white-space: nowrap; color:orange">${nameArr[i]}</div>`;
+      let infoContent = `<div style="margin:5px 35px; white-space:nowrap; color:orange">${nameArr[i]}</div>`;
       let iwRemoveable = true;
       let infowindow = new kakao.maps.InfoWindow({
         content: infoContent,
