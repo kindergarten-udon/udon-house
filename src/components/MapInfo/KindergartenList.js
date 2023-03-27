@@ -9,6 +9,7 @@ import { dbService } from "util/fbase";
 import { uid } from "Atom/atom";
 import { useRecoilState } from "recoil";
 import { deleteDoc, doc } from "@firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const { kakao } = window;
 
@@ -71,6 +72,7 @@ function createMarkerImage(markerSrc, markerSize) {
 /*                         KindergartenList Component                         */
 /* -------------------------------------------------------------------------- */
 const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favoriteData }) => {
+  const navigate = useNavigate();
   const [localArr, setLocalArr] = useState(kinderList);
   const [typeArr, setTypeArr] = useState(kinderList);
   const [qualifiedArr, setQualifiedArr] = useState(kinderList);
@@ -269,34 +271,39 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
   };
 
   const handleStar = (e) => {
-    let li = e.currentTarget.parentNode.parentNode;
-    let id = li.id;
+    if (testUid) {
+      let li = e.currentTarget.parentNode.parentNode;
+      let id = li.id;
 
-    starClickedArr[id] = !starClickedArr[id];
-    setStarClickedArr([...starClickedArr]);
+      starClickedArr[id] = !starClickedArr[id];
+      setStarClickedArr([...starClickedArr]);
 
-    const { CRNAME, CRTELNO, CRADDR, STCODE } = pagedContents[id];
+      const { CRNAME, CRTELNO, CRADDR, STCODE } = pagedContents[id];
 
-    let favoriteDataId = "";
-    let favoriteDataActive = null;
+      let favoriteDataId = "";
+      let favoriteDataActive = null;
 
-    favoriteData.map(({ id, title }) => {
-      if (title === CRNAME) favoriteDataId = id;
-    });
-
-    const contentRef = collection(dbService, "favorite");
-    if (starClickedArr[id] === true) {
-      addDoc(contentRef, {
-        active: true,
-        kindergartenCode: STCODE,
-        title: CRNAME,
-        tel: CRTELNO,
-        address: CRADDR,
-        creatorId: testUid,
+      favoriteData.map(({ id, title }) => {
+        if (title === CRNAME) favoriteDataId = id;
       });
+
+      const contentRef = collection(dbService, "favorite");
+      if (starClickedArr[id] === true) {
+        addDoc(contentRef, {
+          active: true,
+          kindergartenCode: STCODE,
+          title: CRNAME,
+          tel: CRTELNO,
+          address: CRADDR,
+          creatorId: testUid,
+        });
+      } else {
+        const removeDoc = doc(collection(dbService, "favorite"), favoriteDataId);
+        deleteDoc(removeDoc);
+      }
     } else {
-      const removeDoc = doc(collection(dbService, "favorite"), favoriteDataId);
-      deleteDoc(removeDoc);
+      const ok = window.confirm("로그인이 필요합니다. 로그인 페이지로 가시겠어요?");
+      ok && navigate("/signin");
     }
   };
 

@@ -4,15 +4,12 @@ import { AiOutlineCloseSquare } from "react-icons/ai";
 import { updateProfile } from "firebase/auth";
 import { auth } from "util/fbase";
 import { storage } from "util/fbase";
-import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { deleteObject, getDownloadURL, ref, uploadString } from "firebase/storage";
 import { uuidv4 } from "@firebase/util";
 
 const AddPhoto = ({ onClose, userId, setUserProfile }) => {
-  console.log(userId);
-  const uuid = uuidv4();
   const [file, setFile] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
-
   const onDrop = useCallback((acceptedFiles) => {
     const test = acceptedFiles[0];
     const text = new FileReader();
@@ -34,8 +31,7 @@ const AddPhoto = ({ onClose, userId, setUserProfile }) => {
 
   const handleUpload = async () => {
     if (userId) {
-      const imageRef = ref(storage, `${userId.uid}/${uuid}`);
-      console.log(imageUrl);
+      const imageRef = ref(storage, `${userId.uid}/new-profile-photo`);
       const profile = await uploadString(imageRef, imageUrl, "data_url");
       const fileUrl = await getDownloadURL(profile.ref);
       updateProfile(auth.currentUser, {

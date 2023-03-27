@@ -22,7 +22,6 @@ import { Navigate } from "react-router-dom";
 // import PrivateRoute from "./PrivateRoute";
 
 function App() {
-  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
   const [userId, setUserId] = useState(null);
   const [userProfile, setUserProfile] = useState(null);

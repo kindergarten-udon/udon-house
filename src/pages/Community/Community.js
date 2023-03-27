@@ -36,7 +36,7 @@ const Community = ({ isLogin, userId }) => {
                   <strong>{index + 1}위</strong> <br />
                   <div className="text-btn-green-color truncate pb-1">{el.title}</div>
                   <div className="truncate">
-                    <span className="font-bold text-gray-700">{el.like}</span>명이 좋아한 글
+                    <span className="font-bold text-gray-700">{el.like}</span>개의 좋아요를 받았어요!
                   </div>
                 </Link>
               );

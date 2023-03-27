@@ -45,12 +45,7 @@ export const ProfilePopup = ({ onClose }) => {
       <div className="popup">
         <div className="relative">
           <h2 className="sr-only">프로필 팝업창</h2>
-
-          {auth.currentUser.photoURL ? (
-            <img src={auth.currentUser.photoURL} alt="사용자 프로필 이미지" className="profileImage w-[60px] translate-y-5 translate-x-[-90px] inline-block" />
-          ) : (
-            <img src="util/yellow.svg" alt="사용자 기본 프로필 이미지" className="profileImage w-[50px] translate-x-10 translate-y-3" />
-          )}
+          <img src={auth.currentUser.photoURL ? auth.currentUser.photoURL : "/util/yellow.svg"} alt="사용자 프로필 이미지" className="profileImage w-[60px] translate-y-5 translate-x-[-90px] inline-block" />
           {auth.currentUser && <p className="text-md translate-x-3 translate-y-[-20px] lg:translate-x-1 lg:pl-12 pl-5">{auth.currentUser.email}</p>}
           <div className="m-auto relative top-6 translate-y-[-15px]">
             <button className="popupButton hover:bg-yellow-300" onClick={handleClick}>
