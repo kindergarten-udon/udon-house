@@ -68,34 +68,32 @@ const AboutUs = () => {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <>
-      <div className="wrapper lg:py-[150px] py-[100px] w-full ">
-        <span className="text-[40px] px-8 py-2 font-bold pt-16 inline-block border-b-4 border-black">About Us</span>
-        <div className="w-80% py-[80px] px-[5vw] gap-[4vw] lg:flex lg:gap-[4.5vw] lg:justify-center md:grid md:grid-cols-2 md:gap-x-10 grid grid-cols-1 place-items-center">
-          {memberInfo.map(({ name, variable, MBTI, img, character, imgClass, github }, index) => (
-            <div key={index}>
-              <figure className="px-[5vw] lg:px-0 relative">
-                <div className="flex flex-col ">
-                  <img src={character} alt="캐릭터사진" className={imgClass} />
-                  <img src={img} alt={name} className="aboutImgae" />
-                  <figcaption className="mt-5 text-base lg:text-lg block bg-[#282A35] border-transparent rounded-2xl py-2">
-                    <span tabIndex={0} className="text-2xl text-white">
-                      {name}
-                    </span>
-                    <p>
-                      <span className="text-[#F97AA9]">{variable}</span> <span className="text-[#57F984]">MBTI</span> <span className="text-[#F97AA9]">=</span> <span className="text-[#F1F881]">{MBTI}</span>
-                      <a target="_blank" href={github} className="block">
-                        <LinkTo />
-                      </a>
-                    </p>
-                  </figcaption>
-                </div>
-              </figure>
-            </div>
-          ))}
-        </div>
+    <div className="wrapper lg:py-[150px] py-[100px] w-full ">
+      <span className="text-[40px] px-8 py-2 font-bold pt-16 inline-block border-b-4 border-black">About Us</span>
+      <div className="w-80% py-[80px] px-[5vw] gap-[4vw] lg:flex lg:gap-[4.5vw] lg:justify-center md:grid md:grid-cols-2 md:gap-x-10 grid grid-cols-1 place-items-center">
+        {memberInfo.map(({ name, variable, MBTI, img, character, imgClass, github }, index) => (
+          <div key={index}>
+            <figure className="px-[5vw] lg:px-0 relative">
+              <div className="flex flex-col ">
+                <img src={character} alt="캐릭터사진" className={imgClass} />
+                <img src={img} alt={name} className="aboutImgae" />
+                <figcaption className="mt-5 text-base lg:text-lg block bg-[#282A35] border-transparent rounded-2xl py-2">
+                  <span tabIndex={0} className="text-2xl text-white">
+                    {name}
+                  </span>
+                  <p>
+                    <span className="text-[#F97AA9]">{variable}</span> <span className="text-[#57F984]">MBTI</span> <span className="text-[#F97AA9]">=</span> <span className="text-[#F1F881]">{MBTI}</span>
+                    <a target="_blank" href={github} className="block">
+                      <LinkTo />
+                    </a>
+                  </p>
+                </figcaption>
+              </div>
+            </figure>
+          </div>
+        ))}
       </div>
-    </>
+    </div>
   );
 };
 

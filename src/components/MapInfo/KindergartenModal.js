@@ -31,7 +31,7 @@ const KindergartemModal = ({ kinderList, index, qualifiedList, setModalClose }) 
           <button type="button" className="absolute top-1 right-1 p-3" onClick={modalClose}>
             <GrClose className="w-5 h-5" />
           </button>
-          <img src="/util/bird2.svg" className="w-14 h-14" />
+          <img src="/util/bird2.svg" alt="초록색캐릭터이미지" className="w-14 h-14" />
           <div>
             <h2 className="text-2xl font-extrabold mb-2 text-orange-400 truncate lg:text-3xl">{CRNAME}</h2>
             <p className="text-lg lg:text-xl truncate">{`전화) ${CRTELNO || "제공되지 않습니다."}`}</p>
@@ -62,7 +62,7 @@ const KindergartemModal = ({ kinderList, index, qualifiedList, setModalClose }) 
             </li>
           </ul>
         </div>
-        <img src="/util/characters.svg" className="absolute bottom-0 right-0" />
+        <img src="/util/characters.svg" alt="캐릭터3명이미지" className="absolute bottom-0 right-0" />
       </div>
     </div>
   );
