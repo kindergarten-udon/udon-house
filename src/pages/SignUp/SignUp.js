@@ -140,7 +140,7 @@ const SignUp = () => {
       <h2 className="sr-only">회원가입</h2>
       <img className="lg:w-[31rem] h-2/5 left-0 top-0 opacity-50 md:w-80 sm:w-80 " src="main/mainShape1.svg" alt="배경 이미지1" />
       <div className="absoulte w-[clamp(300px,80vw,500px)] lg:w-[32rem] -translate-y-[250px] mb-10 lg:mb-20 mx-auto mt-5">
-        <img ref={udonHouseLogoRef} className=" center h-20 top-2 opacity-0" src="main/main3Logo.svg" alt="우리 동네 어린이집 로고" />
+        <img ref={udonHouseLogoRef} className=" center h-20 top-20 opacity-0" src="main/main3Logo.svg" alt="우리 동네 어린이집 로고" />
         <img ref={birdRef} className="animate-bounce max-sm:mt-8 max-sm:w-16 w-24 absolute right-5 " src="util/bird2.svg" alt="새 이미지" />
       </div>
       <img ref={backgroundImageRef} className=" bgSize inline-block absolute p-0 m-0 bottom-0 right-[-1rem] z-[10]" src="util/BackgroundImage.svg" alt="곰과 악어가 있는 이미지" />
