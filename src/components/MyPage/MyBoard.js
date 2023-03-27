@@ -26,24 +26,26 @@ const MyBoard = ({ setActive, userId }) => {
       {myBoard.length === 0 ? (
         <p>작성한 글이 없습니다.</p>
       ) : (
-        pagedContents.map((el) => {
-          return (
-            <section className="w-[80%] mx-auto" key={el.id}>
-              <div className="text-left flex py-2 lg:py-3 border border-transparent border-b-gray-300 w-full">
-                <span className="text-gray-500 text-center max-sm:w-[15vw] truncate w-[25vw] font-medium">{el.title}</span>
-                <Link className="w-full px-3 overflow-hidden" to={`/community/${el.id}`}>
-                  {el.content}
-                </Link>
-                <span className="max-sm:w-[clamp(50px,10vw,60px)] w-[clamp(60px,7vw,70px)] flex justify-between pr-1 lg:pr-3">
-                  <BsHandThumbsUpFill className="mt-[1px]" />
-                  {el.like}
-                </span>
-              </div>
-            </section>
-          );
-        })
+        <>
+          {pagedContents.map((el) => {
+            return (
+              <section className="w-[80%] mx-auto" key={el.id}>
+                <div className="text-left flex py-2 lg:py-3 border border-transparent border-b-gray-300 w-full">
+                  <span className="text-gray-500 text-center max-sm:w-[15vw] truncate w-[25vw] font-medium">{el.title}</span>
+                  <Link className="w-full px-3 overflow-hidden" to={`/community/${el.id}`}>
+                    {el.content}
+                  </Link>
+                  <span className="max-sm:w-[clamp(50px,10vw,60px)] w-[clamp(60px,7vw,70px)] flex justify-between pr-1 lg:pr-3">
+                    <BsHandThumbsUpFill className="mt-[1px]" />
+                    {el.like}
+                  </span>
+                </div>
+              </section>
+            );
+          })}
+          <ReactPaginate previousLabel={"<"} nextLabel={">"} pageCount={Math.ceil(myBoard.length / perPage)} onPageChange={handlePageClick} containerClassName={"pagination"} activeClassName={"active"} />
+        </>
       )}
-      <ReactPaginate previousLabel={"<"} nextLabel={">"} pageCount={Math.ceil(myBoard.length / perPage)} onPageChange={handlePageClick} containerClassName={"pagination"} activeClassName={"active"} />
     </div>
   );
 };

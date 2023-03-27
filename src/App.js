@@ -21,7 +21,6 @@ import { RecoilLogger } from "recoil-devtools-logger";
 // import PrivateRoute from "./PrivateRoute";
 
 function App() {
-  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
   const [userId, setUserId] = useState(null);
   const [userProfile, setUserProfile] = useState(null);

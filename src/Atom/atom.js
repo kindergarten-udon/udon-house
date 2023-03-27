@@ -9,3 +9,8 @@ export const uid = atom({
   key: "uid",
   default: "",
 });
+
+export const chooseContent = atom({
+  key: "chooseContent",
+  default: "",
+});
