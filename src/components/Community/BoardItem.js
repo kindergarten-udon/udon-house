@@ -4,14 +4,17 @@ import { BsHandThumbsUpFill } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { deleteDoc, doc, getDocs, updateDoc } from "@firebase/firestore";
 import { collection } from "firebase/firestore";
-import { dbService } from "util/fbase";
+import { dbService, storage } from "util/fbase";
+import { useRecoilState } from "recoil";
+import { chooseContent } from "Atom/atom";
+import { listAll, ref } from "firebase/storage";
 
 const BoardItemDetail = ({ userId }) => {
   const navigate = useNavigate();
   const editRef = useRef(null);
   const { id } = useParams();
   const [contents, setContents] = useState([]);
-  const [selectContent, setSelectContent] = useState(null);
+  const [selectContent, setSelectContent] = useState([]);
   const [newContent, setNewContent] = useState("");
   const [newTitle, setNewTitle] = useState("");
   const [editing, setEditing] = useState(false);
@@ -26,6 +29,13 @@ const BoardItemDetail = ({ userId }) => {
       setContents(contentArray);
     };
     data();
+  }, []);
+  useEffect(() => {
+    const test = async () => {
+      const imageRef = ref(storage, `userBoard`);
+      const list = await listAll(imageRef);
+      console.log(list);
+    };
   }, []);
 
   const onDeleteClick = async () => {
@@ -119,7 +129,12 @@ const BoardItemDetail = ({ userId }) => {
             {selectContent && (
               <>
                 <div className="px-6 py-2 text-left border border-gray-500 rounded-3xl mb-5">{selectContent.title}</div>
-                <div className="whitespace-pre h-[300px] px-6 py-2 text-left border border-gray-500 rounded-3xl">{selectContent.content}</div>
+                <div className="flex flex-col whitespace-pre h-[300px] px-6 py-2 text-left border border-gray-500 rounded-3xl lg:flex-row">
+                  <div className="w-1/3">
+                    <img className="object-cover" src="/main/main2.svg" />
+                  </div>
+                  <span className="text-left">{selectContent.content}</span>
+                </div>
               </>
             )}
             <div className="text-sm lg:text-base my-4 mx-4 flex justify-between">

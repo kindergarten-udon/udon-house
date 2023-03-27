@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { dbService } from "util/fbase";
 import { collection, addDoc } from "firebase/firestore";
 
-const WriteButton = ({ content, title, setWriteModalOpen, userId }) => {
+const WriteButton = ({ content, title, setWriteModalOpen, userId, boardUuid }) => {
   const navigate = useNavigate();
   const now = new Date();
   const year = now.getFullYear();
@@ -13,7 +13,6 @@ const WriteButton = ({ content, title, setWriteModalOpen, userId }) => {
   const minute = now.getMinutes();
   const second = now.getSeconds();
   const dateTimeString = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
-
   const writeCloseModal = () => {
     setWriteModalOpen(false);
   };
@@ -40,6 +39,7 @@ const WriteButton = ({ content, title, setWriteModalOpen, userId }) => {
       creatorId: userId.uid,
       like: 0,
       time: dateTimeString,
+      img: boardUuid,
     });
     navigate("/community");
   };
