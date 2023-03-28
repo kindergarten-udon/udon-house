@@ -15,7 +15,7 @@ const BoardItemDetail = ({ userId }) => {
   const [newContent, setNewContent] = useState("");
   const [newTitle, setNewTitle] = useState("");
   const [editing, setEditing] = useState(false);
-
+  console.log(selectContent);
   useEffect(() => {
     const data = async () => {
       const dbContent = await getDocs(collection(dbService, "content"));
@@ -118,6 +118,7 @@ const BoardItemDetail = ({ userId }) => {
           <>
             {selectContent && (
               <>
+                <div className="px-3 py-2 text-left animate-pulse">ID : {selectContent.writer}</div>
                 <div className="px-6 py-2 text-left border border-gray-500 rounded-3xl mb-5">{selectContent.title}</div>
                 <div className="whitespace-pre h-[300px] px-6 py-2 text-left border border-gray-500 rounded-3xl">{selectContent.content}</div>
               </>
