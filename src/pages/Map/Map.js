@@ -15,8 +15,7 @@ const Map = ({ userId }) => {
   useEffect(() => {
     const getData = async () => {
       try {
-        // const url = `http://openapi.seoul.go.kr:8088/${process.env.REACT_APP_KINDERINFO_KEY}/json/ChildCareInfo/1/1000/`;
-        const url = `/api`;
+        const url = `http://openapi.seoul.go.kr:8088/${process.env.REACT_APP_KINDERINFO_KEY}/json/ChildCareInfo/1/1000/`;
         const response = await axios.get(url);
         let arr = response.data.ChildCareInfo.row;
         let filtered = arr.filter((elem) => elem.CRSTATUSNAME !== "폐지" && elem.STCODE !== "11545000341" && elem.STCODE !== "11380000668");
