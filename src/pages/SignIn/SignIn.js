@@ -147,27 +147,30 @@ const SignIn = () => {
           <div className="flex ml-2">비밀번호</div>
           <input className="inputStyle" type={showPassword ? "text" : "password"} name="password" placeholder="비밀번호" onChange={handleChange} />
           <div className="absolute right-0 top-9 z-10 text-right">
-            <button className=" text-gray-500 mr-2" onClick={toggleShowPassword}>
+            <button className=" text-gray-500 mr-2" onClick={toggleShowPassword} name="비밀번호 표기 버튼">
+              <span className="sr-only">비밀번호 표시 버튼</span>
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
           {password.length > 0 && <span className={`message ${isPassword ? "success successFont" : "error errorFont"}`}>{passwordMessage}</span>}
         </div>
         <div className="loginDivStyle mt-10 mb-6 ">
-          <button className={"loginButtonStyle w-full py-2 " + (!isFormValid ? "bg-gray-400" : "bg-btn-green-color")} onClick={login} disabled={!isFormValid} type="submit">
+          <button className={"loginButtonStyle w-full py-2 " + (!isFormValid ? "bg-gray-400" : "bg-btn-green-color")} onClick={login} disabled={!isFormValid} type="submit" name="로그인 버튼">
             로그인
           </button>
         </div>
         <div className="loginDivStyle mt-10">
-          <button className="loginButtonStyle w-full py-2 bg-btn-green-color hover:bg-main-color border-solid " onClick={handleSignUp}>
+          <button className="loginButtonStyle w-full py-2 bg-btn-green-color hover:bg-main-color border-solid " onClick={handleSignUp} name="회원가입 버튼 ">
             회원가입
           </button>
         </div>
         <div className="pt-7 pb-3.5">
           <button className="mr-16" onClick={signInWithGoogle} name="google" value="google" type="button">
+            <span className="sr-only">구글 로그인 버튼</span>
             <FcGoogle className="socialIcon" />
           </button>
           <button onClick={signInWithGithub} name="github" value="github" type="button">
+            <span className="sr-only">깃 허브 로그인</span>
             <AiFillGithub className="socialIcon" />
           </button>
         </div>

@@ -166,6 +166,7 @@ const SignUp = () => {
           <input className="inputStyle" type={showPassword ? "text" : "password"} name="password" placeholder="비밀번호" onChange={handleChange} />
           <div className="absolute right-0 top-9 z-10 text-right">
             <button className=" text-gray-500 mr-2" onClick={toggleShowPassword}>
+              <span className="sr-only">비밀번호 표시 버튼</span>
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
