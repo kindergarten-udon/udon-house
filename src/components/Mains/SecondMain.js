@@ -8,7 +8,6 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
-import { IoIosArrowDropleft, IoIosArrowDropright } from "react-icons/io";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -59,7 +58,6 @@ const SecondMain = () => {
           modules={[Navigation, Pagination, A11y, Autoplay]}
           autoplay={{ delay: 2000 }}
           loop={true}
-          navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
           breakpoints={{
             320: {
               slidesPerView: 2,
@@ -86,18 +84,6 @@ const SecondMain = () => {
               </SwiperSlide>
             );
           })}
-          <div className="relative z-40">
-            {prevRef && (
-              <button ref={prevRef} className="left-5 secondButton" type="button">
-                <IoIosArrowDropleft className="gsap2 opacity-0 secondButtonImage" />
-              </button>
-            )}
-            {nextRef && (
-              <button ref={nextRef} className="right-5 secondButton" type="button">
-                <IoIosArrowDropright className="gsap2 opacity-0 secondButtonImage" />
-              </button>
-            )}
-          </div>
         </Swiper>
       </div>
     </div>
