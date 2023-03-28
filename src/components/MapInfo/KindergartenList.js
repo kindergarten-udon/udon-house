@@ -158,12 +158,13 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
     }
   };
 
-  const handleSearch = (e) => {
+  const handleSearch = () => {
     if (selected !== null) {
       selected.setMap(null);
       setPaged(pagedArr);
     }
     setStarClickedArr(newStarArr);
+    setCurrentPage(0);
 
     const inputValue = inputName.current.value;
     const arr = localArr.filter((elem) => typeArr.includes(elem));
@@ -344,7 +345,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
       <div className="text-left overflow-x-hidden mb-16" ref={pageScrollInit}>
         {pagedContents.length <= 0 && (
           <div className="flex flex-col items-center text-lg mt-[80px]">
-            <img src="/bird.svg" className="animate-bounce w-10 h-10" />
+            <img src="/util/bird2.svg" className="animate-bounce w-10 h-10" />
             검색 결과가 없습니다
           </div>
         )}
@@ -371,7 +372,17 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
           ))}
         </ul>
       </div>
-      <ReactPaginate previousLabel={""} nextLabel={""} pageRangeDisplayed={10} pageCount={Math.ceil(qualifiedArr.length / perPage)} onPageChange={handlePageClick} containerClassName={"pagination mapPagi"} activeClassName={"active"} />
+      <ReactPaginate
+        previousLabel={""}
+        nextLabel={""}
+        pageRangeDisplayed={10}
+        pageCount={Math.ceil(qualifiedArr.length / perPage)}
+        disableInitialCallback={true}
+        onPageChange={handlePageClick}
+        containerClassName={"pagination mapPagi"}
+        activeClassName={"active"}
+        forcePage={currentPage}
+      />
     </div>
   );
 };
