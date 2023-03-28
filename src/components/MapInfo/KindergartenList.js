@@ -324,9 +324,6 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
     setPaged(pagedArr);
     setStarClickedArr(newStarArr);
   };
-  // useEffect(() => {
-  //   pageScrollInit.current.scrollTo({ top: 0, behavior: "smooth" });
-  // }, [currentPage]);
 
   let pagedArr = Array(pagedContents.length).fill(false);
   const [paged, setPaged] = useState(pagedArr);
@@ -334,7 +331,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
   return (
     <div className="relative flex flex-col flex-1 min-w-[27rem]">
       <div className="py-5 bg-main-color">
-        <img src="/map/kindergarten.svg" className="mx-auto" />
+        <img src="/map/kindergarten.svg" alt="유치원이미지" className="mx-auto" />
         <div className="flex flex-row items-center justify-center whitespace-nowrap mx-2 text-sm gap-2 lg:gap-3">
           <Select className="min-w-[5rem] lg:w-32 lg:text-base" maxMenuHeight={220} options={locationOptions} onChange={handleLocationChange} placeholder="자치구" />
           <Select className="min-w-[7rem] lg:w-40 lg:text-base" maxMenuHeight={220} options={typeOptions} onChange={handleTypeChange} placeholder="어린이집유형" />
@@ -355,7 +352,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
           {pagedContents.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
             <li className={`${paged[index] === true ? "bg-light-yellow-color" : "hover:bg-gray-100"} relative flex flex-row items-center justify-between pt-[10px] cursor-pointer`} onClick={modalShow} id={index} key={index}>
               <div className="min-w-[21rem] flex flex-row items-center justify-center">
-                <img src="/util/childrens.svg" className="w-20 mx-2 lg:w-24" />
+                <img src="/util/childrens.svg" alt="아이들이미지" className="w-20 mx-2 lg:w-24" />
                 <div className="w-96 lg:w-[27rem] text-xs truncate">
                   <h2 className="truncate text-base font-bold lg:text-xl" ref={starName}>
                     {CRNAME}

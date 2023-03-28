@@ -12,13 +12,12 @@ import NotFound from "pages/NotFound/NotFound";
 import Community from "pages/Community/Community";
 import { useEffect, useState } from "react";
 import WriteCommunity from "pages/Community/WriteCommunity";
-import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { onSnapshot } from "firebase/firestore";
 import { collection } from "firebase/firestore";
 import { useSetRecoilState } from "recoil";
 import { uid, userData } from "Atom/atom";
 import { RecoilLogger } from "recoil-devtools-logger";
-// import PrivateRoute from "./PrivateRoute";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
