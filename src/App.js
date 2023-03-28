@@ -12,14 +12,12 @@ import NotFound from "pages/NotFound/NotFound";
 import Community from "pages/Community/Community";
 import { useEffect, useState } from "react";
 import WriteCommunity from "pages/Community/WriteCommunity";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { onSnapshot } from "firebase/firestore";
 import { collection } from "firebase/firestore";
 import { useSetRecoilState } from "recoil";
 import { uid, userData } from "Atom/atom";
 import { RecoilLogger } from "recoil-devtools-logger";
-import { Navigate } from "react-router-dom";
-// import PrivateRoute from "./PrivateRoute";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -58,25 +56,20 @@ function App() {
   return (
     <div className="App font-sans">
       <RecoilLogger values={[uid, userData]} />
-      <>
-        <Header isLogin={isLogin} userId={userId} userProfile={userProfile} setUserProfile={setUserProfile} />
-        <Routes>
-          <>
-            <Route path="/" element={<Main />} />
-            <Route path="/map" element={<Map userId={userId} />} />
-            {/* <Route path="/viewer/room" element={<PrivateRoute component={<RoomViewer/>} authenticated={token}/>}/> */}
-            <Route path="/signup" element={<PrivateRoute component={<SignUp />} userId={userId} />} />
-            <Route path="/signin" element={<PrivateRoute component={<SignIn />} userId={userId} />} />
-            <Route path="/mypage" element={<MyPage userId={userId} userProfile={userProfile} setUserProfile={setUserProfile} />} />
-            <Route path="/aboutus" element={<AboutUs />} />
-            <Route path="/community" element={<Community isLogin={isLogin} />} />
-            <Route path="/community/:id" element={<Community userId={userId} />} />
-            <Route path="/writeCommunity" element={<WriteCommunity userId={userId} />} />
-            <Route path="*" element={<NotFound />} />
-          </>
-        </Routes>
-        <Footer />
-      </>
+      <Header isLogin={isLogin} userId={userId} userProfile={userProfile} setUserProfile={setUserProfile} />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/map" element={<Map userId={userId} />} />
+        <Route path="/signup" element={<PrivateRoute component={<SignUp />} userId={userId} />} />
+        <Route path="/signin" element={<PrivateRoute component={<SignIn />} userId={userId} />} />
+        <Route path="/mypage" element={<MyPage userId={userId} userProfile={userProfile} setUserProfile={setUserProfile} />} />
+        <Route path="/aboutus" element={<AboutUs />} />
+        <Route path="/community" element={<Community isLogin={isLogin} />} />
+        <Route path="/community/:id" element={<Community userId={userId} />} />
+        <Route path="/writeCommunity" element={<WriteCommunity userId={userId} />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <Footer />
     </div>
   );
 }

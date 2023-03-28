@@ -109,7 +109,7 @@
     @apply fixed top-0 left-0 right-0 bottom-0 z-30 bg-black bg-opacity-30;
   }
   .addPhotoConatiner {
-    @apply lg:w-[500px] w-[400px] h-auto block border-2 rounded-lg bg-orange-100 p-5 absolute top-[200px] left-[50%] -translate-x-[50%] z-10;
+    @apply lg:w-[500px] w-[400px] h-auto block border-2 rounded-lg bg-orange-100 p-5 absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] z-10;
   }
   .iconStyle {
     @apply w-6 h-6 lg:w-8 lg:h-8;
