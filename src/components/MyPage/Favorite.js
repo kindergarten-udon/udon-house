@@ -38,7 +38,7 @@ const Favorite = ({ userId }) => {
         <>
           {pagedContents.map((el, index) => {
             return (
-              <section className=" w-[80%] mx-auto text-gray-500 text-sm lg:text-lg" key={el.id}>
+              <section className=" w-[85%] mx-auto text-gray-500 text-sm lg:text-lg" key={el.id}>
                 <div className="flex justify-between py-2 lg:py-3 border border-transparent border-b-gray-300 w-full">
                   <div className="flex items-center max-sm:mr-2">
                     <img src="/util/childrens.svg" alt="어린이 캐릭터" className="max-sm:w-0 h-[80px]" />
@@ -47,15 +47,17 @@ const Favorite = ({ userId }) => {
                     </span>
                   </div>
                   <div className="flex items-center">
-                    <span tabIndex={0} className="whitespace-normal text-black text-center max-sm:w-[45vw] w-[40vw]">
+                    <span tabIndex={0} className="whitespace-normal text-black text-left max-sm:w-[45vw] w-[40vw]">
                       {el.address}
                     </span>
                     {el.tel ? (
-                      <span tabIndex={0} className="flex justify-between pl-1 lg:pl-3 whitespace-normal  text-center">
+                      <span tabIndex={0} className="w-32 max-sm:w-20 pl-1 lg:pl-3 whitespace-normal text-left">
                         {el.tel}
                       </span>
                     ) : (
-                      <span tabIndex={0}>전화번호가 없습니다</span>
+                      <span className=" w-32 max-sm:w-20 pl-1 lg:pl-3 whitespace-normal text-left" tabIndex={0}>
+                        전화번호가 없습니다
+                      </span>
                     )}
                   </div>
                 </div>
