@@ -47,7 +47,7 @@ const Favorite = ({ userId }) => {
                     </span>
                   </div>
                   <div className="flex items-center">
-                    <span tabIndex={0} className="whitespace-normal text-black text-center max-sm:w-[35vw] w-[30vw]">
+                    <span tabIndex={0} className="whitespace-normal text-black text-center max-sm:w-[45vw] w-[40vw]">
                       {el.address}
                     </span>
                     {el.tel ? (

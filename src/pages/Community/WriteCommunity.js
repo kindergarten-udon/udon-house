@@ -44,7 +44,7 @@ const WriteCommunity = ({ userId }) => {
           <AiOutlineArrowLeft className="w-8 mt-1"></AiOutlineArrowLeft>뒤로가기
         </Link>
       </div>
-      <h2 className="font-bold  text-gray-700 text-xl lg:text-2xl mt-8 mb-8">우리 아이들의 궁금한점을 질문해보세요</h2>
+      <h2 className="font-bold  text-gray-700 text-xl lg:text-2xl mt-8 mb-8">이야기를 나누어 보아요</h2>
       <div className="title-wrapper items-center  flex justify-center">
         <h3 className="w-[10vw] text-center font-bold text-xl lg:text-2xl">제목</h3>
         <input onChange={handleValue} name="title" form="text" placeholder="제목을 적어주세요." className="text-sm lg:text-base w-[50vw] lg:w-[45vw] p-4 border rounded-2xl border-slate-700" />
