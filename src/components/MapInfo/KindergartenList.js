@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import "components/utilCss/boardListItem.css";
 import Select from "react-select";
 import { BiSearch, BiMap } from "react-icons/bi";
@@ -157,6 +157,14 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
       handleSearch();
     }
   };
+
+  const initPageNum = useCallback(() => {
+    setCurrentPage(0);
+  }, [setCurrentPage]);
+
+  useEffect(() => {
+    initPageNum();
+  }, [initPageNum, qualifiedArr]);
 
   const handleSearch = (e) => {
     if (selected !== null) {
@@ -323,6 +331,7 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
     setCurrentPage(selectedPage);
     setPaged(pagedArr);
     setStarClickedArr(newStarArr);
+    console.log("selectedPage", selectedPage);
   };
 
   let pagedArr = Array(pagedContents.length).fill(false);
@@ -371,7 +380,16 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
           ))}
         </ul>
       </div>
-      <ReactPaginate previousLabel={""} nextLabel={""} pageRangeDisplayed={10} pageCount={Math.ceil(qualifiedArr.length / perPage)} onPageChange={handlePageClick} containerClassName={"pagination mapPagi"} activeClassName={"active"} />
+      <ReactPaginate
+        previousLabel={""}
+        nextLabel={""}
+        pageRangeDisplayed={10}
+        pageCount={Math.ceil(qualifiedArr.length / perPage)}
+        onPageChange={handlePageClick}
+        containerClassName={"pagination mapPagi"}
+        activeClassName={"active"}
+        forcePage={currentPage}
+      />
     </div>
   );
 };
