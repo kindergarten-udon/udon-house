@@ -1,57 +1,75 @@
 import "./App.css";
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import Map from "pages/Map/Map";
+import { auth, dbService } from "util/fbase";
 import Main from "pages/Main/Main";
+import SignUp from "pages/SignUp/SignUp";
+import SignIn from "pages/SignIn/SignIn";
+import MyPage from "pages/MyPage/MyPage";
+import AboutUs from "pages/AboutUs/AboutUs";
 import Header from "components/Header/Header";
 import Footer from "components/Footer/Footer";
-import SignUP from "./pages/SignUp/SignUP";
-import SignIn from "pages/SignIn/SignIn";
-import AboutUs from "pages/AboutUs/AboutUs";
-import Community from "pages/Community/Community";
-import Map from "pages/Map/Map";
 import NotFound from "pages/NotFound/NotFound";
+import Community from "pages/Community/Community";
+import { useEffect, useState } from "react";
+import WriteCommunity from "pages/Community/WriteCommunity";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { onSnapshot } from "firebase/firestore";
+import { collection } from "firebase/firestore";
+import { useSetRecoilState } from "recoil";
+import { uid, userData } from "Atom/atom";
+import { RecoilLogger } from "recoil-devtools-logger";
 
 function App() {
+  const [isLogin, setIsLogin] = useState(false);
+  const [userId, setUserId] = useState(null);
+  const [userProfile, setUserProfile] = useState(null);
+  const setContents = useSetRecoilState(userData);
+  const setUid = useSetRecoilState(uid);
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setIsLogin(true);
+        setUserId(user);
+        setUserProfile(user.photoURL);
+        setUid(user.uid);
+      } else {
+        setIsLogin(false);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    onSnapshot(collection(dbService, "content"), (snapshot) => {
+      const contentArray = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setContents(contentArray);
+    });
+  }, []);
+
+  const PrivateRoute = ({ userId, component: Component }) => {
+    return !userId ? Component : <Navigate to="/" {...alert("로그인 상태입니다.")}></Navigate>;
+  };
+
   return (
-    <div className="App">
-      <>
-        <div className="flex flex-col">
-          <Link className="text-red-500" to="/">
-            홈
-          </Link>
-          <Link className="text-balck" to="/main">
-            메인가기
-          </Link>
-          <Link className="text-blue-500" to="/signup">
-            회원가입
-          </Link>
-          <Link className="text-green-500" to="/signin">
-            로그인
-          </Link>
-          <Link className="text-gray-500" to="/aboutus">
-            어바웃어스
-          </Link>
-          <Link className="text-violet-500" to="/community">
-            커뮤니티
-          </Link>
-          <Link className="text-orange-500" to="/map">
-            어린이정보
-          </Link>
-        </div>
-        <Routes>
-          <>
-            <Route path="/" element={<Header />}>
-              <Route path="/main" element={<Main />} />
-              <Route path="/signup" element={<SignUP />} />
-              <Route path="/signin" element={<SignIn />} />
-              <Route path="/aboutus" element={<AboutUs />} />
-              <Route path="/community" element={<Community />} />
-              <Route path="/map" element={<Map />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </>
-        </Routes>
-        <Footer />
-      </>
+    <div className="App font-sans">
+      <RecoilLogger values={[uid, userData]} />
+      <Header isLogin={isLogin} userId={userId} userProfile={userProfile} setUserProfile={setUserProfile} />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/map" element={<Map userId={userId} />} />
+        <Route path="/signup" element={<PrivateRoute component={<SignUp />} userId={userId} />} />
+        <Route path="/signin" element={<PrivateRoute component={<SignIn />} userId={userId} />} />
+        <Route path="/mypage" element={<MyPage userId={userId} userProfile={userProfile} setUserProfile={setUserProfile} />} />
+        <Route path="/aboutus" element={<AboutUs />} />
+        <Route path="/community" element={<Community isLogin={isLogin} />} />
+        <Route path="/community/:id" element={<Community userId={userId} />} />
+        <Route path="/writeCommunity" element={<WriteCommunity userId={userId} />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <Footer />
     </div>
   );
 }
