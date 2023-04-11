@@ -12,7 +12,7 @@ const MainHeader = () => {
           <div className="flex gap-3">
             <span className="mt-[5px]">디자인출처 : </span>
             <Link to="https://i-nara.co.kr/" target="_blank">
-              <img src="/util/iNaraLogo.svg" alt="아이들나라 로고" className="h-[30px]" />
+              <img src="/util/iNaraLogo.svg" alt="아이들나라 " className="h-[30px]" />
             </Link>
           </div>
         </div>

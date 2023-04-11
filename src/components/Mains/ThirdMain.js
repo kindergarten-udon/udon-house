@@ -17,12 +17,12 @@ const ThirdMain = () => {
   }, []);
   return (
     <div className="start3 w-screen relative bg-main-color h-screen snap-center">
-      <img className="absolute" src="main/main_shape_1.png" />
+      <img className="absolute" src="main/main_shape_1.png" alt="" />
       <div className="h-screen flex flex-col justify-center items-center text-center">
-        <img className="gsap3 opacity-0 thirdBackImage" src="main/main_shape_2.png" />
-        <img className="gsap3 opacity-0 thirdBackImage" src="main/main2.svg" />
+        <img className="gsap3 opacity-0 thirdBackImage" src="main/main_shape_2.png" alt="" />
+        <img className="gsap3 opacity-0 thirdBackImage" src="main/main2.svg" alt="" />
       </div>
-      <img className="absolute gsap3 opacity-0 animate-bounce w-[15vw] max-w-[100px] lg:w-[10vw] lg:max-w-[150px] right-[20%] bottom-[63%] max-sm:bottom-[75%] lg:bottom-[57%] lg:right-[25%]" src="main/main_join_bird.png" />
+      <img className="absolute gsap3 opacity-0 animate-bounce w-[15vw] max-w-[100px] lg:w-[10vw] lg:max-w-[150px] right-[20%] bottom-[63%] max-sm:bottom-[75%] lg:bottom-[57%] lg:right-[25%]" src="main/main_join_bird.png" alt="" />
       <div className="absolute top-36 lg:top-52 text-left  max-sm:px-5 max-sm:top-24 max-sm:transLeft">
         <h2 className="gsap3 opacity-0 font-bold max-sm:text-2xl text-3xl lg:text-4xl leading-loose">우동집은 이런 기능이 있어요!</h2>
         <div className="gsap3 opacity-0">우동집의 다양한 기능들을 알려드립니다.</div>

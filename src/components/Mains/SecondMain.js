@@ -23,25 +23,25 @@ const SecondMain = () => {
   }, []);
 
   const babyImg = [
-    { src: "imageSilde/slide1.jpeg", alt: "애기사진1" },
-    { src: "imageSilde/slide2.jpeg", alt: "애기사진2" },
-    { src: "imageSilde/slide3.jpeg", alt: "애기사진3" },
-    { src: "imageSilde/slide4.jpeg", alt: "애기사진4" },
-    { src: "imageSilde/slide5.jpeg", alt: "애기사진5" },
-    { src: "imageSilde/slide6.jpeg", alt: "애기사진6" },
-    { src: "imageSilde/slide7.jpeg", alt: "애기사진7" },
-    { src: "imageSilde/slide8.jpeg", alt: "애기사진8" },
-    { src: "imageSilde/slide9.jpeg", alt: "애기사진9" },
-    { src: "imageSilde/slide10.jpeg", alt: "애기사진10" },
-    { src: "imageSilde/slide11.jpeg", alt: "애기사진11" },
-    { src: "imageSilde/slide12.jpeg", alt: "애기사진12" },
+    { src: "imageSilde/slide1.jpeg", alt: "이마에 테이프가 붙어있는 애기" },
+    { src: "imageSilde/slide2.jpeg", alt: "어린이집 단체사진" },
+    { src: "imageSilde/slide3.jpeg", alt: "브이를 하고있는 애기" },
+    { src: "imageSilde/slide4.jpeg", alt: "달리기 시합" },
+    { src: "imageSilde/slide5.jpeg", alt: "생일 파티를 하는 중" },
+    { src: "imageSilde/slide6.jpeg", alt: "운동회 사진" },
+    { src: "imageSilde/slide7.jpeg", alt: "수박을 먹고 있는 애기" },
+    { src: "imageSilde/slide8.jpeg", alt: "후드티를 쓴 애기" },
+    { src: "imageSilde/slide9.jpeg", alt: "나란히 앉아있는 남매" },
+    { src: "imageSilde/slide10.jpeg", alt: "청진기를 쓴 애기" },
+    { src: "imageSilde/slide11.jpeg", alt: "윙크를 하는 애기" },
+    { src: "imageSilde/slide12.jpeg", alt: "활짝 웃는 아이" },
   ];
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   return (
     <div className="start2 relative w-full h-screen snap-center bg-white">
       <div className="h-screen flex flex-col justify-center items-center text-center">
-        <img className="absolute w-[80%] min-w-[280px] max-w-[550px] lg:w-[60%] lg:min-w-[59%] right-0" src="main/main2.svg" />
+        <img className="absolute w-[80%] min-w-[280px] max-w-[550px] lg:w-[60%] lg:min-w-[59%] right-0" src="main/main2.svg" alt="" />
       </div>
       <div className="gsap2 opacity-0 absolute top-44 max-sm:pr-[50px] max-sm:ml-10 ml-20">
         <h1 className="text-left font-bold leading-loose text-3xl lg:text-5xl max-sm:pr-5 max-sm:text-2xl">
