@@ -34,7 +34,7 @@ const Community = ({ isLogin, userId }) => {
               return (
                 <Link key={el.id} to={`/community/${el.id}`} className="top1 w-1 border m-2 rounded-2xl border-transparent bg-white px-5 py-2 lg:py-3 flex-1">
                   <strong>{index + 1}위</strong> <br />
-                  <div className="text-btn-green-color truncate pb-1">{el.title}</div>
+                  <div className="text-green-500 truncate pb-1">{el.title}</div>
                   <div className="truncate">
                     <span className="font-bold text-gray-700">{el.like}</span>개의 좋아요를 받았어요!
                   </div>
