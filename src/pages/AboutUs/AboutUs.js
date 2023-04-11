@@ -91,10 +91,10 @@ const AboutUs = () => {
           <div key={index}>
             <figure className="px-[5vw] lg:px-0 relative">
               <div className="flex flex-col ">
-                <img src={character} alt="캐릭터사진" className={imgClass} />
+                <img src={character} alt="" className={imgClass} />
                 <img src={img} alt={name} className="aboutImgae" />
                 <figcaption className="mt-5 text-base lg:text-lg block bg-[#282A35] border-transparent rounded-2xl py-2">
-                  <span tabIndex={0} className="text-2xl text-white">
+                  <span tabIndex={0} className="text-2xl text-white" aria-hidden="true">
                     {name}
                   </span>
                   <p>
