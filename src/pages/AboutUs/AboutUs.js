@@ -51,14 +51,30 @@ const memberInfo = [
 const LinkTo = () => {
   return (
     <>
-      <span className="text-white">{"<"}</span>
-      <span className="text-teal-300">Link </span>
-      <span className="text-[#57F984]">to</span>
-      <span className="text-[#F97AA9]">=</span>
-      <span className="text-teal-300">{"{"}</span>
-      <span className="text-white">github</span>
-      <span className="text-teal-300">{"}"}</span>
-      <span className="text-white">{"/>"}</span>
+      <span className="text-white " aria-hidden="true">
+        {"<"}
+      </span>
+      <span className="text-teal-300 " aria-hidden="true">
+        Link{" "}
+      </span>
+      <span className="text-[#57F984] " aria-hidden="true">
+        to
+      </span>
+      <span className="text-[#F97AA9] " aria-hidden="true">
+        =
+      </span>
+      <span className="text-teal-300 " aria-hidden="true">
+        {"{"}
+      </span>
+      <span className="text-white " aria-hidden="true">
+        github
+      </span>
+      <span className="text-teal-300 " aria-hidden="true">
+        {"}"}
+      </span>
+      <span className="text-white " aria-hidden="true">
+        {"/>"}
+      </span>
     </>
   );
 };
@@ -82,8 +98,16 @@ const AboutUs = () => {
                     {name}
                   </span>
                   <p>
-                    <span className="text-[#F97AA9]">{variable}</span> <span className="text-[#57F984]">MBTI</span> <span className="text-[#F97AA9]">=</span> <span className="text-[#F1F881]">{MBTI}</span>
+                    <span className="text-[#F97AA9]" aria-hidden="true">
+                      {variable}
+                    </span>{" "}
+                    <span className="text-[#57F984]">MBTI</span>{" "}
+                    <span className="text-[#F97AA9]" aria-hidden="true">
+                      =
+                    </span>{" "}
+                    <span className="text-[#F1F881]">{MBTI}</span>
                     <a target="_blank" href={github} className="block">
+                      <h3 className="sr-only">{name}의 깃허브로 이동</h3>
                       <LinkTo />
                     </a>
                   </p>
