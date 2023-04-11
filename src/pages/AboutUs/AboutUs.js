@@ -85,7 +85,7 @@ const AboutUs = () => {
   }, []);
   return (
     <div className="wrapper lg:py-[150px] py-[100px] w-full ">
-      <span className="text-[40px] px-8 py-2 font-bold pt-16 inline-block border-b-4 border-black">About Us</span>
+      <h2 className="text-[40px] px-8 py-2 font-bold pt-16 inline-block border-b-4 border-black">About Us</h2>
       <div className="w-80% py-[80px] px-[5vw] gap-[4vw] lg:flex lg:gap-[4.5vw] lg:justify-center md:grid md:grid-cols-2 md:gap-x-10 grid grid-cols-1 place-items-center">
         {memberInfo.map(({ name, variable, MBTI, img, character, imgClass, github }, index) => (
           <div key={index}>
