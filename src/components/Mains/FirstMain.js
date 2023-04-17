@@ -5,8 +5,10 @@ import { IoIosArrowDown } from "react-icons/io";
 const FirstMain = () => {
   const [videoPlay, setVideoPlay] = useState(true);
   const videoRef = useRef(null);
+  const mainRef = useRef(null);
 
   useEffect(() => {
+    mainRef.current.focus();
     const videoElement = videoRef.current;
     if (videoElement) {
       if (videoPlay) {
@@ -23,7 +25,7 @@ const FirstMain = () => {
     }
   };
   return (
-    <div tabIndex={0} onKeyDown={handleKeyDown} className="relative w-full h-screen">
+    <div tabIndex={-1} ref={mainRef} onKeyDown={handleKeyDown} className="relative w-full h-screen">
       <video ref={videoRef} className="w-full h-full object-cover" muted loop>
         <source src="https://cdn-web-management.i-nara.co.kr/common/main/main_intro_2.mp4" type="video/mp4" />
       </video>
