@@ -1,13 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 
 const FirstMain = () => {
+  const [videoPlay, setVideoPlay] = useState(true);
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const videoElement = videoRef.current;
+    if (videoElement) {
+      if (videoPlay) {
+        videoElement.play();
+      } else {
+        videoElement.pause();
+      }
+    }
+  }, [videoPlay]);
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Escape") {
+      setVideoPlay(!videoPlay);
+    }
+  };
   return (
-    <div className="relative w-full h-screen">
-      <video className="w-full h-full object-cover" autoPlay muted loop>
+    <div tabIndex={0} onKeyDown={handleKeyDown} className="relative w-full h-screen">
+      <video ref={videoRef} className="w-full h-full object-cover" muted loop>
         <source src="https://cdn-web-management.i-nara.co.kr/common/main/main_intro_2.mp4" type="video/mp4" />
       </video>
+
       <h1 className="absolute left-1/2 top-1/3 lg:text-4xl leading-loose w-[100vw] max-sm:px-2 text-3xl font-bold text-white firstTranslate ">
         우리동네어린이집 <br /> 우리 아이 안전한 어린이집 찾기
       </h1>
