@@ -6,6 +6,7 @@ const FirstMain = () => {
   const [videoPlay, setVideoPlay] = useState(true);
   const videoRef = useRef(null);
   const mainRef = useRef(null);
+  const videoPause = useRef(null);
 
   useEffect(() => {
     mainRef.current.focus();
@@ -18,6 +19,13 @@ const FirstMain = () => {
       }
     }
   }, [videoPlay]);
+  useEffect(() => {
+    const videoEl = videoPause.current;
+    console.log(videoEl);
+    setTimeout(() => {
+      videoEl.classList.add("opacity-0");
+    }, 5000);
+  }, []);
 
   const handleKeyDown = (e) => {
     if (e.key === "Escape") {
@@ -26,6 +34,12 @@ const FirstMain = () => {
   };
   return (
     <div tabIndex={-1} ref={mainRef} onKeyDown={handleKeyDown} className="relative w-full h-screen">
+      <div ref={videoPause} className="videoModal transition duration-500 fade-out  absolute top-36 left-1/2  -translate-x-[50%] -translate-y-[50%] text-white ">
+        <div className="animate-bounce bg-main-color p-4 rounded-md">
+          <p className="text-lg font-bold text-indigo-700">알림</p>
+          <p className="text-gray-900">동영상을 정지하려면 esc키를 눌러주세요!</p>
+        </div>
+      </div>
       <video ref={videoRef} className="w-full h-full object-cover" muted loop>
         <source src="https://cdn-web-management.i-nara.co.kr/common/main/main_intro_2.mp4" type="video/mp4" />
       </video>

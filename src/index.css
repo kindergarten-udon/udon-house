@@ -192,3 +192,37 @@
     transform: scale3d(1, 1, 1);
   }
 }
+
+.fade-in {
+  animation: fadeIn ease-in 1;
+  -webkit-animation: fadeIn ease-in 1;
+  -moz-animation: fadeIn ease-in 1;
+  -o-animation: fadeIn ease-in 1;
+  -ms-animation: fadeIn ease-in 1;
+}
+
+.fade-out {
+  animation: fadeOut ease-out 1;
+  -webkit-animation: fadeOut ease-out 1;
+  -moz-animation: fadeOut ease-out 1;
+  -o-animation: fadeOut ease-out 1;
+  -ms-animation: fadeOut ease-out 1;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
