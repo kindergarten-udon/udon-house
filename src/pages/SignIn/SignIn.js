@@ -68,11 +68,9 @@ const SignIn = () => {
   const login = async () => {
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
-      console.log(user);
       alert("로그인 되었습니다");
       navigate("/");
     } catch (error) {
-      console.log(error.message);
       alert("로그인 실패했습니다");
     }
   };
@@ -88,11 +86,9 @@ const SignIn = () => {
   const signInWithProvider = async (provider) => {
     try {
       const result = await signInWithPopup(auth, provider);
-      console.log(result);
       alert("로그인 되었습니다.");
       navigate("/");
     } catch (error) {
-      console.log(error);
       alert("로그인에 실패했습니다.");
     }
   };

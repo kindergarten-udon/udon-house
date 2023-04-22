@@ -21,7 +21,6 @@ const FirstMain = () => {
   }, [videoPlay]);
   useEffect(() => {
     const videoEl = videoPause.current;
-    console.log(videoEl);
     setTimeout(() => {
       videoEl.classList.add("opacity-0");
     }, 5000);

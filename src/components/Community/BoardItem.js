@@ -15,7 +15,6 @@ const BoardItemDetail = ({ userId }) => {
   const [newContent, setNewContent] = useState("");
   const [newTitle, setNewTitle] = useState("");
   const [editing, setEditing] = useState(false);
-  console.log(selectContent);
   useEffect(() => {
     const data = async () => {
       const dbContent = await getDocs(collection(dbService, "content"));
