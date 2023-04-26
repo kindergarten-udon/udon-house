@@ -351,7 +351,14 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
         )}
         <ul>
           {pagedContents.map(({ CRNAME, CRADDR, CRTELNO }, index) => (
-            <li className={`${paged[index] === true ? "bg-light-yellow-color" : "hover:bg-gray-100"} relative flex flex-row items-center justify-between pt-[10px] cursor-pointer`} onClick={modalShow} id={index} key={index}>
+            <li
+              className={`${paged[index] === true ? "bg-light-yellow-color" : "hover:bg-gray-100"} relative flex flex-row items-center justify-between pt-[10px] cursor-pointer outline-main-color -outline-offset-4`}
+              onClick={modalShow}
+              onKeyPress={modalShow}
+              id={index}
+              key={index}
+              tabIndex={0}
+            >
               <div className="min-w-[21rem] flex flex-row items-center justify-center">
                 <img src="/util/childrens.svg" alt="아이들이미지" className="w-20 mx-2 lg:w-24" />
                 <div className="w-96 lg:w-[27rem] text-xs truncate">
@@ -362,10 +369,10 @@ const KindergartenList = ({ kinderList, setQualifiedList, modalShow, map, favori
                   <p className="text-gray-500 lg:text-base">{`전화) : ${CRTELNO || "제공되지 않습니다"}`}</p>
                 </div>
               </div>
-              <button type="button" className="mr-2 p-2 md:p-1 hover:text-yellow-400">
+              <button type="button" className="mr-2 p-2 md:p-1 hover:text-yellow-400" tabIndex={-1}>
                 {starClickedArr[index] === true ? <AiFillStar className="iconStyle text-yellow-400" id={index} onClick={handleStar} /> : <AiOutlineStar className="iconStyle" id={index} onClick={handleStar} />}
               </button>
-              <button type="button" className="pr-1 hidden md:block hover:text-orange-400">
+              <button type="button" className="pr-1 hidden md:block hover:text-orange-400" tabIndex={-1}>
                 <BiMap className="iconStyle" id={index} onClick={handleMapClick} />
               </button>
             </li>

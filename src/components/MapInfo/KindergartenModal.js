@@ -10,13 +10,21 @@ const KindergartemModal = ({ kinderList, index, qualifiedList, setModalClose }) 
 
   useEffect(() => {
     document.addEventListener("click", clickOutside);
+    document.addEventListener("keydown", escClose);
     return () => {
       document.removeEventListener("click", clickOutside);
+      document.removeEventListener("keydown", escClose);
     };
   });
 
   const clickOutside = (e) => {
     if (modalRef.current === e.target) {
+      modalClose();
+    }
+  };
+
+  const escClose = (e) => {
+    if (e.keyCode === 27) {
       modalClose();
     }
   };
@@ -28,7 +36,7 @@ const KindergartemModal = ({ kinderList, index, qualifiedList, setModalClose }) 
     <div className="fixed w-screen h-screen top-0 bottom-0 bg-black bg-opacity-30 z-30" ref={modalRef}>
       <div className="relative max-w-[35rem] h-[35rem] modalPosition text-lg text-left p-4 rounded-xl border-4 border-main-color bg-white z-50 lg:max-w-[45rem] lg:h-[40rem] lg:text-xl">
         <div className="flex flex-row h-[20%] items-center border-b-2 border-main-color py-2 gap-3">
-          <button type="button" className="absolute top-1 right-1 p-3" onClick={modalClose}>
+          <button type="button" className="absolute top-1 right-1 p-3" onClick={modalClose} onKeyDown={escClose}>
             <GrClose className="w-5 h-5" />
           </button>
           <img src="/util/bird2.svg" alt="초록색캐릭터이미지" className="w-14 h-14" />
