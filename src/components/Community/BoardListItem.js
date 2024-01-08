@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { BsHandThumbsUpFill } from "react-icons/bs";
 import ReactPaginate from "react-paginate";
 import "components/utilCss/boardListItem.css";
+import { useRecoilValue } from "recoil";
+import { userData } from "Atom/atom";
 
 function BoardItem({ title, content, id, like }) {
   return (
@@ -20,7 +22,10 @@ function BoardItem({ title, content, id, like }) {
   );
 }
 
-const BoardListItem = ({ contents }) => {
+const BoardListItem = () => {
+  const data = useRecoilValue(userData);
+  const contents = [...data];
+
   const perPage = 10;
   const [currentPage, setCurrentPage] = useState(0);
 

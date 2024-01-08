@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import "./App.css";
-import { auth, dbService } from "util/fbase";
+import { auth } from "util/fbase";
 import SignUp from "pages/SignUp/SignUp";
 import SignIn from "pages/SignIn/SignIn";
 import MyPage from "pages/MyPage/MyPage";
@@ -10,8 +10,6 @@ import NotFound from "pages/NotFound/NotFound";
 import { useEffect, useState } from "react";
 import WriteCommunity from "pages/Community/WriteCommunity";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { onSnapshot } from "firebase/firestore";
-import { collection } from "firebase/firestore";
 import { useSetRecoilState } from "recoil";
 import { uid, userData } from "Atom/atom";
 import { RecoilLogger } from "recoil-devtools-logger";
@@ -24,7 +22,6 @@ function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [userId, setUserId] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
-  const setContents = useSetRecoilState(userData);
   const setUid = useSetRecoilState(uid);
 
   useEffect(() => {
@@ -37,16 +34,6 @@ function App() {
       } else {
         setIsLogin(false);
       }
-    });
-  }, []);
-
-  useEffect(() => {
-    onSnapshot(collection(dbService, "content"), (snapshot) => {
-      const contentArray = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setContents(contentArray);
     });
   }, []);
 

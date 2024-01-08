@@ -3,10 +3,24 @@ import { Link } from "react-router-dom";
 import BoardList from "components/Community/BoardList";
 import BoardItem from "components/Community/BoardItem";
 import { userData } from "Atom/atom";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
+import { onSnapshot } from "firebase/firestore";
+import { collection } from "firebase/firestore";
+import { dbService } from "util/fbase";
 
 const Community = ({ isLogin, userId }) => {
-  const content = useRecoilValue(userData);
+  const [content, setContents] = useRecoilState(userData);
+
+  useEffect(() => {
+    onSnapshot(collection(dbService, "content"), (snapshot) => {
+      const contentArray = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setContents(contentArray);
+    });
+  }, []);
+
   const myBoard = content.filter((el) => {
     return el;
   });
@@ -43,7 +57,7 @@ const Community = ({ isLogin, userId }) => {
             })}
           </div>
         </section>
-        <div>{window.location.href.includes("community/") ? <BoardItem userId={userId} /> : <BoardList isLogin={isLogin} contents={myBoard} />}</div>
+        <div>{window.location.href.includes("community/") ? <BoardItem userId={userId} /> : <BoardList isLogin={isLogin} />}</div>
       </div>
     </>
   );

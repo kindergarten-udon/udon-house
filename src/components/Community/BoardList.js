@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import BoardListItem from "./BoardListItem";
 
-const BoardList = ({ isLogin, contents }) => {
+const BoardList = ({ isLogin }) => {
   const navigate = useNavigate();
   const writeOnClick = () => {
     if (isLogin) {
@@ -22,7 +22,7 @@ const BoardList = ({ isLogin, contents }) => {
           </button>
         </div>
         <div className="w-full min-w-[280px] mb-20 text-sm lg:text-base text-gray-700">
-          <BoardListItem contents={contents} />
+          <BoardListItem />
         </div>
       </section>
     </>
